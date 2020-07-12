@@ -6,8 +6,8 @@ const Custom = require('../custom/error');
 exports.login = async(req, res, next) => {
     function login(req, res, next) {
         return new Promise((resolve, reject) => {
-            const { phone, password, } = req.body;
-            if (!phone || !password) {
+            const { username, password, } = req.body;
+            if (!username || !password) {
                 reject({
                     error: customError.dataInvalid,
                     page: 'login',
@@ -17,7 +17,7 @@ exports.login = async(req, res, next) => {
                 })
             } else {
 
-                sql.query(`SELECT * FROM user WHERE phone = '${req.body.phone}' OR email = '${req.body.phone}'`, async function(err, results) {
+                sql.query(`SELECT * FROM user WHERE username = '${req.body.username}' OR email = '${req.body.username}'`, async function(err, results) {
 
                     const userValidated = await bcrypt.compare(req.body.password, results[0].password);
                     if (!userValidated) {
@@ -27,7 +27,7 @@ exports.login = async(req, res, next) => {
                     } else {
                         // console.log(results);
                         req.session.login = true;
-                        req.session.phone = results[0].phone;
+                        req.session.username = results[0].username;
                         // req.session.data = results[0];
                         //    res.redirect(req.baseUrl);
                         req.session.u_id = results[0].id;
@@ -58,10 +58,10 @@ exports.register = async(req, res, next) => {
     function register(req, res, next) {
         return new Promise((resolve, reject) => {
 
-            const { name, phone, password, email } = req.body;
-            if (!email || !name || !phone || !password || phone.length != 10 || password.length < 5) reject(customError.dataInvalid);
+            const { name, username, password, email } = req.body;
+            if (!email || !name || !username || !password || username.length != 10 || password.length < 5) reject(customError.dataInvalid);
 
-            sql.query(`SELECT * FROM user WHERE phone = ${req.body.phone} OR email= '${req.body.email}'`, (err, results) => {
+            sql.query(`SELECT * FROM user WHERE username = ${req.body.username} OR email= '${req.body.email}'`, (err, results) => {
 
                 // console.log(err);
                 // console.log(results);
@@ -74,13 +74,13 @@ exports.register = async(req, res, next) => {
                             var data = [
                                 [
                                     hashedPassword,
-                                    req.body.phone,
+                                    req.body.username,
                                     req.body.name,
                                     req.body.email,
 
                                 ]
                             ];
-                            sq = 'INSERT INTO user (password,phone,name,email) VALUES ?';
+                            sq = 'INSERT INTO user (password,username,name,email) VALUES ?';
                             sql.query(sq, [data], (err, rows, result) => {
                                 if (!err) {
                                     resolve({
