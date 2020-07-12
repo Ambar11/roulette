@@ -52,7 +52,7 @@ const { checkAdmin } = require('./bin/middleware/auth');
 //******* USING THE IMPORTED ROUTES *******\\
 app.use('/user', userRoutes);
 
-app.use('/', (req, res, next) => { checkAdmin(req, res, next, ['admin', 'asistant'], 'login') }, (req, res) => {
+app.use('/', (req, res, next) => { checkAdmin(req, res, next, ['admin', 'asistant'], 'index') }, (req, res) => {
     res.render('index');
 });
 
