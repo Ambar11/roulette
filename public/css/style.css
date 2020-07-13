@@ -184,7 +184,7 @@ ol {
     margin-top: 15px;
 }
 
-.main_menu > a {
+.main_menu>a {
     text-decoration: none;
     padding: 14px 25px;
     background: #9e4efc;
@@ -204,7 +204,7 @@ ol {
     text-shadow: 5px 5px 0px rgba(88, 19, 184, .8);
 }
 
-.main_menu > a:hover {
+.main_menu>a:hover {
     background: #ff39dc;
     background: -moz-linear-gradient(top, #ff39dc 0%, #a60084 100%);
     background: -webkit-linear-gradient(top, #ff39dc 0%, #a60084 100%);
@@ -220,7 +220,7 @@ ol {
     padding: 0 27px 0;
 }
 
-.main_menu > .active {
+.main_menu>.active {
     background: #ff39dc;
     background: -moz-linear-gradient(top, #ff39dc 0%, #a60084 100%);
     background: -webkit-linear-gradient(top, #ff39dc 0%, #a60084 100%);
@@ -1587,7 +1587,7 @@ p {
     line-height: 30px;
 }
 
-.main_signup > p {
+.main_signup>p {
     font-size: 16px;
     color: #fff;
     font-weight: 400;
@@ -1596,7 +1596,7 @@ p {
     position: relative;
 }
 
-.main_signup > p::after {
+.main_signup>p::after {
     position: absolute;
     content: '';
     left: 0;
