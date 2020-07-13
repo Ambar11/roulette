@@ -43,6 +43,10 @@ app.use(session({
 
 //******* IMPORTING ROUTES *******\\
 const userRoutes = require('./bin/routes/user');
+const cashierRoutes = require('./bin/routes/cashier');
+const adminRoutes = require('./bin/routes/admin');
+
+
 const { checkAdmin } = require('./bin/middleware/auth');
 
 
@@ -51,8 +55,12 @@ const { checkAdmin } = require('./bin/middleware/auth');
 
 //******* USING THE IMPORTED ROUTES *******\\
 app.use('/user', userRoutes);
+app.use('/cashier', cashierRoutes);
+app.use('/admin', adminRoutes);
 
-app.use('/', (req, res, next) => { checkAdmin(req, res, next, ['admin', 'asistant'], 'index') }, (req, res) => {
+
+
+app.use('/', (req, res, next) => { checkAdmin(req, res, next, ['admin', 'user', 'cashier'], 'index') }, (req, res) => {
     res.render('index');
 });
 
