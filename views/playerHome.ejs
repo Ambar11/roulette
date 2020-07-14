@@ -1,0 +1,46 @@
+<%- include("header1") %>
+    <style>
+        .login_button {
+            margin-left: 37%;
+        }
+        
+        @media (max-width: 768px) {
+            .login_button {
+                margin-left: 22%;
+            }
+        }
+    </style>
+
+    <!-- main-area -->
+    <main>
+        <section class="game-single-area pt-30 pb-120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-0">
+
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="game-single-content">
+                            <h3 class="text-center themeColor">MAKE A BET</h3>
+                            <br><br>
+                            <h5 class="text-left" style="color : #1c1421;"><b>Enter The Number</b></h5>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control">
+                            </div>
+                            <h5 class="text-left" style="color : #1c1421;"><b>Enter The Points</b></h5>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control">
+                            </div>
+                            <button type="button" class="login_button btn btn-warning"><b>Submit</b></button>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-0">
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- main-area-end -->
+    <%- include("footer1") %>
