@@ -26,60 +26,40 @@
     <link rel="stylesheet" href="/user/css/default.css">
     <link rel="stylesheet" href="/user/css/style.css">
     <link rel="stylesheet" href="/user/css/responsive.css">
+    <!-- table css start -->
+    <link rel="stylesheet" type="text/css" href="/plugins/table/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/forms/theme-checkbox-radio.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" type="text/css" href="/plugins/table/datatable/custom_dt_custom.css">
+    <script src="/plugins/table/datatable/datatables.js"></script>
+
+    <!-- table css END -->
+    <style>
+        .themeColor {
+            color: #e4a101 !important;
+        }
+    </style>
+    <style>
+        .footer_one {
+            padding-bottom: 45%;
+        }
+        
+        @media (max-width: 768px) {
+            .footer_one {
+                padding-bottom: 45%;
+            }
+        }
+    </style>
+
 </head>
+
 
 <body>
 
-    <!-- preloader -->
-    <!-- <div id="preloader">
-        <div id="loading-center">
-            <div id="loading-center-absolute">
-                <img src="/user/img/icon/preloader.svg" alt="">
-            </div>
-        </div>
-    </div> -->
-    <!-- preloader-end -->
 
     <!-- header-area -->
     <header>
-        <!-- <div class="header-top-area d-none d-lg-block">
-                <div class="container-fluid container-full-padding">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 d-none d-lg-block">
-                            <div class="header-top-offer">
-                                <p>Exclusive Black Friday ! Offer</p>
-                                <span class="coming-time" data-countdown="2020/6/20"></span>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="header-top-right">
-                                <div class="header-social">
-                                    <ul>
-                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="header-top-action">
-                                    <ul>
-                                        <li>
-                                            <div class="header-top-mail">
-                                                <p><span>|</span><i class="far fa-envelope"></i><a href="https://themebeyond.com/cdn-cgi/l/email-protection#3e575058517e59535f5752105d5153"><span class="__cf_email__" data-cfemail="ee87808881ae898b8d8187808881c08d8183">[email&#160;protected]</span></a></p>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="header-user-login">
-                                                <a href="#"><i class="fas fa-user"></i>Login</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+
         <div id="sticky-header" class="main-header">
             <div class="container-fluid container-full-padding">
                 <div class="row">
@@ -91,73 +71,14 @@
                                 </div>
                                 <div id="mobile-menu" class="navbar-wrap d-none d-lg-flex">
                                     <ul>
-                                        <li class="show"><a href="#">Home</a>
-                                            <ul class="submenu">
-                                                <li><a href="index-2.html">Home Light</a></li>
-                                                <li class="active"><a href="index-3.html">Home Dark</a></li>
-                                            </ul>
+                                        <li class="show"><a href="/user/playerHome">Home</a>
                                         </li>
-                                        <li><a href="#">Pages</a>
-                                            <ul class="submenu">
-                                                <li><a href="about-us.html">About Story</a></li>
-                                                <li><a href="upcoming-games.html">Upcoming Games</a></li>
-                                                <li><a href="game-single.html">Game Single</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="game-overview.html">Overview</a></li>
-                                        <li><a href="community.html">Community</a></li>
-                                        <li><a href="shop.html">Store</a></li>
-                                        <li><a href="#">Blog</a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">News Page</a></li>
-                                                <li><a href="blog-details.html">News Details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">contact</a></li>
-                                    </ul>
-                                </div>
-                                <div class="header-action">
-                                    <ul>
-                                        <li class="header-shop-cart"><a href="#"><i class="fas fa-shopping-basket"></i><span>0</span></a>
-                                            <ul class="minicart">
-                                                <li class="d-flex align-items-start">
-                                                    <div class="cart-img">
-                                                        <a href="#">
-                                                            <img src="/user/img/product/cart_p01.jpg" alt="">
-                                                        </a>
-                                                    </div>
-                                                    <div class="cart-content">
-                                                        <h4>
-                                                            <a href="#">Xbox One Controller</a>
-                                                        </h4>
-                                                        <div class="cart-price">
-                                                            <span class="new">$229.9</span>
-                                                            <span>
-                                                                    <del>$229.9</del>
-                                                                </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="del-icon">
-                                                        <a href="#">
-                                                            <i class="far fa-trash-alt"></i>
-                                                        </a>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="total-price">
-                                                        <span class="f-left">Total:</span>
-                                                        <span class="f-right">$239.9</span>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="checkout-link">
-                                                        <a href="cart.html">Shopping Cart</a>
-                                                        <a class="red-color" href="checkout.html">Checkout</a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="header-search"><a href="#" data-toggle="modal" data-target="#search-modal"><i class="fas fa-search"></i></a></li>
+
+                                        <li><a href="/user/gameTiming">Game Timing</a></li>
+                                        <li><a href="/user/myHistory">My History</a></li>
+                                        <li><a href="/user/playergameHistory">Game History</a></li>
+                                        <li><a href="shop.html">Log Out</a></li>
+
                                     </ul>
                                 </div>
                             </nav>
@@ -165,16 +86,7 @@
                         <div class="mobile-menu"></div>
                     </div>
                     <!-- Modal Search -->
-                    <div class="modal fade" id="search-modal" tabindex="-1" role="dialog" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <form>
-                                    <input type="text" placeholder="Search here...">
-                                    <button><i class="fa fa-search"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>

@@ -15,4 +15,19 @@ router.post('/register', userController.register);
 router.get('/register', (req, res) => {
     res.render('register');
 });
+router.get('/gameTiming', (req, res) => {
+    res.render('gameTiming', { data: 'empty' });
+});
+router.get('/myHistory', (req, res) => {
+    res.render('myHistory', { data: 'empty' });
+});
+router.get('/playergameHistory', (req, res) => {
+    res.render('playergameHistory', { data: 'empty' });
+});
+router.get('/playerHome', (req, res) => {
+    res.render('playerHome', { data: 'empty' });
+});
+router.get('/cashierHome', (req, res) => {
+    res.render('cashierHome', { data: 'empty' });
+});
 module.exports = router;
