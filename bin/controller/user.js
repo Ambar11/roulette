@@ -6,6 +6,92 @@ const functions = require('../custom/function');
 
 
 
+exports.gameHistory = async(req, res) => {
+    try {
+
+        let checkBets = await functions.querySingle(`SELECT beting.game_id ,beting.number,beting.points,game.date,game.status FROM beting INNER JOIN game ON beting.game_id =  game.id WHERE beting.u_id  = ${req.session.u_id} `);
+        let totalArray = checkBets.map((element) => {
+            return {
+                "game_id": element.game_id,
+                "date": element.date,
+                "bet": [{ "number": element.number, "points": element.points }]
+
+            }
+        });
+
+        let exists = [];
+        let updatedBets = [];
+
+        totalArray.map((element, j) => {
+
+            for (var i = 0; i < totalArray.length; i++) {
+                if (i != j) {
+                    if (element.game_id == totalArray[i].game_id) {
+                        element.bet = element.bet.concat(totalArray[i].bet);
+                    }
+                }
+            }
+            if (exists.indexOf(element.game_id) == -1) {
+                updatedBets.push(element);
+                exists.push(element.game_id);
+            }
+        })
+
+
+
+
+        res.json(updatedBets);
+
+
+
+    } catch (error) {
+        console.log(error);
+        res.json(error);
+
+    }
+
+}
+
+
+exports.beting = async(req, res) => {
+    try {
+
+        const { number, points } = req.body;
+        if (!number || !points || number > 100) throw customError.dataInvalid;
+        let status = await functions.querySingle(`SELECT * from game WHERE status = 0`);
+        if (status.length == 0) throw erro = new Custom('!Opps No active game session', 'Theres is no active games check game timing', '401');
+        let checkPoints = await functions.querySingle(`SELECT * FROM points  WHERE u_id = ${req.session.u_id}`);
+        if (parseInt(checkPoints[0].points) < points) throw new Custom('!Opps', 'points is less contact cashier ', '402');
+        // let checkBet = await functions.querySingle(`SELECT * FROM beting WHERE u_id = ${req.session.u_id} AND number =${number}`);
+
+        let makeBet;
+        // if (checkBet.length == 0) {
+        makeBet = await functions.querySingle(`INSERT INTO beting (game_id,u_id,number,points) VALUES (${status[0].id},${req.session.u_id},${number},${points})`);
+        // console.log(makeBet);
+        let nowDate = Date();
+        await functions.querySingle(`INSERT INTO transaction (refrence,type,points,status,date) VALUES (${makeBet.insertId},'BETING',${points},1,"${nowDate}")`);
+
+        // } else {
+
+        // console.log(parseInt(checkBet[0].points) + parseInt(points));
+
+        // makeBet = await functions.querySingle(`UPDATE beting  SET points = ${parseInt(checkBet[0].points) + parseInt(points)} WHERE u_id = ${req.session.u_id} AND number =${number}`);
+        // await functions.querySingle(`INSERT INTO transaction (refrence,type,points,status,date) VALUES (${makeBet.insertId},'BETING',${points},'1',${Date()}) `);
+
+        // }
+        let totalPoints = await functions.querySingle(`SELECT * FROM points WHERE u_id = ${req.session.u_id}`);
+        await functions.querySingle(`UPDATE points SET points = ${parseInt(totalPoints[0].points)-points} WHERE u_id = ${req.session.u_id} `);
+
+        res.json(makeBet);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+        // res.status(error.code).redirect(`/user/login?status=invalid`);
+    }
+}
+
+
+
 
 exports.login = async(req, res) => {
     try {
@@ -33,59 +119,18 @@ exports.login = async(req, res) => {
         req.session.role = userArray[0].privilege;
         req.session.email = userArray[0].email;
         req.session.status = userArray[0].status;
-        // console.log(req.session.role);
+        console.log(req.session.role);
         if (req.session.role == 'admin') res.status(201).redirect('/admin/adminPanel');
         if (req.session.role == 'cashier') res.status(201).redirect('/cashier/cashierPanel');
         if (req.session.role == 'user') res.status(201).redirect('/');
 
 
     } catch (error) {
-        console.log(error);
-        res.send(error);
-        // res.status(error.code).redirect(`/user/login?status=invalid`);
+        // console.log(error);
+        // res.send(error);
+        res.status(error.code).redirect(`/user/login?status=invalid`);
     }
 }
-
-
-
-
-exports.beting = async(req, res) => {
-    try {
-
-        const { number, points } = req.body;
-        if (!number || !points) throw customError.dataInvalid;
-        let status = await functions.querySingle(`SELECT * from game WHERE status = 0`);
-        if (status.length == 0) throw erro = new Custom('!Opps No active game session', 'Theres is no active games check game timing', '401');
-        let checkPoints = await functions.querySingle(`SELECT * FROM points  WHERE u_id = ${req.session.u_id}`);
-        if (parseInt(checkPoints[0].points) < points) throw new Custom('!Opps', 'points is less contact cashier ', '402');
-        let checkBet = await functions.querySingle(`SELECT * FROM beting WHERE u_id = ${req.session.u_id} AND number =${number}`);
-        let totalPoints = await functions.querySingle(`SELECT * FROM points WHERE u_id = ${req.session.u_id}`);
-        await functions.querySingle(`UPDATE points SET points = ${parseInt(totalPoints[0].points)-points} WHERE u_id = ${req.session.u_id} `);
-        let makeBet;
-        if (checkBet.length == 0) {
-            makeBet = await functions.querySingle(`INSERT INTO beting (game_id,u_id,number,points) VALUES (${status[0].id},${req.session.u_id},${number},${points})`);
-            // console.log(makeBet);
-
-            await functions.querySingle(`INSERT INTO transaction (refrence,type,points,status) VALUES (${makeBet.insertId},'BETING',${points},'1') `);
-
-        } else {
-
-            // console.log(parseInt(checkBet[0].points) + parseInt(points));
-
-            makeBet = await functions.querySingle(`UPDATE beting  SET points = ${parseInt(checkBet[0].points) + parseInt(points)} WHERE u_id = ${req.session.u_id} AND number =${number}`);
-            await functions.querySingle(`INSERT INTO transaction (refrence,type,points,status) VALUES (${makeBet.insertId},'BETING',${points},'1') `);
-
-        }
-
-        res.json(makeBet);
-    } catch (error) {
-        console.log(error);
-        res.send(error);
-        // res.status(error.code).redirect(`/user/login?status=invalid`);
-    }
-}
-
-
 
 
 
@@ -149,7 +194,7 @@ exports.register = async(req, res, next) => {
             res.redirect('/user/login?login=success');
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
             res.status(error.code).redirect(`/user/register?status=${error.message}`);
         })
 }

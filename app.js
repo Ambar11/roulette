@@ -60,8 +60,8 @@ app.use('/admin', adminRoutes);
 
 
 
-app.use('/', (req, res, next) => { checkAdmin(req, res, next, ['admin', 'user', 'cashier'], 'index') }, (req, res) => {
-    res.render('index');
+app.use('/', (req, res) => {
+    res.render('player');
 });
 
 
