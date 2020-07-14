@@ -54,3 +54,52 @@ exports.endGame = async(req, res) => {
     }
 
 }
+
+
+exports.currentGameDetails = async(req, res) => {
+    try {
+
+        let checkBets = await functions.querySingle(`SELECT beting.game_id ,beting.number,beting.points,game.date,game.status FROM beting INNER JOIN game ON beting.game_id =  game.id`);
+        let totalArray = checkBets.map((element) => {
+            return {
+                "game_id": element.game_id,
+                "date": element.date,
+                "bet": [{ "number": element.number, "points": element.points }]
+
+            }
+        });
+
+        let exists = [];
+        let updatedBets = [];
+
+        totalArray.map((element, j) => {
+
+            for (var i = 0; i < totalArray.length; i++) {
+                if (i != j) {
+                    if (element.game_id == totalArray[i].game_id) {
+                        element.bet = element.bet.concat(totalArray[i].bet);
+                    }
+                }
+            }
+            if (exists.indexOf(element.game_id) == -1) {
+                updatedBets.push(element);
+                exists.push(element.game_id);
+            }
+        })
+
+
+
+        return updatedBets;
+        // res.json(updatedBets);
+
+
+
+    } catch (error) {
+        console.log(error);
+        return error;
+
+        // res.json(error);
+
+    }
+
+}
