@@ -17,31 +17,46 @@
                                 <table id="style-3" class="table style-3  table-hover">
                                     <thead>
                                         <tr class="checkbox-column text-center">
-                                            <th class="checkbox-column text-center"> Date </th>
-                                            <th>Game ID</th>
-                                            <th>Total Bets</th>
-                                            <th>Total Points</th>
+                                            <th class="checkbox-column text-center">Game ID</th>
+                                            <th> Date </th>
+                                            <th>Status</th>
+
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="checkbox-column text-center">
-                                            <td class="checkbox-column text-center">14/07/2020</td>
-                                            <td>1</td>
-                                            <td>25</td>
-                                            <td>1000</td>
+                                        <% data.map((game)=>{ %>
+
+                                            <tr class="checkbox-column text-center">
+                                                <td class="checkbox-column text-center">
+                                                    <a href="/admin/gameDetails/<%= game.game_id%>">
+                                                        <%= game.game_id %>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/gameDetails/<%= game.game_id%>">
+                                                        <%= game.date %>
+                                                    </a>
+
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/gameDetails/<%= game.game_id%>">
+                                                        <% if(game.status == 0) {%>
+                                                            <span class="shadow-none badge badge-primary">Ongoing</span>
+                                                            <%}else if(userD.status == 1) {%>
+                                                                <span class="shadow-none badge badge-warning">Paused</span>
+                                                                <%  }else{ %>
+                                                                    <span class="shadow-none badge badge-danger">Closed</span>
+                                                                    <% }%>
+                                                    </a>
+
+                                                </td>
 
 
+                                            </tr>
+                                            </a>
+                                            <% });%>
 
-                                        </tr>
-                                        <tr class="checkbox-column text-center">
-                                            <td class="checkbox-column text-center">14/07/2020</td>
-                                            <td>2</td>
-                                            <td>30</td>
-                                            <td>2000</td>
-
-
-                                        </tr>
 
                                     </tbody>
                                 </table>

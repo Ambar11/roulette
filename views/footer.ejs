@@ -7,6 +7,8 @@
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <script src="/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="/assets/js/app.js"></script>
+<script src="/assets/js/scrollspyNav.js"></script>
+
 <script>
     $(document).ready(function() {
         App.init();
@@ -60,7 +62,7 @@
 
     multiCheck(c1);
 
-    c2 = $('#style-2').DataTable({
+    c2 = $('.style-2').DataTable({
         headerCallback: function(e, a, t, n, s) {
             e.getElementsByTagName("th")[0].innerHTML = '<label class="new-control new-checkbox checkbox-outline-info m-auto">\n<input type="checkbox" class="new-control-input chk-parent select-customers-info" id="customer-all-info">\n<span class="new-control-indicator"></span><span style="visibility:hidden">c</span>\n</label>'
         },
@@ -89,7 +91,7 @@
 
     multiCheck(c2);
 
-    c3 = $('#style-3').DataTable({
+    c3 = $('.style-3').DataTable({
         "oLanguage": {
             "oPaginate": {
                 "sPrevious": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
@@ -102,7 +104,7 @@
         },
         "stripeClasses": [],
         "lengthMenu": [5, 10, 20, 50],
-        "pageLength": 5
+        "pageLength": 10
     });
 
     multiCheck(c3);
