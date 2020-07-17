@@ -30,4 +30,7 @@ router.get('/playerHome', (req, res) => {
 router.get('/cashierHome', (req, res) => {
     res.render('cashierHome', { data: 'empty' });
 });
+router.get('/cashiertransactionHistory', (req, res) => {
+    res.render('cashiertransactionHistory', { data: 'empty' });
+});
 module.exports = router;
