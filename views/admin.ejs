@@ -1,25 +1,174 @@
 <%- include("header") %>
+    <style>
+        .box {
+            background-color: #191e3abf;
+            color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 110%;
+        }
+        
+        .bets {
+            /* position: absolute; */
+            padding-left: 62%;
+            margin-top: -38px;
+            font-size: 77%;
+            margin-bottom: 21%;
+        }
+        
+        .points {
+            /* position: absolute; */
+            font-size: 80%;
+            padding-top: 10%;
+        }
+        
+        .box:nth-child(2n) {
+            background-color: #191e3abf;
+            color: #fff;
+        }
+        
+        .wrapper {
+            overflow-x: auto;
+            /* width: 600px; */
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: repeat(10, 100px);
+        }
+    </style>
+
     <div id="content" class="main-content">
 
 
         <div id="buttonsIcons" class="col-lg-12 layout-spacing" style="margin-top: 1%;">
-            <div class="statbox widget box box-shadow">
 
-                <div class="widget-content widget-content-area text-center">
-                    <button class="btn btn-warning mb-2 mr-2 btn-rounded">Stop Taking Bets </button>
-                    <br>
-                    <br>
-                    <br>
-                    <h4>Lucky Number?</h4>
+            <div class="widget-content widget-content-area text-center" style="margin-top: 3%;margin-bottom: 3%;">
+                <h4>Current Game Details</h4>
+                <div class="row">
+                    <div class="col-md-6 mt-5 col-sm-6">
+                        <div class="user-profile user-info">
+                            <div class="text-left ">
+                                <img src="/assets/img/profile-3.jpg" alt="avatar">
+                                <p class="">
 
-                    <input id="t-text" type="text" name="txt" placeholder="Some Text..." class="form-control" required style="width: 12%;margin-left: 44%;">
-                    <br>
-                    <button class="btn btn-success mb-2">Success</button>
+                                </p>
+                            </div>
+                            <div class="games">
+                                <p class="" style="color:#5c1ac3">Game ID :
+                                    <%= data.game_id%>
+                                </p>
+                                <p class="" style="color:#e2a03f">Date : <span class="badge outline-badge-warning"> <%=Gdate%></span> </p>
 
+                                <p>Status : <span class="badge badge-dark"> Ongoing </span></p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="widget-header">
+                            <div class="row">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                    <h4>Game action</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button class="btn btn-success mb-2 mt-5">Start Game</button>
+                                </div>
+                                <div class="col-md-6 formc">
+                                    <form method="post">
+
+                                        <p>Enter Lucky Number...</p>
+                                        <label for="tel-text" class="sr-only"></label>
+                                        <input id="tel-text" type="number" name="betNumber" placeholder="1-100" class="form-control" required="">
+                                        <button class="btn btn-secondary mt-4" type="submit">Spin!</button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+        <div class="statbox widget box box-shadow">
+
+
+            <div class="wrapper">
+                <% numbers.map( number => {%>
+                    <div class="box">
+                        <%=number.number%>
+                            <div class="bets">
+
+                                <span data-toggle="tooltip" data-placement="top" title="Number of bets" class="badge badge-info"><%=number.bets%></span>
+                            </div>
+                            <div class="points">
+
+                                <span data-toggle="tooltip" data-placement="top" title="Total Points" class="badge badge-warning"><%=number.total%></span>
+                            </div>
+
+                    </div>
+                    <%})%>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="statbox widget box box-shadow mt-4">
+            <div class="widget-header">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>Current Game Details</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-content widget-content-area">
+                <div class="table-responsive mb-4">
+                    <table id="style-3" class="table style-3  table-hover">
+                        <thead>
+                            <tr class="checkbox-column text-center">
+                                <th>Number</th>
+                                <th>Total Bets</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% numbers.map( number => {%>
+                                <tr class="checkbox-column text-center">
+
+                                    <td>
+                                        <%=number.number%>
+
+                                    </td>
+                                    <td>
+                                        <%=number.bets%>
+                                    </td>
+                                    <td>
+                                        <%=number.total%>
+                                    </td>
+
+
+
+                                </tr>
+
+                                <%})%>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+
 
 
 

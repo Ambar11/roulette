@@ -13,8 +13,73 @@ const { getTime } = require('../custom/helper');
 router.post('/startGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.startGame);
 router.post('/pauseGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.pauseGame);
 
-router.get('/adminPanel', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, (req, res) => {
-    res.render('admin', { data: req });
+router.get('/adminPanel', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+
+    try {
+
+        let checkBets = await functions.querySingle(`SELECT beting.game_id ,beting.number,beting.points,game.date,game.status FROM beting INNER JOIN game ON beting.game_id =  game.id WHERE game.status = 0 OR game.status =1`);
+        let totalArray = checkBets.map((element) => {
+            return {
+                "game_id": element.game_id,
+                "date": element.date,
+                "bet": [{ "number": element.number, "points": element.points }]
+
+            }
+        });
+
+        let exists = [];
+        let updatedBets = [];
+
+        totalArray.map((element, j) => {
+
+            for (var i = 0; i < totalArray.length; i++) {
+                if (i != j) {
+                    if (element.game_id == totalArray[i].game_id) {
+                        element.bet = element.bet.concat(totalArray[i].bet);
+                    }
+                }
+            }
+            if (exists.indexOf(element.game_id) == -1) {
+                updatedBets.push(element);
+                exists.push(element.game_id);
+            }
+        })
+
+
+        let exist = [];
+        let updatednumber = [];
+        // console.log(updatedBets[0].bet);
+        let bets = updatedBets[0]["bet"];
+        let structuredBets = [];
+
+        for (var i = 1; i < 101; i++) {
+            structuredBets.push({
+                number: i,
+                bets: 0,
+                total: 0
+            });
+        }
+
+        for (var i = 0; i < bets.length; i++) {
+            structuredBets[bets[i].number - 1].total += bets[i].points;
+            structuredBets[bets[i].number - 1].bets++;
+        }
+
+        var dateObj = helpers.getTime(totalArray[0].date);
+        // console.log(totalArray[0]);
+        // console.log(structuredBets);
+
+        res.render('admin', { data: totalArray[0], Gdate: dateObj, numbers: structuredBets });
+
+
+    } catch (error) {
+        // console.log(error);
+        // return error;
+
+        // res.json(error);
+
+    }
+
 });
 router.get('/currentgameDetails', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
 

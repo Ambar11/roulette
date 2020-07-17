@@ -56,7 +56,7 @@ const { checkAdmin } = require('./bin/middleware/auth');
 //******* USING THE IMPORTED ROUTES *******\\
 app.use('/user', userRoutes);
 app.use('/cashier', cashierRoutes);
-app.use('/admin', adminRoutes);
+app.use('/admin', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, adminRoutes);
 
 
 
