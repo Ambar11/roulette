@@ -1,0 +1,110 @@
+<%- include("header") %>
+    <style>
+        .customp {
+            position: absolute;
+            padding-left: 13%;
+            margin-top: -14%;
+        }
+        
+        @media (max-width: 768px) {
+            .customp {
+                position: absolute;
+                padding-left: 45%;
+                margin-top: -53%;
+            }
+        }
+    </style>
+    <div id="content" class="main-content">
+
+        <div class="user-profile ml-2 mr-2 layout-top-spacing">
+            <div class="widget-content widget-content-area">
+
+                <div class="user-profile user-info col-md-12 col-sm-12">
+                    <div class="text-left ">
+                        <img src="/assets/img/profile-3.jpg" alt="avatar">
+                        <p class="">Jimmy Turner</p>
+                    </div>
+                    <div class="customp">
+                        <p class="" style="color:#5c1ac3">Phone No : 8169157715</p>
+                        <p class="" style="color:#e2a03f">Total Transfered Points : <span class="badge outline-badge-warning"> 99999</span> </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="user-profile ml-2 mr-2 layout-top-spacing">
+            <div class="widget-content widget-content-area">
+                <h4 class="mb-2 mt-2">Cashier Transaction</h4>
+
+                <div class="table-responsive mb-4">
+                    <table id="style-3" class="table style-3  table-hover">
+                        <thead>
+                            <tr class="checkbox-column text-center">
+                                <th class=" text-center">Date</th>
+                                <th>User No</th>
+                                <th> Transaction</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr class="checkbox-column text-center">
+                                <td class=" text-center">
+                                    19/7/2020
+                                </td>
+                                <td>
+
+                                    81789383832
+
+                                </td>
+                                <td>
+                                    <span style="background-color:#8dbf42" class="badge badge-success">Credited</span>
+
+                                </td>
+                                <td>
+
+                                    1500
+
+                                </td>
+
+
+                            </tr>
+
+                            <tr class="checkbox-column text-center">
+                                <td class=" text-center">
+                                    19/7/2020
+                                </td>
+                                <td>
+
+                                    8169157715
+
+                                </td>
+                                <td>
+                                    <span style="
+                                        color: #fff;
+                                        background-color: #e2a03f;
+                                        border: 0px;
+                                    " class="badge badge-warning">Debited</span>
+
+                                </td>
+                                <td>
+
+                                    1500
+
+                                </td>
+
+
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <%- include("footer") %>

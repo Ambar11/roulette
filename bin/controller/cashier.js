@@ -16,13 +16,13 @@ exports.makeTransaction = async(req, res) => {
 
             let totalPoints = parseInt(uPoints[0].points) + parseInt(amount);
             query = `UPDATE points SET points = ${totalPoints} WHERE id=${uPoints[0].id}`;
-            await functions.querySingle(`INSERT INTO transaction (refrence,cashier_id,type,points,date) VALUES (${userArray[0].id},${req.session.u_id},'CASHIER',${parseInt(amount)},'${Date()}')`);
+            await functions.querySingle(`INSERT INTO transaction (refrence,cashier_id,type,points,date,status) VALUES (${userArray[0].id},${req.session.u_id},'CASHIER',${parseInt(amount)},'${Date()}','CREDITED')`);
 
         } else if (req.query.status == 'decrement') {
 
             let totalPoints = parseInt(uPoints[0].points) - parseInt(amount);
             query = `UPDATE points SET points = ${totalPoints} WHERE id=${uPoints[0].id}`;
-            await functions.querySingle(`INSERT INTO transaction (refrence,cashier_id,type,points,status,date) VALUES (${userArray[0].id},${req.session.u_id},'CASHIER',${parseInt(amount)},1,'${Date()}')`);
+            await functions.querySingle(`INSERT INTO transaction (refrence,cashier_id,type,points,status,date) VALUES (${userArray[0].id},${req.session.u_id},'CASHIER',${parseInt(amount)},'DEBITED','${Date()}')`);
 
         }
 

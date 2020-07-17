@@ -172,7 +172,7 @@ router.get('/gameDetails/:id', (req, res, next) => { checkAdmin(req, res, next, 
 
 
 
-})
+});
 
 router.get('/userHistory', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
 
@@ -246,13 +246,53 @@ router.get('/gameHistory', (req, res, next) => { checkAdmin(req, res, next, ['ad
 
 
 });
-router.get('/usertransaction', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, (req, res) => {
+router.get('/usertransaction/:id', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+    let userDetails = await functions.querySingle(`SELECT user.name,user.username,user.id,user.email,points.points FROM points INNER JOIN user ON user.id = points.u_id WHERE user.id=${req.params.id}`);
+    if (!userDetails) res.redirect('/usertransactionHistory');
+    let checkbets = await functions.querySingle(`SELECT * FROM transaction WHERE NOT type = 'BETING' AND NOT type='WINNER'  AND refrence=${req.params.id}`);
+    if (!checkbets) res.redirect('/usertransactionHistory');
+    let checktrans = await functions.querySingle(`SELECT transaction.date,transaction.points,transaction.status,beting.u_id,beting.game_id,beting.number,beting.points FROM transaction INNER JOIN beting ON beting.id=transaction.refrence WHERE type = 'BETING' AND beting.u_id=${req.params.id}`);
+    let newTrans = checktrans;
+    checktrans.map((bets, j) => {
+        return newTrans[j].date = helpers.getTime(bets.date);
+
+        // console.log(userBets[j]);
+
+    });
+    let newBets = checkbets;
+    checkbets.map((bets, j) => {
+        return newBets[j].date = helpers.getTime(bets.date);
+
+        // console.log(userBets[j]);
+
+    });
+    let checkwins = await functions.querySingle(`SELECT * FROM winner INNER JOIN transaction ON transaction.refrence = winner.u_id WHERE winner.u_id =${req.params.id} AND transaction.type='WINNER'`);
+    let newWins = checkwins;
+    checkwins.map((bets, j) => {
+        return newWins[j].date = helpers.getTime(bets.date);
+
+        // console.log(userBets[j]);
+
+    });
+
+    let userBets = await functions.querySingle(`SELECT beting.game_id ,beting.number,beting.points,game.date,game.status FROM beting INNER JOIN game ON beting.game_id =  game.id WHERE beting.u_id = ${req.params.id}`);
+    let newB = userBets;
+    userBets.map((bets, j) => {
+        return newB[j].date = helpers.getTime(bets.date);
+
+        // console.log(userBets[j]);
+
+    });
 
 
-    res.render('usertransaction', { data: 'empty' });
+    res.render('usertransaction', { data: newBets, data1: newWins, trans: newTrans, history: newB, user: userDetails[0] });
 });
 router.get('/usertransactionHistory', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, (req, res) => {
     res.render('usertransactionHistory', { data: 'empty' });
+});
+router.get('/cashiertransaction', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, (req, res) => {
+
+    res.render('cashiertransaction', { data: 'empty' });
 });
 router.get('/cashiertransactionHistory', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, (req, res) => {
     res.render('cashiertransactionHistory', { data: 'empty' });

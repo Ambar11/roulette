@@ -69,7 +69,7 @@ exports.beting = async(req, res) => {
         makeBet = await functions.querySingle(`INSERT INTO beting (game_id,u_id,number,points) VALUES (${status[0].id},${req.session.u_id},${number},${points})`);
         // console.log(makeBet);
         let nowDate = Date();
-        await functions.querySingle(`INSERT INTO transaction (refrence,type,points,status,date) VALUES (${makeBet.insertId},'BETING',${points},1,"${nowDate}")`);
+        await functions.querySingle(`INSERT INTO transaction (refrence,type,points,status,date) VALUES (${makeBet.insertId},'BETING',${points},'DEBITED',"${nowDate}")`);
 
         // } else {
 

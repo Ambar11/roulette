@@ -44,7 +44,11 @@ exports.endGame = async(req, res) => {
         if (!checkGame[0]) throw mess = new Custom('Opps !!', 'There is no active beting session', 401);
         let gameData = await functions.querySingle(`UPDATE game SET status = 2 WHERE id = ${checkGame[0].id}`);
         let winners = await functions.querySingle(`SELECT * FROM beting WHERE game_id = ${checkGame[0].id} AND number=${winner_number}`);
-        await functions.querySingle(`INSERT INTO winner (game_id,u_id) VALUES (${checkGame[0].id},${winner_number}) `);
+        await Promise.all(winners.map(async(users) => {
+            let iWinner = await functions.querySingle(`INSERT INTO winner (game_id,u_id) VALUES (${checkGame[0].id},${users.u_id}) `);
+            await functions.querySingle(`INSERT INTO transaction (refrence,type,points,status,date) VALUES (${iWinner.insertId},'WINNER',${points*100},'CREDITED',"${Date()}")`);
+
+        }));
 
 
         res.json(gameData);
