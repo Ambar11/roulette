@@ -2,15 +2,19 @@
     <style>
         .customp {
             position: absolute;
-            padding-left: 13%;
-            margin-top: -14%;
+            padding-left: 17%;
+            margin-top: -21%;
         }
         
         @media (max-width: 768px) {
             .customp {
+                font-size: 12px !important;
                 position: absolute;
-                padding-left: 45%;
+                padding-left: 34%;
                 margin-top: -53%;
+            }
+            .pfo {
+                font-size: 12px !important;
             }
         }
     </style>
@@ -22,11 +26,30 @@
                 <div class="user-profile user-info col-md-12 col-sm-12">
                     <div class="text-left ">
                         <img src="/assets/img/profile-3.jpg" alt="avatar">
-                        <p class="">Jimmy Turner</p>
+                        <p class="">
+                            <%=data.name%>
+                        </p>
                     </div>
                     <div class="customp">
-                        <p class="" style="color:#5c1ac3">Phone No : 8169157715</p>
-                        <p class="" style="color:#e2a03f">Total Transfered Points : <span class="badge outline-badge-warning"> 99999</span> </p>
+                        <p class="" style="color:#5c1ac3">Phone No :
+                            <%= data.username%>
+                        </p>
+                        <%
+                        let totalCreditedPoints = 0;
+                        let totalDebitedPoints = 0;
+
+                        data1.map((data)=>{
+                            if (data.status=='CREDITED') {
+                                totalCreditedPoints = totalCreditedPoints + data.points;
+                                
+                            }else{
+                                totalDebitedPoints = totalDebitedPoints + data.points;
+
+                            }
+                        });%>
+                            <p class="pfo" style="color:#e2a03f">Total Credited Points : <span class="badge outline-badge-warning"><%= totalCreditedPoints%></span> </p>
+                            <p class="pfo" style="color:#e7515a">Total Debited Points : <span class="badge outline-badge-danger"><%= totalDebitedPoints %></span> </p>
+
                     </div>
 
                 </div>
@@ -49,54 +72,38 @@
                         </thead>
                         <tbody>
 
+                            <%data1.map((data)=>{ %>
+                                <tr class="checkbox-column text-center">
+                                    <td class=" text-center">
+                                        <%=data.date%>
+                                    </td>
+                                    <td>
 
-                            <tr class="checkbox-column text-center">
-                                <td class=" text-center">
-                                    19/7/2020
-                                </td>
-                                <td>
+                                        <%= data.username%>
 
-                                    81789383832
+                                    </td>
+                                    <td>
+                                        <% if(data.status=='CREDITED'){%>
+                                            <span style="background-color:#8dbf42" class="badge badge-success"><%=data.status%></span>
+                                            <%}else{%>
+                                                <span style="
+                                color: #fff;
+                                background-color: #e2a03f;
+                                border: 0px;
+                            " class="badge badge-warning"><%=data.status%></span>
+                                                <%}%>
+                                    </td>
+                                    <td>
 
-                                </td>
-                                <td>
-                                    <span style="background-color:#8dbf42" class="badge badge-success">Credited</span>
+                                        <%= data.points%>
 
-                                </td>
-                                <td>
-
-                                    1500
-
-                                </td>
-
-
-                            </tr>
-
-                            <tr class="checkbox-column text-center">
-                                <td class=" text-center">
-                                    19/7/2020
-                                </td>
-                                <td>
-
-                                    8169157715
-
-                                </td>
-                                <td>
-                                    <span style="
-                                        color: #fff;
-                                        background-color: #e2a03f;
-                                        border: 0px;
-                                    " class="badge badge-warning">Debited</span>
-
-                                </td>
-                                <td>
-
-                                    1500
-
-                                </td>
+                                    </td>
 
 
-                            </tr>
+                                </tr>
+
+                                <% })%>
+
 
 
 

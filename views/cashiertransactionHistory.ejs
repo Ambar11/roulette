@@ -17,30 +17,37 @@
                                 <table id="style-3" class="table style-3  table-hover">
                                     <thead>
                                         <tr class="checkbox-column text-center">
-                                            <th class="checkbox-column text-center"> Transaction Id </th>
-                                            <th>Cashier Id</th>
-                                            <th> Points</th>
+                                            <th class="checkbox-column text-center">Cashier Id </th>
+                                            <th>Cashier Name</th>
+                                            <th>Phone No</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="checkbox-column text-center">
-                                            <td class="checkbox-column text-center"> 1 </td>
-                                            <td>2</td>
-                                            <td>10000</td>
+                                        <%data.map((user)=>{ %>
+                                            <tr class="checkbox-column text-center">
+                                                <td class="checkbox-column text-center">
+                                                    <a href="/admin/cashiertransaction/<%=user.id%>">
+                                                        <%=user.id%>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/cashiertransaction/<%=user.id%>">
+                                                        <%= user.name%>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="/admin/cashiertransaction/<%=user.id%>">
+                                                        <%= user.username%>
+                                                    </a>
+                                                </td>
 
 
 
 
-                                        </tr>
-                                        <tr class="checkbox-column text-center">
-                                            <td class="checkbox-column text-center"> 2</td>
-                                            <td>6</td>
-                                            <td>20000</td>
 
-
-                                        </tr>
-
+                                            </tr>
+                                            <% }); %>
                                     </tbody>
                                 </table>
                             </div>

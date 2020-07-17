@@ -248,7 +248,7 @@ router.get('/gameHistory', (req, res, next) => { checkAdmin(req, res, next, ['ad
 });
 router.get('/usertransaction/:id', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
     let userDetails = await functions.querySingle(`SELECT user.name,user.username,user.id,user.email,points.points FROM points INNER JOIN user ON user.id = points.u_id WHERE user.id=${req.params.id}`);
-    if (!userDetails) res.redirect('/usertransactionHistory');
+    if (!userDetails[0]) res.redirect('/admin/usertransactionHistory');
     let checkbets = await functions.querySingle(`SELECT * FROM transaction WHERE NOT type = 'BETING' AND NOT type='WINNER'  AND refrence=${req.params.id}`);
     if (!checkbets) res.redirect('/usertransactionHistory');
     let checktrans = await functions.querySingle(`SELECT transaction.date,transaction.points,transaction.status,beting.u_id,beting.game_id,beting.number,beting.points FROM transaction INNER JOIN beting ON beting.id=transaction.refrence WHERE type = 'BETING' AND beting.u_id=${req.params.id}`);
@@ -287,14 +287,31 @@ router.get('/usertransaction/:id', (req, res, next) => { checkAdmin(req, res, ne
 
     res.render('usertransaction', { data: newBets, data1: newWins, trans: newTrans, history: newB, user: userDetails[0] });
 });
-router.get('/usertransactionHistory', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, (req, res) => {
-    res.render('usertransactionHistory', { data: 'empty' });
-});
-router.get('/cashiertransaction', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, (req, res) => {
+router.get('/usertransactionHistory', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
 
-    res.render('cashiertransaction', { data: 'empty' });
+    let userDetails = await functions.querySingle(`SELECT * FROM user`);
+
+    res.render('usertransactionHistory', { data: userDetails });
 });
-router.get('/cashiertransactionHistory', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, (req, res) => {
-    res.render('cashiertransactionHistory', { data: 'empty' });
+router.get('/cashiertransaction/:id', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+    let cashierDetails = await functions.querySingle(`SELECT * FROM cashier WHERE id=${req.params.id}`);
+    if (!cashierDetails[0]) res.redirect('/admin/cashiertransactionHistory');
+    let cashierTransaction = await functions.querySingle(`SELECT user.username,user.id,transaction.date,transaction.points,transaction.status FROM transaction INNER JOIN user ON user.id = transaction.refrence WHERE type="CASHIER" AND cashier_id=${req.params.id}`);
+
+    let cashier = cashierTransaction;
+    cashierTransaction.map((bets, j) => {
+        return cashier[j].date = helpers.getTime(bets.date);
+
+        // console.log(userBets[j]);
+
+    });
+    // console.log(cashier);
+    res.render('cashiertransaction', { data: cashierDetails[0], data1: cashier });
+});
+router.get('/cashiertransactionHistory', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+
+    let cashierDetails = await functions.querySingle(`SELECT * FROM cashier `);
+
+    res.render('cashiertransactionHistory', { data: cashierDetails });
 });
 module.exports = router;
