@@ -17,34 +17,34 @@
                                 <table id="style-3" class="table style-3  table-hover">
                                     <thead>
                                         <tr class="checkbox-column text-center">
-                                            <th class="checkbox-column text-center"> Transaction Id </th>
+                                            <th class="checkbox-column text-center"> User Id </th>
                                             <th>Phone No.</th>
-                                            <th> Points</th>
-                                            <th> Game Id</th>
+
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="checkbox-column text-center">
-                                            <td class="checkbox-column text-center"> 1 </td>
+                                        <%data.map((user)=>{ %>
+                                            <tr class="checkbox-column text-center">
+                                                <td class="checkbox-column text-center">
+                                                    <a href="/admin/usertransaction/<%=user.id%>">
+                                                        <%=user.id%>
+                                                    </a>
+                                                </td>
 
-                                            <td>9874563210</td>
-                                            <td>10000</td>
-                                            <td>2</td>
-
-
-
-
-                                        </tr>
-                                        <tr class="checkbox-column text-center">
-                                            <td class="checkbox-column text-center"> 2</td>
-
-                                            <td>9865471230</td>
-                                            <td>20000</td>
-                                            <td>6</td>
+                                                <td>
+                                                    <a href="/admin/usertransaction/<%=user.id%>">
+                                                        <%= user.username%>
+                                                    </a>
+                                                </td>
 
 
-                                        </tr>
+
+
+
+                                            </tr>
+                                            <% }); %>
+
 
                                     </tbody>
                                 </table>
