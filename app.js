@@ -61,7 +61,7 @@ app.use('/admin', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'l
 
 
 app.use('/', (req, res) => {
-    res.render('player');
+    res.render('playerHome');
 });
 
 
