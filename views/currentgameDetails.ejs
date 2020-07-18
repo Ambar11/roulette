@@ -9,7 +9,7 @@
                         <div class="widget-header">
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                    <h4>Current Game Details</h4>
+                                    <h4>Game Details</h4>
                                 </div>
                             </div>
                         </div>
@@ -18,53 +18,31 @@
                                 <table id="style-3" class="table style-3  table-hover">
                                     <thead>
                                         <tr class="checkbox-column text-center">
-                                            <!-- <th class="checkbox-column text-center"> Game Id </th> -->
-                                            <th>Date</th>
                                             <th>Number</th>
                                             <th>Total Bets</th>
                                             <th>Points</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <%
-               
-                                       
-                                         data.map((element)=>{
-                                            %>
+                                        <% numbers.map( number => {%>
+                                            <tr class="checkbox-column text-center">
 
-                                            <%
-                                                let totalBets=0;
-                                                let totalPoints =0;
+                                                <td>
+                                                    <%=number.number%>
 
-                                                numbers.map((bets,i)=>{
-                                                   
-                                                    %>
-                                                <tr class="checkbox-column text-center">
-
-                                                    <td>
-                                                        <%= Gdate %>
-                                                    </td>
-                                                    <td>
-                                                        <%= bets.number %>
-                                                    </td>
-                                                    <td>
-                                                        <% if(!numbers[i].total){%>
-                                                            <%= 1%>
-                                                                <%}else{%>
-
-                                                                    <%= numbers[i].total%>
-                                                                        <%}%>
-                                                    </td>
-                                                    <td>
-                                                        <%= bets.points%>
-                                                    </td>
-                                                    <% }); %>
+                                                </td>
+                                                <td>
+                                                    <%=number.bets%>
+                                                </td>
+                                                <td>
+                                                    <%=number.total%>
+                                                </td>
 
 
-                                                </tr>
-                                                <% }); %>
 
+                                            </tr>
 
+                                            <%})%>
 
                                     </tbody>
                                 </table>

@@ -140,8 +140,8 @@ exports.register = async(req, res, next) => {
     function register(req, res, next) {
         return new Promise((resolve, reject) => {
 
-            const { name, username, password, email } = req.body;
-            if (!email || !name || !username || !password || password.length < 5) reject(customError.dataInvalid);
+            const { name, username, password, email, password2 } = req.body;
+            if (!email || !name || !username || !password || password.length < 5 || password != password2) reject(customError.dataInvalid);
 
             sql.query(`SELECT * FROM user WHERE username = ${req.body.username} OR email= '${req.body.email}'`, (err, results) => {
 

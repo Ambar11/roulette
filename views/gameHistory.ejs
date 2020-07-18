@@ -43,7 +43,7 @@
                                                     <a href="/admin/gameDetails/<%= game.game_id%>">
                                                         <% if(game.status == 0) {%>
                                                             <span class="shadow-none badge badge-primary">Ongoing</span>
-                                                            <%}else if(userD.status == 1) {%>
+                                                            <%}else if(game.status == 1) {%>
                                                                 <span class="shadow-none badge badge-warning">Paused</span>
                                                                 <%  }else{ %>
                                                                     <span class="shadow-none badge badge-danger">Closed</span>

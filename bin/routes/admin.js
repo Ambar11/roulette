@@ -8,48 +8,107 @@ const functions = require('../custom/function');
 const helpers = require('../custom/helper');
 const { getTime } = require('../custom/helper');
 
+router.get('/logout', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, (req, res) => {
+    req.session.destroy();
+    res.redirect('/user/login');
+})
+router.get('/getGameStatus', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.getGameStatus);
 
-
-router.post('/startGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.startGame);
-router.post('/pauseGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.pauseGame);
+router.get('/startGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.startGame);
+router.get('/pauseGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.pauseGame);
+router.get('/resumeGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.resumeGame);
+router.post('/endGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.endGame);
 
 router.get('/adminPanel', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
 
     try {
+        let checkGame = await functions.querySingle(`SELECT * FROM game  ORDER BY id DESC`);
+        let status = checkGame[0].status;
+        if (status == 2) {
+            res.render('admin', { status: status });
 
-        let checkBets = await functions.querySingle(`SELECT beting.game_id ,beting.number,beting.points,game.date,game.status FROM beting INNER JOIN game ON beting.game_id =  game.id WHERE game.status = 0 OR game.status =1`);
+        } else {
+            let checkBets = await functions.querySingle(`SELECT game.id,game.date,game.status FROM  game  WHERE status = 0 OR status =1`);
+            let totalArray = checkBets.map((element) => {
+                return {
+                    "game_id": element.id,
+                    "date": element.date
+
+
+                }
+            });
+            // console.log(totalArray);
+
+            let exists = [];
+            let updatedBets = [];
+            let getbets = await functions.querySingle(`SELECT * FROM  beting  WHERE game_id = ${totalArray[0].game_id}`);
+
+            let exist = [];
+            let updatednumber = [];
+
+            let bets = getbets;
+
+            let structuredBets = [];
+
+            for (var i = 1; i < 101; i++) {
+                structuredBets.push({
+                    number: i,
+                    bets: 0,
+                    total: 0
+                });
+            }
+
+            for (var i = 0; i < bets.length; i++) {
+                structuredBets[bets[i].number - 1].total += bets[i].points;
+                structuredBets[bets[i].number - 1].bets++;
+            }
+
+            var dateObj = helpers.getTime(totalArray[0].date);
+
+
+            res.render('admin', { status: status, data: totalArray[0], Gdate: dateObj, numbers: structuredBets });
+
+        }
+    } catch (error) {
+        console.log(error);
+        // return error;
+
+        // res.json(error);
+
+    }
+
+});
+router.get('/gameDetails/:id', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+
+    try {
+
+
+        let checkGame = await functions.querySingle(`SELECT * FROM game  WHERE id = ${req.params.id} `);
+        let status = checkGame[0].status;
+
+        let checkBets = await functions.querySingle(`SELECT game.id,game.date,game.status FROM  game   WHERE id = ${req.params.id}`);
         let totalArray = checkBets.map((element) => {
             return {
-                "game_id": element.game_id,
-                "date": element.date,
-                "bet": [{ "number": element.number, "points": element.points }]
+                "game_id": element.id,
+                "date": element.date
+
 
             }
         });
 
+
         let exists = [];
         let updatedBets = [];
+        let getbets = await functions.querySingle(`SELECT * FROM  beting  WHERE game_id = ${totalArray[0].game_id}`);
 
-        totalArray.map((element, j) => {
 
-            for (var i = 0; i < totalArray.length; i++) {
-                if (i != j) {
-                    if (element.game_id == totalArray[i].game_id) {
-                        element.bet = element.bet.concat(totalArray[i].bet);
-                    }
-                }
-            }
-            if (exists.indexOf(element.game_id) == -1) {
-                updatedBets.push(element);
-                exists.push(element.game_id);
-            }
-        })
 
 
         let exist = [];
         let updatednumber = [];
-        // console.log(updatedBets[0].bet);
-        let bets = updatedBets[0]["bet"];
+
+        let bets = getbets;
+
         let structuredBets = [];
 
         for (var i = 1; i < 101; i++) {
@@ -69,83 +128,7 @@ router.get('/adminPanel', (req, res, next) => { checkAdmin(req, res, next, ['adm
         // console.log(totalArray[0]);
         // console.log(structuredBets);
 
-        res.render('admin', { data: totalArray[0], Gdate: dateObj, numbers: structuredBets });
-
-
-    } catch (error) {
-        // console.log(error);
-        // return error;
-
-        // res.json(error);
-
-    }
-
-});
-router.get('/currentgameDetails', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
-
-    try {
-
-        let checkBets = await functions.querySingle(`SELECT beting.game_id ,beting.number,beting.points,game.date,game.status FROM beting INNER JOIN game ON beting.game_id =  game.id WHERE game.status = 0 OR game.status =1`);
-        let totalArray = checkBets.map((element) => {
-            return {
-                "game_id": element.game_id,
-                "date": element.date,
-                "bet": [{ "number": element.number, "points": element.points }]
-
-            }
-        });
-
-        let exists = [];
-        let updatedBets = [];
-
-        totalArray.map((element, j) => {
-
-            for (var i = 0; i < totalArray.length; i++) {
-                if (i != j) {
-                    if (element.game_id == totalArray[i].game_id) {
-                        element.bet = element.bet.concat(totalArray[i].bet);
-                    }
-                }
-            }
-            if (exists.indexOf(element.game_id) == -1) {
-                updatedBets.push(element);
-                exists.push(element.game_id);
-            }
-        })
-
-
-        let exist = [];
-        let updatednumber = [];
-        // console.log(updatedBets[0].bet);
-        let bets = updatedBets[0]["bet"];
-        bets.map((element, j) => {
-            for (var i = 0; i < bets.length; i++) {
-                if (i != j) {
-                    if (element.number == bets[i].number) {
-                        element.points = element.points + parseInt(bets[i].points);
-                        if (!element.total) {
-                            element.total = 2;
-
-                        } else {
-                            element.total = element.total + 1;
-
-                        }
-
-                    }
-                }
-            }
-            if (exist.indexOf(element.number) == -1) {
-                updatednumber.push(element);
-                exist.push(element.number);
-            }
-        });
-        // console.log(updatednumber);
-
-
-
-        var dateObj = helpers.getTime(updatedBets[0].date);
-
-        res.render('currentgameDetails', { data: updatedBets, Gdate: dateObj, numbers: updatednumber });
+        res.render('currentgameDetails', { status: status, data: totalArray[0], Gdate: dateObj, numbers: structuredBets });
 
 
     } catch (error) {
@@ -160,84 +143,7 @@ router.get('/currentgameDetails', (req, res, next) => { checkAdmin(req, res, nex
 
 });
 
-router.get('/gameDetails/:id', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
 
-    try {
-
-        let checkBets = await functions.querySingle(`SELECT beting.game_id ,beting.number,beting.points,game.date,game.status FROM beting INNER JOIN game ON beting.game_id =  game.id WHERE game.id = ${req.params.id}`);
-        let totalArray = checkBets.map((element) => {
-            return {
-                "game_id": element.game_id,
-                "date": element.date,
-                "bet": [{ "number": element.number, "points": element.points }]
-
-            }
-        });
-
-        let exists = [];
-        let updatedBets = [];
-
-        totalArray.map((element, j) => {
-
-            for (var i = 0; i < totalArray.length; i++) {
-                if (i != j) {
-                    if (element.game_id == totalArray[i].game_id) {
-                        element.bet = element.bet.concat(totalArray[i].bet);
-                    }
-                }
-            }
-            if (exists.indexOf(element.game_id) == -1) {
-                updatedBets.push(element);
-                exists.push(element.game_id);
-            }
-        })
-
-
-        let exist = [];
-        let updatednumber = [];
-        // console.log(updatedBets[0].bet);
-        let bets = updatedBets[0]["bet"];
-        bets.map((element, j) => {
-            for (var i = 0; i < bets.length; i++) {
-                if (i != j) {
-                    if (element.number == bets[i].number) {
-                        element.points = element.points + parseInt(bets[i].points);
-                        if (!element.total) {
-                            element.total = 2;
-
-                        } else {
-                            element.total = element.total + 1;
-
-                        }
-
-                    }
-                }
-            }
-            if (exist.indexOf(element.number) == -1) {
-                updatednumber.push(element);
-                exist.push(element.number);
-            }
-        });
-        // console.log(updatednumber);
-
-
-
-        var dateObj = helpers.getTime(updatedBets[0].date);
-
-        res.render('currentgameDetails', { data: updatedBets, Gdate: dateObj, numbers: updatednumber });
-
-
-    } catch (error) {
-        // console.log(error);
-        // return error;
-
-        // res.json(error);
-
-    }
-
-
-
-});
 
 router.get('/userHistory', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
 
@@ -259,14 +165,7 @@ router.get('/userHistory', (req, res, next) => { checkAdmin(req, res, next, ['ad
             return allUserHistory[i].bets = newBets;
 
         }));
-        // allUserHistory.map(user => {
-        //     console.log(user.username);
-        //     user.bets.map(bet => {
-        //         console.log(bet);
-        //     });
-        // });
 
-        // res.json(allUserHistory);
         res.render('userHistory', { data: allUserHistory });
 
 
