@@ -11,7 +11,7 @@ const { getTime } = require('../custom/helper');
 router.get('/logout', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, (req, res) => {
     req.session.destroy();
     res.redirect('/user/login');
-})
+});
 router.get('/getGameStatus', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.getGameStatus);
 
 router.get('/startGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.startGame);

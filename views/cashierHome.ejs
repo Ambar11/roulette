@@ -53,6 +53,16 @@
     <!-- profile css -->
     <link href="/assets/css/users/user-profile.css" rel="stylesheet" type="text/css" />
     <!-- profile end -->
+    <script src="/assets/js/elements/tooltip.js"></script>
+    <link href="/assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/components/cards/card.css" rel="stylesheet" type="text/css" />
+
+    <link href="/assets/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="/plugins/animate/animate.css" rel="stylesheet" type="text/css" />
+    <script src="/plugins/sweetalerts/promise-polyfill.js"></script>
+    <link href="/plugins/sweetalerts/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+    <link href="/plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/components/custom-sweetalert.css" rel="stylesheet" type="text/css" />
     <style>
         #example1 {
             border: 2px solid black;
@@ -99,7 +109,7 @@
                         <div class="">
 
                             <div class="dropdown-item">
-                                <a class="" href="auth_login.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Sign Out</a>
+                                <a class="" href="/cashier/logout"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Sign Out</a>
                             </div>
                         </div>
                     </div>
@@ -156,8 +166,8 @@
                         </a>
 
                     </li>
-                    <li class="menu">
-                        <a href="/admin/cashiertransactionHistory" aria-expanded="false" class="dropdown-toggle">
+                    <!-- <li class="menu">
+                        <a href="/" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg stroke="currentColor" width=10px height=15px>
                                     <path stroke="black" id="svg_7" d="M0,0 m6.83,14.83 l-6.12,-7.33 m-0.71,-7.5 m0.37,5.75 h9.3 m-9.3,0 m-0.37,-3.89 m0.51,1 h9.3 m-0.51,-1 m-9.3,0 m0.507518,1.001516c3.903211,-0.048188 4.674216,1.060131 5.156094,2.216638c0.481878,1.156507 -0.144564,2.84308 -1.252883,3.662272c-1.108319,0.819193 -3.373145,0.626442 -3.71046,0.626442" stroke-width="1" fill='none'/>
@@ -165,7 +175,7 @@
                                 <span style="font-size: 95%;">Transaction History</span>
                             </div>
                         </a>
-                    </li>
+                    </li> -->
 
                 </ul>
                 <!-- <div class="shadow-bottom"></div> -->
@@ -188,28 +198,26 @@
                                     <br>
                                     <div class="input-group">
                                         <!-- <input type="text" class="form-control" placeholder=" ₹ Enter User Id"> -->
-                                        <select class="form-control  basic">
-                                    <option selected="selected">9865741230</option>
-                                    <option>9874568231</option>
-                                    <option>9856987412</option>
+                                        <select onchange="getUsername(this)" id="list" class="form-control  basic">
+                                  
                                 </select>
                                     </div>
                                     <div class="text-center">
                                         <button type="button" class="login_button btn btn-warning" style="width: 196px;"><b>Find User</b></button>
                                     </div> <br>
                                     <div class="input-group mb-3 ">
-                                        <input type="text" class="form-control" placeholder=" ₹ 500">
+                                        <input id="credit" type="text" class="form-control" placeholder=" ₹ 500">
                                     </div>
                                     <div class="text-center">
-                                        <button type="button" class="login_button btn btn-warning" style="width: 196px;"><b>Credit</b></button>
+                                        <button type="button" onclick="makeTransaction('credit')" class="login_button btn btn-warning" style="width: 196px;"><b>Credit</b></button>
 
                                     </div>
                                     <br>
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder=" ₹ 500">
+                                        <input id="debit" type="text" class="form-control" placeholder=" ₹ -500">
                                     </div>
                                     <div class="text-center">
-                                        <button type="button" class="login_button btn btn-warning" style="width: 196px;"><b>Debit</b></button>
+                                        <button type="button" onclick="makeTransaction('debit')" class="login_button btn btn-warning" style="width: 196px;"><b>Debit</b></button>
                                     </div>
 
 
@@ -221,5 +229,80 @@
                         </div>
                     </div>
             </section>
+            <script src="/assets/axios.js"></script>
 
+            <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script> -->
+            <script>
+                let username;
+
+                function getUsername(s) {
+                    username = s[s.selectedIndex].value; // get value
+
+                }
+
+                function makeTransaction(type) {
+                    let amount = document.getElementById(type).value;
+                    axios.post(`http://localhost:7000/cashier/cashierTransaction?status=${type}`, {
+                        'user_id': username,
+                        'amount': amount
+                    }).then(
+                        (response) => {
+                            // console.log(response.data);
+                            let reStatus = response.data;
+                            if (parseInt(reStatus.code) < 400) {
+                                swal({
+                                    title: reStatus.name,
+                                    text: "Transaction completed",
+                                    type: 'success',
+                                    padding: '2em'
+                                });
+                            } else if (parseInt(reStatus.code) >= 400) {
+                                swal({
+                                    title: reStatus.name,
+                                    text: reStatus.message,
+                                    type: 'question',
+                                    padding: '2em'
+                                })
+
+                            }
+
+
+                            // setTimeout(location.reload(), 4000);
+
+                            var result = response.data;
+                            // console.log(result);
+
+
+                        },
+                        (error) => {
+                            console.log(error);
+                        }
+                    );
+                }
+
+
+
+
+                function makeGetRequest(path) {
+                    axios.get(path).then(
+                        (response) => {
+                            var result = response.data;
+
+                            const sb = document.querySelector('#list');
+                            // console.log(result);
+                            result.users.map((users) => {
+                                let option = new Option(users.username, users.username);
+                                // add it to the list
+                                sb.add(option, undefined);
+                            });
+
+                            // console.log(result.details[0].name);
+                        },
+                        (error) => {
+                            console.log(error);
+                        }
+                    );
+                }
+                makeGetRequest('http://localhost:7000/cashier/getUsers');
+            </script>
             <%- include("footer") %>
