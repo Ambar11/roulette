@@ -27,10 +27,7 @@ router.get('/playergameHistory', (req, res) => {
 router.get('/playerHome', (req, res) => {
     res.render('playerHome', { data: 'empty' });
 });
-router.get('/cashierHome', (req, res) => {
-    res.render('cashierHome', { data: 'empty' });
-});
-router.get('/cashiertransactionHistory', (req, res) => {
-    res.render('cashiertransactionHistory', { data: 'empty' });
+router.get('/play', (req, res) => {
+    res.render('play', { data: 'empty' });
 });
 module.exports = router;

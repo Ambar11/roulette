@@ -1,48 +1,85 @@
 <%- include("header1") %>
-    <main>
-        <section class="">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <style>
+        table.dataTable tbody tr {
+            background-color: #101736 !important;
+        }
+    </style>
+    <!-- Latest Activities Area Start -->
+    <section class="activities">
+        <img class="shape shape1" src="/user/assets/images/people/shape1.png" alt="">
+        <img class="shape shape2" src="/user/assets/images/people/shape2.png" alt="">
+        <img class="shape shape3" src="/user/assets/images/people/shape3.png" alt="">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="section-heading">
 
-            <div class="main-content">
-                <br>
-                <h3 class="text-center themeColor">My History</h3>
-                <br>
-                <div class="container" style="overflow:scroll">
-                    <table id="style-3" class="table style-3  table-hover">
-                        <thead>
-                            <tr class="checkbox-column text-center">
-                                <th class="themeColor">No.</th>
-                                <th class="themeColor">Source</th>
-                                <th class="themeColor"> Amount </th>
-                                <th class="themeColor">Date</th>
-                                <th class="themeColor">Time</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="checkbox-column text-center">
-                                <td> 1 </td>
-                                <td>Cashier</td>
-                                <td>2000</td>
-                                <td>14/07/2020</td>
-                                <td>1.45</td>
+                        <h2 class="title">
+                            My history
+                        </h2>
 
-
-
-                            </tr>
-                            <tr class="checkbox-column text-center">
-                                <td> 2 </td>
-                                <td>Game</td>
-                                <td>1000</td>
-                                <td>14/07/2020</td>
-                                <td>2.00</td>
-
-
-                            </tr>
-
-                        </tbody>
-                    </table>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="tab-menu-area">
+                        <ul class="nav nav-lend mb-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-all-bets-tab" data-toggle="pill" href="#pills-all-bets" role="tab" aria-controls="pills-all-bets" aria-selected="true">Current Game bets</a>
+                            </li>
+
+
+                        </ul>
+                    </div>
+
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-all-bets" role="tabpanel" aria-labelledby="pills-all-bets-tab">
+                            <div class="responsive-table">
+                                <table id="example" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Slot</th>
+                                            <th scope="col">Points</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                19-09-12
+                                            </td>
+                                            <td>
+                                                Morning
+                                            </td>
+                                            <td>
+                                                +1900 <img style="max-width: 15%;" src="/user/assets/images/coin.png" alt="">
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Latest Activities Area End -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "pagingType": "full_numbers"
+            });
+        });
+    </script>
 
     <%- include("footer1") %>

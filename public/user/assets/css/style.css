@@ -144,6 +144,19 @@
 
 /* Normalize  */
 
+.rotate {
+    animation: rotation 8s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
 html {
     font-family: "Open Sans", sans-serif;
     -webkit-text-size-adjust: 100%;
@@ -806,9 +819,10 @@ select:focus {
 
 .breadcrumb-area.bc-lottery .bc-img {
     position: absolute;
-    right: 0px;
+    right: 63px;
     bottom: 0px;
-    max-width: 52%;
+    max-width: 41%;
+    top: 14%;
 }
 
 .breadcrumb-area.cart {
@@ -3560,7 +3574,7 @@ select:focus {
 /*  How it Work Area Start  */
 
 .how-it-work {
-    padding: 97px 0px 496px;
+    /* padding: 97px 0px 496px; */
     position: relative;
 }
 
