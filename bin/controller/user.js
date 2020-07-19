@@ -85,7 +85,7 @@ exports.beting = async(req, res) => {
         res.json(makeBet);
     } catch (error) {
         console.log(error);
-        res.send(error);
+        res.json(error);
         // res.status(error.code).redirect(`/user/login?status=invalid`);
     }
 }

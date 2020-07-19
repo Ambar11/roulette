@@ -3561,9 +3561,9 @@ select:focus {
 }
 
 .number-list li.active {
-    background-image: -moz-linear-gradient(26deg, #382f21 9%, #8b642a 39%, #de9932 100%);
-    background-image: -webkit-linear-gradient(26deg, #382f21 9%, #8b642a 39%, #de9932 100%);
-    background-image: -ms-linear-gradient(26deg, #382f21 9%, #8b642a 39%, #de9932 100%);
+    background-image: -moz-linear-gradient(26deg, #382f21 9%, #8b642a 39%, #de9932 100%) !important;
+    background-image: -webkit-linear-gradient(26deg, #382f21 9%, #8b642a 39%, #de9932 100%)!important;
+    background-image: -ms-linear-gradient(26deg, #382f21 9%, #8b642a 39%, #de9932 100%) !important;
     color: #ffffff;
 }
 
