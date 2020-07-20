@@ -2383,10 +2383,21 @@ select:focus {
 }
 
 .activities .table tr td img {
-    width: 40px;
-    height: 40px;
+    width: 28px;
+    height: 25px;
     border-radius: 50%;
     display: inline-block;
+    margin-bottom: 1%;
+}
+
+@media (max-width: 768px) {
+    .activities .table tr td img {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-bottom: 4%;
+    }
 }
 
 .activities .table tr td:nth-child(1) img,

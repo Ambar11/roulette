@@ -1,10 +1,6 @@
 <%- include("header1") %>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-    <style>
-        table.dataTable tbody tr {
-            background-color: #101736 !important;
-        }
-    </style>
+
     <!-- Latest Activities Area Start -->
     <section class="activities">
         <img class="shape shape1" src="/user/assets/images/people/shape1.png" alt="">
@@ -42,21 +38,46 @@
                                         <tr>
                                             <th scope="col">Date</th>
                                             <th scope="col">Slot</th>
-                                            <th scope="col">Points</th>
+                                            <th scope="col">Coins</th>
+                                            <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                19-09-12
-                                            </td>
-                                            <td>
-                                                Morning
-                                            </td>
-                                            <td>
-                                                +1900 <img style="max-width: 15%;" src="/user/assets/images/coin.png" alt="">
-                                            </td>
-                                        </tr>
+                                        <%data.map((e)=>{ %>
+                                            <tr>
+                                                <td>
+                                                    <%=e.date%>
+                                                </td>
+                                                <td>
+                                                    <%=e.slot%>
+
+                                                </td>
+                                                <td style="color: white;">
+                                                    <%=e.points%> <img src="/user/assets/images/coin.png" alt="">
+                                                </td>
+                                                <td style="color: #42ff52;">
+                                                    <%=e.status%>
+                                                </td>
+                                            </tr>
+                                            <%});%>
+                                                <%data1.map((e)=>{ %>
+                                                    <tr>
+                                                        <td>
+                                                            <%=e.date%>
+                                                        </td>
+                                                        <td>
+                                                            <%=e.slot%>
+
+                                                        </td>
+                                                        <td style="color: white;">
+                                                            <%=e.points%> <img src="/user/assets/images/coin.png" alt="">
+                                                        </td>
+                                                        <td style="color: #f04e4e;">
+                                                            <%=e.status%>
+                                                        </td>
+                                                    </tr>
+                                                    <%});%>
+
 
                                     </tbody>
                                 </table>
@@ -76,6 +97,8 @@
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
+            $.noConflict();
+
             $('#example').DataTable({
                 "pagingType": "full_numbers"
             });

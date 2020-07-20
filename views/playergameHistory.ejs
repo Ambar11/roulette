@@ -1,10 +1,9 @@
 <%- include("header1") %>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-    <style>
-        table.dataTable tbody tr {
-            background-color: #101736 !important;
-        }
-    </style>
+
     <!-- Latest Activities Area Start -->
     <section class="activities">
         <img class="shape shape1" src="/user/assets/images/people/shape1.png" alt="">
@@ -27,7 +26,7 @@
                     <div class="tab-menu-area">
                         <ul class="nav nav-lend mb-3" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="pills-all-bets-tab" data-toggle="pill" href="#pills-all-bets" role="tab" aria-controls="pills-all-bets" aria-selected="true">Current Game bets</a>
+                                <a class="nav-link active" id="pills-all-bets-tab" data-toggle="pill" href="#pills-all-bets" role="tab" aria-controls="pills-all-bets" aria-selected="true">Game bets</a>
                             </li>
 
 
@@ -42,21 +41,25 @@
                                         <tr>
                                             <th scope="col">Date</th>
                                             <th scope="col">Slot</th>
-                                            <th scope="col">Points</th>
+                                            <th scope="col">Number</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                19-09-12
-                                            </td>
-                                            <td>
-                                                Morning
-                                            </td>
-                                            <td>
-                                                +1900 <img style="max-width: 15%;" src="/user/assets/images/coin.png" alt="">
-                                            </td>
-                                        </tr>
+                                        <%data.map((e)=>{ %>
+                                            <tr>
+                                                <td>
+                                                    <%=e.date%>
+                                                </td>
+                                                <td>
+                                                    <%=e.slot%>
+
+                                                </td>
+                                                <td style="color: white;">
+                                                    <%=e.number%>
+                                                </td>
+
+                                            </tr>
+                                            <%});%>
 
                                     </tbody>
                                 </table>
@@ -72,10 +75,9 @@
     </section>
     <!-- Latest Activities Area End -->
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
+            $.noConflict();
             $('#example').DataTable({
                 "pagingType": "full_numbers"
             });

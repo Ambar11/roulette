@@ -19,4 +19,24 @@ function getTime(date) {
 
 }
 
-module.exports = { getTime, getMonthFromString }
+function getSlot(date) {
+    let arr = date.toString().split(' ');
+    // console.log(arr);
+    time = arr[4].toString().split(':');
+    var data = [
+            [0, 4, "Evening"],
+            [5, 11, "Morning"], //Store messages in an array
+            [12, 17, "Afternoon"],
+            [18, 24, "Evening"]
+        ],
+        hr = time[0];
+
+    for (var i = 0; i < data.length; i++) {
+        if (hr >= data[i][0] && hr <= data[i][1]) {
+            return data[i][2];
+        }
+    }
+
+}
+
+module.exports = { getTime, getMonthFromString, getSlot }

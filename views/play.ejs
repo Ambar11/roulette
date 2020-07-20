@@ -1,5 +1,6 @@
 <%- include("header1") %>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
     <style>
         .number-list li.bet {
@@ -24,7 +25,7 @@
     <!-- Breadcrumb Area Start -->
     <section class="breadcrumb-area bc-lottery">
         <img class="rotate bc-img" src="assets/images/roulette.png" alt="">
-        <div class="container">
+        <div class="container disableE">
             <div class="row">
                 <div class="col-lg-12">
                     <h4 class="title">
@@ -106,7 +107,7 @@ totalBets++;
                                     </div>
                                 </div>
                                 <div class="right">
-                                    <h4 class="title">Total bet points </h4>
+                                    <h4 class="title">Total bet coins </h4>
                                     <div class="count">
                                         <img src="assets/images/tikit-icon.png" alt="">
                                         <span><%=winingPoints%></span>
@@ -204,9 +205,9 @@ totalBets++;
                                                 <div class="main-content">
                                                     <ul class="number-list">
                                                         <%for(i=1;i<=100;i++){%>
-                                                            <li id="<%=i%>" <% data.map((bets)=>{ if (parseInt(bets.number)===i) {%> class="bet"
+                                                            <li id="<%=i%>" <% if(status==0){data.map((bets)=>{ if (parseInt(bets.number)===i) {%> class="bet"
                                                                 <% }
-                                                            })%> onclick="makeBet(this)">
+                                                            }) }%> onclick="makeBet(this)">
 
                                                                     <%=i%><input value="<%=i%>" id="c<%=i%>" type="checkbox" hidden></li>
 
@@ -220,11 +221,11 @@ totalBets++;
                                         <div class="col-lg-12 text-center">
                                             <div class="row cr">
                                                 <div class="col-md-6 ci">
-                                                    <label>Enter points </label>
+                                                    <label>Enter coins </label>
                                                     <input id="points" type="text" oninput="cal(this)" class=" form-control " placeholder="200 ">
                                                 </div>
                                                 <div class="col-md-6 ci2 ">
-                                                    <label>Total points </label>
+                                                    <label>Total sum of coins </label>
 
                                                     <input type="text" id="total" class="form-control " placeholder="*100 " disabled>
                                                 </div>
@@ -274,11 +275,11 @@ totalBets++;
                         <div class="tab-content " id="pills-tabContent ">
                             <div class="tab-pane fade show active " id="pills-all-bets " role="tabpanel " aria-labelledby="pills-all-bets-tab ">
                                 <div class="responsive-table ">
-                                    <table class="table ">
+                                    <table id="example" class="table ">
                                         <thead>
                                             <tr>
                                                 <th scope="col ">Number</th>
-                                                <th scope="col ">Points</th>
+                                                <th scope="col ">Coins</th>
 
                                             </tr>
                                         </thead>
@@ -299,7 +300,13 @@ totalBets++;
                                                 <%  });
                                         }else{%>
                                                     <tr>
-                                                        <p>NO data found</p>
+                                                        <td>
+                                                            <p>NO data found</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>NO data found</p>
+                                                        </td>
+
                                                     </tr>
 
                                                     <% }%>
@@ -521,12 +528,12 @@ totalBets++;
                 let checkError = [];
                 var points = document.getElementById("points").value
                 if (!points || points < 0 || numbers.length === 0) {
-                    let message = "please select bet number or please enter the points";
+                    let message = "please select bet number or please enter the coins";
                     console.log(numbers.length);
                     if (numbers.length === 0) {
                         let message = "please select bet number";
                     } else {
-                        let message = "please enter the points";
+                        let message = "please enter the coins";
                     }
                     swal({
                         title: "Opps something went Wrong",
@@ -594,5 +601,16 @@ totalBets++;
             }
         </script>
         <script src="/assets/axios.js"></script>
+        <script src="/user/assets/js/jquery.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $.noConflict();
 
+                $('#example').DataTable({
+                    "pagingType": "full_numbers"
+                });
+            });
+        </script>
         <%- include("footer1") %>

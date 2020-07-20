@@ -297,11 +297,14 @@
     }
     .breadcrumb-area .bc-img {
         position: absolute !important;
-        right: -25px !important;
+        right: 30px !important;
         max-width: 84% !important;
-        top: 17% !important;
+        top: 15% !important;
         bottom: auto !important;
         /* transform: translateY(-50%) !important; */
+    }
+    .disableE {
+        display: none;
     }
     .breadcrumb-area.bc-lottery {
         padding: 187px 0px 152px;
