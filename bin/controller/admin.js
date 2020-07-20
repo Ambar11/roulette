@@ -89,7 +89,7 @@ exports.endGame = async(req, res) => {
         }));
 
 
-        res.json(gameData);
+        res.json(checkGame[0]);
     } catch (error) {
         console.log(error);
         res.json(error);

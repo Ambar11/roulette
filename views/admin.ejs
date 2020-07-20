@@ -232,10 +232,10 @@
                             type: 'success',
                             padding: '2em'
                         });
-
-                        setTimeout(location.reload(), 4000);
-
                         var result = response.data;
+
+                        setTimeout(location.replace(`http://localhost:7000/admin/gameDetails/${result.id}`), 5000);
+
                         // console.log(result);
 
 

@@ -82,6 +82,7 @@ router.get('/gameDetails/:id', (req, res, next) => { checkAdmin(req, res, next, 
 
     try {
 
+        let checkwinner = await functions.querySingle(`SELECT * FROM winner WHERE game_id = ${req.params.id} `);
 
         let checkGame = await functions.querySingle(`SELECT * FROM game  WHERE id = ${req.params.id} `);
         let status = checkGame[0].status;
@@ -128,7 +129,7 @@ router.get('/gameDetails/:id', (req, res, next) => { checkAdmin(req, res, next, 
         // console.log(totalArray[0]);
         // console.log(structuredBets);
 
-        res.render('currentgameDetails', { status: status, data: totalArray[0], Gdate: dateObj, numbers: structuredBets });
+        res.render('currentgameDetails', { checkwinner: checkwinner, status: status, data: totalArray[0], Gdate: dateObj, numbers: structuredBets });
 
 
     } catch (error) {

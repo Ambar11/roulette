@@ -10,6 +10,14 @@
                             <div class="row">
                                 <div class="col-xl-12 col-md-12 col-sm-12 col-12">
                                     <h4>Game Details</h4>
+                                    <%if(checkwinner.length==0){%>
+                                        <h4>Wining Number: Please select a number </h4>
+                                        <%}else{%>
+                                            <h4>Wining Number:
+                                                <%=checkwinner[0].number%>
+                                            </h4>
+
+                                            <%}%>
                                 </div>
                             </div>
                         </div>

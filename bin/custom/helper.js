@@ -10,7 +10,7 @@ function getMonthFromString(mon) {
 }
 
 function getTime(date) {
-    let arr = moment.tz(date, "Asia/Kolkata").toString().split(' ');
+    let arr = date.toString().split(' ');
     // console.log(arr);
     year = arr[3];
     month = getMonthFromString(arr[1]);

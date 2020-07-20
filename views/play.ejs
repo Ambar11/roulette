@@ -10,6 +10,10 @@
             color: #ffffff;
         }
         
+        .disp {
+            display: none;
+        }
+        
         .cr {
             width: 58%;
             margin-left: 21%;
@@ -220,14 +224,14 @@ totalBets++;
                                     <div class="row">
                                         <div class="col-lg-12 text-center">
                                             <div class="row cr">
-                                                <div class="col-md-6 ci">
+                                                <div id="fTotal" class="col-md-6 ci">
                                                     <label>Enter coins </label>
-                                                    <input id="points" type="text" oninput="cal(this)" class=" form-control " placeholder="200 ">
+                                                    <input id="points" type="text" oninput="cal(this)" class="text-center form-control " placeholder="200 ">
                                                 </div>
-                                                <div class="col-md-6 ci2 ">
+                                                <div id="sTotal" class="col-md-6 ci2 ">
                                                     <label>Total sum of coins </label>
 
-                                                    <input type="text" id="total" class="form-control " placeholder="*100 " disabled>
+                                                    <input type="text" id="total" class="text-center form-control " placeholder="*100 " disabled>
                                                 </div>
                                             </div>
                                             <a onclick="bet()" class="mybtn1 ">Bet</a>
@@ -487,6 +491,12 @@ totalBets++;
         </section>
         <!-- Recent Winners Area End -->
         <script>
+            let ftotal = document.getElementById("fTotal");
+            let stotal = document.getElementById("sTotal");
+            stotal.classList.add("disp");
+            ftotal.classList.remove("col-md-6");
+            ftotal.classList.add("col-md-12");
+
             const numbers = [];
 
             function makeBet(s) {
@@ -514,6 +524,19 @@ totalBets++;
                     // console.log(checkbox);
 
                 }
+                console.log(numbers.length);
+                if (numbers.length <= 1) {
+                    stotal.classList.add("disp");
+                    ftotal.classList.remove("col-md-6");
+                    ftotal.classList.add("col-md-12");
+
+
+                } else {
+                    stotal.classList.remove("disp");
+                    ftotal.classList.add("col-md-6");
+                    ftotal.classList.remove("col-md-12");
+
+                }
                 // console.log(numbers);
             }
 
@@ -521,6 +544,7 @@ totalBets++;
                 var points = document.getElementById("points").value
                 var total = numbers.length * points;
                 document.getElementById("total").value = total;
+
 
             }
 
