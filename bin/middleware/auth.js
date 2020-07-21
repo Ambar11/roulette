@@ -12,7 +12,7 @@ const checkAdmin = (req, res, next, allowed, redirectTo) => {
         next();
 
     } catch (error) {
-        return res.status(error.code || 401).render(redirectTo);
+        return res.status(error.code || 401).render(redirectTo, { status: 'invalid' });
     }
 };
 

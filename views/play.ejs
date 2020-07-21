@@ -5,7 +5,7 @@
     <style>
         .number-list li.bet {
             background-image: -moz-linear-gradient(26deg, #20ff00 9%, #20ff00cc 39%, #20ff00 100%);
-            background-image: ;
+            /* background-image: ; */
             background-image: -ms-linear-gradient(26deg, #382f21 9%, #8b642a 39%, #de9932 100%);
             color: #ffffff;
         }
@@ -164,15 +164,9 @@ totalBets++;
                             <div class="buy-tickets-box">
                                 <div class="heading">
                                     <h4 class="title">
-                                        Buy Lottery Tickets
+                                        Make a bet
                                     </h4>
-                                    <!-- <div class="right-area">
-                                    <select>
-										<option value="1">BTC</option>
-										<option value="1">BTC</option>
-										<option value="1">BTC</option>
-									</select>
-                                </div> -->
+
                                 </div>
                                 <div class="content">
                                     <div class="top-area">
@@ -189,6 +183,17 @@ totalBets++;
                                                 </div>
                                             </div>
 
+                                            <div class="col-lg-3 col-md-3 col-sm-12">
+                                                <div class="info-box">
+                                                    <h4 class="title">
+                                                        Name
+                                                    </h4>
+                                                    <div class="number">
+
+                                                        <%=user.name%>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="game-numbers">

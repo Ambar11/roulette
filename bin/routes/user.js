@@ -6,8 +6,8 @@ const functions = require('../custom/function');
 const helpers = require('../custom/helper');
 const { getTime } = require('../custom/helper');
 //some action to login user
-router.post('/makeBet', userController.beting);
-router.post('/gameHistory', userController.gameHistory);
+router.post('/makeBet', (req, res, next) => { checkAdmin(req, res, next, ['user'], 'login') }, userController.beting);
+router.post('/gameHistory', (req, res, next) => { checkAdmin(req, res, next, ['user'], 'login') }, userController.gameHistory);
 // router.post('/myHistory', userController.myHistory);
 router.get('/logout', (req, res, next) => { checkAdmin(req, res, next, ['user'], 'login') }, (req, res) => {
     req.session.destroy();
@@ -15,12 +15,25 @@ router.get('/logout', (req, res, next) => { checkAdmin(req, res, next, ['user'],
 });
 router.post('/login', userController.login);
 router.get('/login', (req, res) => {
-    res.render('login', { data: 'empty' });
+    if (req.query.status) {
+        res.render('login', { status: req.query.status });
+
+    } else {
+        res.render('login', { status: 'empty' });
+
+    }
 });
 //some action to login user
 router.post('/register', userController.register);
 router.get('/register', (req, res) => {
-    res.render('register');
+    if (req.query.status) {
+        // console.log(req.query.status);
+        res.render('register', { status: 'invalid', message: req.query.status });
+
+    } else {
+        res.render('register', { status: 'empty' });
+
+    }
 });
 
 

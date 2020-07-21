@@ -3,7 +3,7 @@ class CustomError extends Error {
         super();
         Error.captureStackTrace(this, this.constructor);
         this.code = code,
-            this.name = `${name} - Devloper Defined Error!`,
+            this.name = `${name} `,
             this.message = message
         if (extra) this.additional = extra;
     }

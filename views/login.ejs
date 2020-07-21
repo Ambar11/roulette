@@ -10,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roulette</title>
     <!-- favicon -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <link rel="shortcut icon" href="/user/assets/images/favicon.html" type="image/x-icon">
     <!-- bootstrap -->
     <link rel="stylesheet" href="/user/assets/css/bootstrap.min.css">
@@ -20,6 +22,8 @@
     <link rel="stylesheet" href="/user/assets/css/style.css">
     <!-- responsive -->
     <link rel="stylesheet" href="/user/assets/css/responsive.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <style>
         .back {
             background: url(/user/assets/images/play/playgame-bg.jpg);
@@ -86,7 +90,7 @@
                     </div>
                     <div class="form-footer">
                         <p>Not a member?
-                            <a href="#">Register<i class="fas fa-angle-double-right"></i></a>
+                            <a href="/user/register">Register<i class="fas fa-angle-double-right"></i></a>
                         </p>
                     </div>
                 </div>
@@ -94,22 +98,30 @@
         </div>
     </div>
     <!-- login area end -->
+    <%if(status=='invalid'){%>
+        <script>
+            swal({
+                title: "    please enter valid phone no or password",
+                text: "",
+                icon: "warning",
+            });
+        </script>
 
+        <%}%>
+            <!-- jquery -->
+            <script src="/user/assets/js/jquery.js"></script>
+            <!-- popper -->
+            <script src="/user/assets/js/popper.min.js"></script>
+            <!-- bootstrap -->
+            <script src="/user/assets/js/bootstrap.min.js"></script>
+            <!-- plugin js-->
+            <script src="/user/assets/js/plugin.js"></script>
 
-    <!-- jquery -->
-    <script src="/user/assets/js/jquery.js"></script>
-    <!-- popper -->
-    <script src="/user/assets/js/popper.min.js"></script>
-    <!-- bootstrap -->
-    <script src="/user/assets/js/bootstrap.min.js"></script>
-    <!-- plugin js-->
-    <script src="/user/assets/js/plugin.js"></script>
-
-    <!-- MpusemoverParallax JS-->
-    <script src="/user/assets/js/TweenMax.js"></script>
-    <script src="/user/assets/js/mousemoveparallax.js"></script>
-    <!-- main -->
-    <script src="/user/assets/js/main.js"></script>
+            <!-- MpusemoverParallax JS-->
+            <script src="/user/assets/js/TweenMax.js"></script>
+            <script src="/user/assets/js/mousemoveparallax.js"></script>
+            <!-- main -->
+            <script src="/user/assets/js/main.js"></script>
 </body>
 
 

@@ -8,6 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="forntEnd-Developer" content="Mamunur Rashid">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <title>Roulette</title>
     <!-- favicon -->
     <link rel="shortcut icon" href="/user/assets/images/favicon.html" type="image/x-icon">
@@ -48,7 +50,7 @@
     </div>
 
     <!-- login area start -->
-    <div class="modal fade login-modal show" id="login" tabindex="-1" role="dialog" aria-labelledby="login" style="display: block; padding-right: 2%; padding-left: 2%;" aria-modal="true">
+    <div class="modal fade login-modal show" id="login" tabindex="-1" role="dialog" aria-labelledby="login" style="overflow: scroll; display: block; padding-right: 2%; padding-left: 2%;" aria-modal="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -87,7 +89,7 @@
                     </div>
                     <div class="form-footer">
                         <p>Already A Member?
-                            <a href="#">LOG IN<i class="fas fa-angle-double-right"></i></a>
+                            <a href="/user/login">LOG IN<i class="fas fa-angle-double-right"></i></a>
                         </p>
                     </div>
                 </div>
@@ -95,20 +97,30 @@
         </div>
     </div>
     <!-- login area end -->
-    <!-- jquery -->
-    <script src="/user/assets/js/jquery.js"></script>
-    <!-- popper -->
-    <script src="/user/assets/js/popper.min.js"></script>
-    <!-- bootstrap -->
-    <script src="/user/assets/js/bootstrap.min.js"></script>
-    <!-- plugin js-->
-    <script src="/user/assets/js/plugin.js"></script>
+    <%if(status=='invalid'){%>
+        <script>
+            swal({
+                title: '<%=message%>',
+                text: "",
+                icon: "warning",
+            });
+        </script>
 
-    <!-- MpusemoverParallax JS-->
-    <script src="/user/assets/js/TweenMax.js"></script>
-    <script src="/user/assets/js/mousemoveparallax.js"></script>
-    <!-- main -->
-    <script src="/user/assets/js/main.js"></script>
+        <%}%>
+            <!-- jquery -->
+            <script src="/user/assets/js/jquery.js"></script>
+            <!-- popper -->
+            <script src="/user/assets/js/popper.min.js"></script>
+            <!-- bootstrap -->
+            <script src="/user/assets/js/bootstrap.min.js"></script>
+            <!-- plugin js-->
+            <script src="/user/assets/js/plugin.js"></script>
+
+            <!-- MpusemoverParallax JS-->
+            <script src="/user/assets/js/TweenMax.js"></script>
+            <script src="/user/assets/js/mousemoveparallax.js"></script>
+            <!-- main -->
+            <script src="/user/assets/js/main.js"></script>
 </body>
 
 

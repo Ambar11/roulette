@@ -59,9 +59,11 @@ exports.beting = async(req, res) => {
         const { number, points } = req.body;
         if (!number || !points || number > 100) throw customError.dataInvalid;
         let status = await functions.querySingle(`SELECT * from game WHERE status = 0`);
+        if (points == 0) throw erro = new Custom('!Opps Please enter valid coins', 'enter valid coins ', '401');
+
         if (status.length == 0) throw erro = new Custom('!Opps No active game session', 'Theres is no active games check game timing', '401');
         let checkPoints = await functions.querySingle(`SELECT * FROM points  WHERE u_id = ${req.session.u_id}`);
-        if (parseInt(checkPoints[0].points) < points) throw new Custom('!Opps', 'points is less contact cashier ', '402');
+        if (parseInt(checkPoints[0].points) < points) throw new Custom('Opps!! There is no enough Coins  contact cashier ', 'points is less contact cashier ', '402');
         // let checkBet = await functions.querySingle(`SELECT * FROM beting WHERE u_id = ${req.session.u_id} AND number =${number}`);
 
         let makeBet;
@@ -141,14 +143,14 @@ exports.register = async(req, res, next) => {
         return new Promise((resolve, reject) => {
 
             const { name, username, password, email, password2 } = req.body;
-            if (!email || !name || !username || !password || password.length < 5 || password != password2) reject(customError.dataInvalid);
-
+            if (!email || !name || !username || !password || password.length < 5) reject(new Custom('Opps password should have 5 characters ', ' Opps password should have 5 characters ', '401'));
+            if (password != password2) throw new Custom('The passord and retyped pssword does not match', 'The passord and retyped pssword does not match', '401');
             sql.query(`SELECT * FROM user WHERE username = ${req.body.username} OR email= '${req.body.email}'`, (err, results) => {
 
                 // console.log(err);
                 // console.log(results);
                 if (results[0]) {
-                    reject(customError.userExists);
+                    reject(new Custom('the Phone number is already exist', 'the Phone number is already exist', '401'));
                 } else {
                     bcrypt.genSalt(parseInt(process.env.SALT, 10), function(err, salt) {
                         bcrypt.hash(req.body.password, salt, function(err, hashedPassword) {
