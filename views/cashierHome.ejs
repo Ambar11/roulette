@@ -197,15 +197,19 @@
                                     <h3 class="text-center themeColor">MANAGE CASH </h3>
                                     <br>
                                     <div class="input-group">
+                                        <label>Please select a user</label>
                                         <!-- <input type="text" class="form-control" placeholder=" ₹ Enter User Id"> -->
                                         <select onchange="getUsername(this)" id="list" class="form-control  basic">
-                                  
+                                            <option>Choose...</option>
                                 </select>
                                     </div>
                                     <div class="text-center">
-                                        <button type="button" class="login_button btn btn-warning" style="width: 196px;"><b>Find User</b></button>
+                                        <!-- <button type="button" class="login_button btn btn-warning" style="width: 196px;"><b>Find User</b></button> -->
                                     </div> <br>
+                                    <label>enter credit amount</label>
+
                                     <div class="input-group mb-3 ">
+
                                         <input id="credit" type="text" class="form-control" placeholder=" ₹ 500">
                                     </div>
                                     <div class="text-center">
@@ -213,8 +217,11 @@
 
                                     </div>
                                     <br>
+                                    <label>enter debit amount</label>
+
                                     <div class="input-group mb-3">
-                                        <input id="debit" type="text" class="form-control" placeholder=" ₹ -500">
+
+                                        <input id="debit" type="text" class="form-control" placeholder=" ₹ 500">
                                     </div>
                                     <div class="text-center">
                                         <button type="button" onclick="makeTransaction('debit')" class="login_button btn btn-warning" style="width: 196px;"><b>Debit</b></button>
@@ -242,7 +249,7 @@
 
                 function makeTransaction(type) {
                     let amount = document.getElementById(type).value;
-                    axios.post(`http://3.6.130.3/cashier/cashierTransaction?status=${type}`, {
+                    axios.post(`http://localhost:7000/cashier/cashierTransaction?status=${type}`, {
                         'user_id': username,
                         'amount': amount
                     }).then(
@@ -303,6 +310,6 @@
                         }
                     );
                 }
-                makeGetRequest('http://3.6.130.3/cashier/getUsers');
+                makeGetRequest('http://localhost:7000/cashier/getUsers');
             </script>
             <%- include("footer") %>
