@@ -20,7 +20,7 @@ router.get('/getUsers', (req, res, next) => { checkAdmin(req, res, next, ['cashi
     }
 });
 router.get('/cashierPanel', (req, res, next) => { checkAdmin(req, res, next, ['cashier'], 'login') }, (req, res) => {
-    res.render('cashierHome', { data: req });
+    res.render('cashierHome', { data: req ,domain:process.env.DOMAIN});
 });
 
 module.exports = router;

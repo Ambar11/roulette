@@ -25,7 +25,7 @@ router.get('/adminPanel', (req, res, next) => { checkAdmin(req, res, next, ['adm
         let checkGame = await functions.querySingle(`SELECT * FROM game  ORDER BY id DESC`);
         let status = checkGame[0].status;
         if (status == 2) {
-            res.render('admin', { status: status });
+            res.render('admin', { status: status,domain:process.env.DOMAIN });
 
         } else {
             let checkBets = await functions.querySingle(`SELECT game.id,game.date,game.status FROM  game  WHERE status = 0 OR status =1`);
@@ -66,7 +66,7 @@ router.get('/adminPanel', (req, res, next) => { checkAdmin(req, res, next, ['adm
             var dateObj = helpers.getTime(totalArray[0].date);
 
 
-            res.render('admin', { status: status, data: totalArray[0], Gdate: dateObj, numbers: structuredBets });
+            res.render('admin', { status: status, data: totalArray[0], Gdate: dateObj, numbers: structuredBets ,domain:process.env.DOMAIN});
 
         }
     } catch (error) {

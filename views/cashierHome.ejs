@@ -249,7 +249,7 @@
 
                 function makeTransaction(type) {
                     let amount = document.getElementById(type).value;
-                    axios.post(`http://3.6.130.3/cashier/cashierTransaction?status=${type}`, {
+                    axios.post(`<%=domain%>/cashier/cashierTransaction?status=${type}`, {
                         'user_id': username,
                         'amount': amount
                     }).then(
@@ -310,6 +310,6 @@
                         }
                     );
                 }
-                makeGetRequest('http://3.6.130.3/cashier/getUsers');
+                makeGetRequest('<%=domain%>/cashier/getUsers');
             </script>
             <%- include("footer") %>

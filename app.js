@@ -12,19 +12,19 @@ const app = express();
 
 
 //******* MIDDLEWARES ********\\
-// app.use(require('morgan')(function(tokens, req, res) {
-//     let dates = moment.tz(Date.now(), "Asia/Kolkata").toString().split(' ');
-//     return [
-//         req.headers.ip || req.ip,
-//         dates[2] + dates[1].toUpperCase() + dates[3].slice(-2),
-//         dates[4],
-//         tokens.method(req, res),
-//         tokens.url(req, res),
-//         tokens.status(req, res),
-//         tokens.res(req, res, 'content-length'), '-',
-//         tokens['response-time'](req, res), 'ms'
-//     ].join(' ')
-// }));
+app.use(require('morgan')(function(tokens, req, res) {
+    let dates = moment.tz(Date.now(), "Asia/Kolkata").toString().split(' ');
+    return [
+        req.headers.ip || req.ip,
+        dates[2] + dates[1].toUpperCase() + dates[3].slice(-2),
+        dates[4],
+        tokens.method(req, res),
+        tokens.url(req, res),
+        tokens.status(req, res),
+        tokens.res(req, res, 'content-length'), '-',
+        tokens['response-time'](req, res), 'ms'
+    ].join(' ')
+}));
 app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
 app.use(require('body-parser').json());

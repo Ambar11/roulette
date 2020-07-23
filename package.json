@@ -7,7 +7,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon server.js",
         "server": "nodemon server.js",
-        "ejsc": "ejslint userHistory.ejs"
+        "ejsc": "ejslint userHistory.ejs",
+        "run2":"node server.js"
     },
     "repository": {
         "type": "git",
@@ -37,6 +38,7 @@
         "mysql": "^2.18.1",
         "mysql2": "^2.1.0",
         "password-hash": "^1.2.2",
+        "pm2": "^4.4.0",
         "session": "^0.1.0",
         "superagent": "^5.3.1"
     },

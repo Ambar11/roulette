@@ -197,7 +197,7 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script> -->
     <script>
         function gameStart() {
-            axios.get('http://3.6.130.3/admin/startGame').then(
+            axios.get('<%=domain%>/admin/startGame').then(
                 (response) => {
                     var result = response.data;
                     location.reload();
@@ -221,7 +221,7 @@
                     padding: '2em'
                 })
             } else {
-                axios.post('http://3.6.130.3/admin/endGame', {
+                axios.post('<%=domain%>/admin/endGame', {
                     'winner_number': betnumber
                 }).then(
                     (response) => {
@@ -234,7 +234,7 @@
                         });
                         var result = response.data;
 
-                        setTimeout(location.replace(`http://3.6.130.3/admin/gameDetails/${result.id}`), 5000);
+                        setTimeout(location.replace(`<%=domain%>/admin/gameDetails/${result.id}`), 5000);
 
                         // console.log(result);
 
@@ -254,7 +254,7 @@
         }
 
         function gamePause() {
-            axios.get('http://3.6.130.3/admin/pauseGame').then(
+            axios.get('<%=domain%>/admin/pauseGame').then(
                 (response) => {
                     var result = response.data;
                     document.getElementById("statusText").innerHTML = 'Paused';
@@ -271,7 +271,7 @@
         }
 
         function gameResume() {
-            axios.get('http://3.6.130.3/admin/resumeGame').then(
+            axios.get('<%=domain%>/admin/resumeGame').then(
                 (response) => {
                     var result = response.data;
                     document.getElementById("statusText").innerHTML = 'Ongoing';
@@ -310,6 +310,6 @@
                 }
             );
         }
-        gameAction('http://3.6.130.3/admin/getGameStatus');
+        gameAction('<%=domain%>/admin/getGameStatus');
     </script>
     <%- include("footer") %>

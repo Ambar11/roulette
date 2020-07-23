@@ -578,7 +578,7 @@ totalBets++;
                     var total = numbers.length * points;
                     var count = numbers.length;
                     numbers.forEach(element => {
-                        axios.post(`http://3.6.130.3/user/makeBet`, {
+                        axios.post(`<%=domain%>/user/makeBet`, {
                             'points': points,
                             'number': element
                         }).then(

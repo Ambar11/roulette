@@ -144,7 +144,9 @@ exports.register = async(req, res, next) => {
 
             const { name, username, password, email, password2 } = req.body;
             if (!email || !name || !username || !password || password.length < 5) reject(new Custom('Opps password should have 5 characters ', ' Opps password should have 5 characters ', '401'));
-            if (password != password2) throw new Custom('The passord and retyped pssword does not match', 'The passord and retyped pssword does not match', '401');
+            if (password != password2) reject(new Custom('The passord and retyped pssword does not match', 'The passord and retyped pssword does not match', '401'));
+            if (username.length < 10 ||  username.length > 10 ) reject(new Custom('Enter a valid Phone no ', 'enter your 10 digit phone number', '401'));
+           
             sql.query(`SELECT * FROM user WHERE username = ${req.body.username} OR email= '${req.body.email}'`, (err, results) => {
 
                 // console.log(err);
@@ -193,10 +195,11 @@ exports.register = async(req, res, next) => {
     }
 
     register(req, res, next).then(message => {
-            res.redirect('/user/login?login=success');
+        res.status(200).json({name:"registered successfully",message:"Go to the Login page"});
+            
         })
         .catch(error => {
-            // console.log(error);
-            res.status(error.code).redirect(`/user/register?status=${error.message}`);
+            console.log(error.name);
+            res.status(error.code).json(error);
         })
 }

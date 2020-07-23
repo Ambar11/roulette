@@ -26,14 +26,9 @@ router.get('/login', (req, res) => {
 //some action to login user
 router.post('/register', userController.register);
 router.get('/register', (req, res) => {
-    if (req.query.status) {
-        // console.log(req.query.status);
-        res.render('register', { status: 'invalid', message: req.query.status });
+       res.render('register',{domain:process.env.DOMAIN});
 
-    } else {
-        res.render('register', { status: 'empty' });
-
-    }
+    
 });
 
 
@@ -108,13 +103,13 @@ router.get('/play', (req, res, next) => { checkAdmin(req, res, next, ['user'], '
 
             });
             // console.log(newBets);
-            res.render('play', { status: 0, data: newBets, user: userDetails[0], sum: SumBets });
+            res.render('play', { status: 0, data: newBets, user: userDetails[0], sum: SumBets,domain:process.env.DOMAIN });
 
 
         } else {
             // console.log(checkGame);
 
-            res.render('play', { status: 1, data: checkGame[0], user: userDetails[0] });
+            res.render('play', { status: 1, data: checkGame[0], user: userDetails[0] ,domain:process.env.DOMAIN});
 
         }
     } catch (error) {

@@ -60,32 +60,32 @@
                         <p class="sub-title">Enter your details below.</p>
                     </div>
                     <div class="form-area">
-                        <form action="/user/register" method="POST">
+                        <!-- <form action="/user/register" method="POST"> -->
                             <div class="form-group">
                                 <label for="login-input-name">Name*</label>
-                                <input type="text" name="name" class="input-field" id="login-input-name" placeholder="Enter your Full Name">
+                                <input type="text" name="name" class="input-field" id="name" placeholder="Enter your Full Name">
                             </div>
                             <div class="form-group">
                                 <label for="login-input-phno">Phone No.*</label>
-                                <input type="number" name="username" class="input-field" id="login-input-phno" placeholder="Enter your Phone No.">
+                                <input type="number" name="username" class="input-field" id="phone" placeholder="Enter your Phone No.">
                             </div>
                             <div class="form-group">
                                 <label for="login-input-email">Email*</label>
-                                <input type="email" name="email" class="input-field" id="login-input-email" placeholder="Enter your Email">
+                                <input type="email" name="email" class="input-field" id="email" placeholder="Enter your Email">
                             </div>
                             <div class="form-group">
                                 <label for="login-input-password">Password*</label>
-                                <input type="password" name="password" class="input-field" id="login-input-password" placeholder="Password">
+                                <input type="password" name="password" class="input-field" id="password" placeholder="Password">
                             </div>
                             <div class="form-group">
                                 <label for="login-input-password"> Retype Password*</label>
-                                <input type="password" name="password2" class="input-field" id="login-input-password" placeholder=" Retype Password">
+                                <input type="password" name="password2" class="input-field" id="password2" placeholder=" Retype Password">
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="mybtn1">Register</button>
+                                <button type="submit" onclick="formsub()" class="mybtn1">Register</button>
                             </div>
-                        </form>
+                
                     </div>
                     <div class="form-footer">
                         <p>Already A Member?
@@ -97,16 +97,105 @@
         </div>
     </div>
     <!-- login area end -->
-    <%if(status=='invalid'){%>
-        <script>
-            swal({
-                title: '<%=message%>',
-                text: "",
-                icon: "warning",
-            });
-        </script>
+    
 
-        <%}%>
+        <script src="/assets/axios.js"></script>
+
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script> -->
+        <script>
+            function formsub() {
+
+                class CustomError extends Error {
+    constructor(name, message, code, extra) {
+        super();
+        Error.captureStackTrace(this, this.constructor);
+        this.code = code,
+            this.name = `${name} `,
+            this.message = message
+        if (extra) this.additional = extra;
+    }
+}
+
+
+            let name = document.getElementById("name").value;
+            let phone = document.getElementById("phone").value;
+            let email= document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let password2 = document.getElementById("password2").value;
+
+
+
+
+            axios.post('<%=domain%>/user/register',{
+                    'name':name, 'username':phone, 'password':password, 'email':email, 'password2':password2
+                }).then(
+                    (response) => {
+                        let reStatus = response.data;
+                        // console.log(reStatus);
+                            if (parseInt(reStatus.code) < 400) {
+                                swal({
+                                    title: reStatus.name,
+                                    text: reStatus.message,
+                                    type: 'success',
+                                    padding: '2em'
+                                });
+                            } else if (parseInt(reStatus.code) >= 400) {
+                                swal({
+                                    title: reStatus.name,
+                                    text: reStatus.message,
+                                    type: 'question',
+                                    padding: '2em'
+                                })
+
+                            }
+                        // location.reload();
+                    },
+                    (error) => {
+                        swal({
+                                    title: error.name,
+                                    text: error.message,
+                                    type: 'question',
+                                    padding: '2em'
+                                })
+                        console.log(error);
+                    }
+                );
+
+
+
+
+
+
+
+
+
+
+
+                try {
+
+                 if (!name||!email||!password||!password2) throw new CustomError('Opps!','Please enter all the details',401);        
+                 if (phone.lenght < 10 || phone.lenght > 10 ) throw new CustomError('Opps!','enter a valid number',401);                
+                 if (password != password2) throw new CustomError('Opps!','Password enter is not match with retyped password',401);
+                                 
+                } catch (error) {
+                    console.log(error);
+                    swal({
+                                    title: "Opps!",
+                                    text: error.name,
+                                    type: 'question',
+                                    padding: '2em'
+                                })
+                }
+
+
+
+
+
+
+    
+            }
+        </script>
+    
             <!-- jquery -->
             <script src="/user/assets/js/jquery.js"></script>
             <!-- popper -->
