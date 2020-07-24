@@ -58,10 +58,12 @@ exports.beting = async(req, res) => {
 
         const { number, points } = req.body;
         if (!number || !points || number > 100) throw customError.dataInvalid;
-        let status = await functions.querySingle(`SELECT * from game WHERE status = 0`);
+        let status = await functions.querySingle(`SELECT * from game WHERE status = 0 OR status = 1`);
         if (points == 0) throw erro = new Custom('!Opps Please enter valid coins', 'enter valid coins ', '401');
 
         if (status.length == 0) throw erro = new Custom('!Opps No active game session', 'Theres is no active games check game timing', '401');
+        if (status[0].status == 1) throw erro = new Custom('!Opps The game is paused', 'The game is paused and beting is disabled', '401');
+        
         let checkPoints = await functions.querySingle(`SELECT * FROM points  WHERE u_id = ${req.session.u_id}`);
         if (parseInt(checkPoints[0].points) < points) throw new Custom('Opps!! There is no enough Coins  contact cashier ', 'points is less contact cashier ', '402');
         // let checkBet = await functions.querySingle(`SELECT * FROM beting WHERE u_id = ${req.session.u_id} AND number =${number}`);
@@ -150,9 +152,9 @@ exports.register = async(req, res, next) => {
             sql.query(`SELECT * FROM user WHERE username = ${req.body.username} OR email= '${req.body.email}'`, (err, results) => {
 
                 // console.log(err);
-                // console.log(results);
+                console.log(results);
                 if (results[0]) {
-                    reject(new Custom('the Phone number is already exist', 'the Phone number is already exist', '401'));
+                    reject(new Custom('the Phone number or the email  is already exist', 'the Phone number or the email  is already exist', '401'));
                 } else {
                     bcrypt.genSalt(parseInt(process.env.SALT, 10), function(err, salt) {
                         bcrypt.hash(req.body.password, salt, function(err, hashedPassword) {
@@ -195,11 +197,11 @@ exports.register = async(req, res, next) => {
     }
 
     register(req, res, next).then(message => {
-        res.status(200).json({name:"registered successfully",message:"Go to the Login page"});
+        res.status(200).json({code:200,name:"registered successfully",message:"Go to the Login page"});
             
         })
         .catch(error => {
-            console.log(error.name);
-            res.status(error.code).json(error);
+            // console.log(error.name);
+            res.status(200).json(error);
         })
 }

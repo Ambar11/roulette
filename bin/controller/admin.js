@@ -71,7 +71,7 @@ exports.endGame = async(req, res) => {
     try {
         const { winner_number } = req.body;
         // console.log(winner_number);
-        if (!winner_number || winner_number > 100) throw customError.dataInvalid;
+        if (!winner_number || winner_number > 100 || winner_number <= 0) throw customError.dataInvalid;
         let checkGame = await functions.querySingle(`SELECT * from game WHERE status = 0 OR status = 1`);
         if (!checkGame[0]) throw mess = new Custom('Opps !!', 'There is no active beting session', 401);
         let gameData = await functions.querySingle(`UPDATE game SET status = 2 WHERE id = ${checkGame[0].id}`);

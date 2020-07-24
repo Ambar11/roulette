@@ -127,7 +127,7 @@ router.get('/gameDetails/:id', (req, res, next) => { checkAdmin(req, res, next, 
 
         var dateObj = helpers.getTime(totalArray[0].date);
         // console.log(totalArray[0]);
-        // console.log(structuredBets);
+        console.log(checkwinner);
 
         res.render('currentgameDetails', { checkwinner: checkwinner, status: status, data: totalArray[0], Gdate: dateObj, numbers: structuredBets });
 

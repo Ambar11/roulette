@@ -8,7 +8,7 @@
         "start": "nodemon server.js",
         "server": "nodemon server.js",
         "ejsc": "ejslint userHistory.ejs",
-        "run2":"node server.js"
+        "run2": "node server.js"
     },
     "repository": {
         "type": "git",

@@ -212,7 +212,7 @@
         function gameEnd() {
             let betnumber = document.getElementById("betNumber").value;
 
-            if (!betnumber || betnumber > 100 || betnumber < 0) {
+            if (!betnumber || betnumber > 100 || betnumber <= 0) {
 
                 swal({
                     title: 'The Internet?',
@@ -236,7 +236,7 @@
 
                         setTimeout(location.replace(`<%=domain%>/admin/gameDetails/${result.id}`), 5000);
 
-                        // console.log(result);
+                        console.log(result);
 
 
                     },
@@ -261,7 +261,7 @@
 
                     document.getElementById("gameaction").innerHTML = '<button class="btn btn-success mb-2 mt-5" onclick="gameResume()">Resume Game</button>';
 
-                    // console.log(result.details[0].name);
+                    // console.log(result);
                 },
                 (error) => {
                     console.log(error);
@@ -278,7 +278,7 @@
 
                     document.getElementById("gameaction").innerHTML = '<button class="btn btn-warning mb-2 mt-5" onclick="gamePause()">Pause Game</button>';
 
-                    // console.log(result.details[0].name);
+                    // console.log(result);
                 },
                 (error) => {
                     console.log(error);

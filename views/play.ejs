@@ -621,9 +621,10 @@ totalBets++;
 
                             },
                             (error) => {
+                                console.log(error);
+
                                 checkError.push(error.data.code);
 
-                                console.log(error);
                             }
                         );
                         count--;
