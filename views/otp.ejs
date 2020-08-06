@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>NGO</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- toaster -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css" , media="all">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+
+    <link rel="stylesheet" href="/user2/styles.css">
+</head>
+
+<body>
+
+    <script language="javascript">
+        toastr.warning("");
+    </script>
+
+
+    <div class="layer">
+        <div class="menu">
+            <img src="/user2/assetss/menu.svg" alt="menu/logo">
+        </div>
+        <form action="/user/check-otp" method="POST">
+
+            <div class="form">
+                <h1>OTP</h1>
+                <div class="input-box">
+                    <input type="password" name="otp" id="otp" pattern="[0-9]{6}" placeholder="OTP">
+
+                    <button type="submit" style="outline: none !important; border: none; background: transparent;">
+            <img src="/user2/assetss/confirm.svg">
+          </button>
+                    <br>
+                    <br>
+
+                    <span>
+            Didn't recieve OTP?
+            <a href="/user/render/forgot" style="color: #FFF;">Resend
+            </a>
+          </span>
+
+                </div>
+
+                <!-- <span>
+          <a href = "/user/forgot">
+            Resend OTP?
+          </a>
+        </span> -->
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

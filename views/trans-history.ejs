@@ -1,0 +1,94 @@
+<%- include("header1") %>
+
+    <div id="table">
+        <header>
+            <img src="/user2/assets/history.svg" id="myhistory">
+        </header>
+
+        <br><br><br><br>
+
+        <main class="table-grid">
+
+            <table class="rosyBrownTable" id="example">
+
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Source</th>
+                        <th>Which</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>No.</th>
+                        <th>Source</th>
+                        <th>Which</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </tfoot>
+    </div>
+    <tbody>
+        <tr style="background: transparent !important;">
+            <td>
+            </td>
+
+            <td id="source/">
+            </td>
+            <script>
+                if () {
+                    source = "GAME";
+                } else {
+                    source = "CASHIER";
+                }
+                document.getElementById("source/").innerHTML = source;
+            </script>
+
+            <td id="">
+            </td>
+            <script>
+                if () {
+                    source = "".slice(-6);
+                } else {
+                    source = "";
+                }
+                document.getElementById("").innerHTML = source;
+            </script>
+
+            <td id="amount/">
+            </td>
+            <script>
+                if () {
+                    amount = "+ " + "";
+                } else {
+                    amount = "- " + "";
+                }
+                document.getElementById("").innerHTML = amount;
+            </script>
+
+            <td>
+            </td>
+
+            <td>
+            </td>
+
+        </tr>
+    </tbody>
+    </table>
+    </main>
+    </div>
+    </div>
+
+    <script src="/app.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "pagingType": "full_numbers"
+            });
+        });
+    </script>
+    <%- include("footer1") %>

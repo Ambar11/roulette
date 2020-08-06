@@ -1,0 +1,12 @@
+.dataTables_filter label, .dataTables_length label, .dataTables_info , .dataTables_paginate, .paging_full_numbers, .paginate_button, #example_info {
+    color: white;
+}
+
+tr, td, th {
+    background: transparent !important;
+}
+
+.dataTables_wrapper {
+    margin: 4%;
+
+}

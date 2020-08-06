@@ -1,0 +1,65 @@
+<%- include("header1") %>
+
+    <div id="table">
+        <header>
+            <img src="/user2/assets/Gametime2.svg" id="myhistory">
+        </header>
+
+        <br><br><br><br>
+
+        <main class="table-grid">
+
+            <table class="rosyBrownTable" id="example">
+                <thead>
+                    <tr>
+                        <th>Game No</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Amount Spent</th>
+                        <th>Amount Earned</th>
+                    </tr>
+                </thead>
+
+                <tfoot>
+                    <tr>
+                        <th>Game No</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Amount Spent</th>
+                        <th>Amount Earned</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr style="background: transparent !important;">
+                        <td id="" style="background: transparent !important;">
+                        </td>
+                        <script>
+                            var gameno = "Game" + "".slice(-6);
+                            document.getElementById("").innerHTML = gameno;
+                        </script>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </main>
+    </div>
+    </div>
+
+    <script src="/user2/app.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "pagingType": "full_numbers"
+            });
+        });
+    </script>
+    <%- include("footer1") %>

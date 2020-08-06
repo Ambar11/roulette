@@ -1,172 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="forntEnd-Developer" content="Mamunur Rashid">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-    <title>BIGBASH</title>
-    <!-- favicon -->
-    <link rel="shortcut icon" href="/user/assets/images/favicon.html" type="image/x-icon">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="/user/assets/css/bootstrap.min.css">
-    <!-- Plugin css -->
-    <link rel="stylesheet" href="/user/assets/css/plugin.css">
-
-    <!-- stylesheet -->
-    <link rel="stylesheet" href="/user/assets/css/style.css">
-    <!-- responsive -->
-    <link rel="stylesheet" href="/user/assets/css/responsive.css">
-    <style>
-        .back {
-            background: url(/user/assets/images/play/playgame-bg.jpg);
-            background-size: cover;
-            background-position: center;
-            background-repeat: repeat;
-        }
-        /* Chrome, Safari, Edge, Opera */
-        
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        /* Firefox */
-        
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-    </style>
+    <title>NGO</title>
+    <link rel="stylesheet" href="/user2/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 
-<body class="back">
+<body>
+    <div class="layer">
 
-    <div class="back">
-    </div>
-
-    <!-- login area start -->
-    <div class="modal fade login-modal show" id="login" tabindex="-1" role="dialog" aria-labelledby="login" style="overflow: scroll; display: block; padding-right: 2%; padding-left: 2%;" aria-modal="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="logo-area">
-                    </div>
-                    <div class="header-area">
-                        <p class="sub-title">Enter your details below.</p>
-                    </div>
-                    <div class="form-area">
-                        <!-- <form action="/user/register" method="POST"> -->
-                            <div class="form-group">
-                                <label for="login-input-name">Name*</label>
-                                <input type="text" name="name" class="input-field" id="name" placeholder="Enter your Full Name">
-                            </div>
-                            <div class="form-group">
-                                <label for="login-input-phno">Phone No.*</label>
-                                <input type="number" name="username" class="input-field" id="phone" placeholder="Enter your Phone No.">
-                            </div>
-                            <div class="form-group">
-                                <label for="login-input-email">Email*</label>
-                                <input type="email" name="email" class="input-field" id="email" placeholder="Enter your Email">
-                            </div>
-                            <div class="form-group">
-                                <label for="login-input-password">Password*</label>
-                                <input type="password" name="password" class="input-field" id="password" placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <label for="login-input-password"> Retype Password*</label>
-                                <input type="password" name="password2" class="input-field" id="password2" placeholder=" Retype Password">
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" onclick="formsub()" class="mybtn1">Register</button>
-                            </div>
-                
-                    </div>
-                    <div class="form-footer">
-                        <p>Already A Member?
-                            <a href="/user/login">LOG IN<i class="fas fa-angle-double-right"></i></a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div class="menu">
+            <img src="/user2/assets/menu.svg" alt="menu/logo">
         </div>
+        <form action="/user/register" method="POST">
+            <div class="form">
+                <h1>Register</h1>
+                <!-- <div class="input-box">
+          <input placeholder="Name" type="text" name="name" id="name">
+        </div> -->
+                <div class="input-box">
+                    <input placeholder="Mobile" type="text" name="username" id="mobile" pattern="[0-9]{10}" required>
+                </div>
+                <div class="input-box">
+                    <input placeholder="Password" type="password" name="password" id="password" required>
+                </div>
+                <a>
+                    <button class="submit-button" type="submit">
+          <img class="signup" src="/user2/assets/signup.svg" alt="signup">
+        </button>
+                </a>
+                <br>
+                <span>Already Registered?</span>
+                <br>
+                <a href="/user/login" style="color: #FFF;">Login
+        </a>
+            </div>
+        </form>
     </div>
-    <!-- login area end -->
-    
-
-        <script src="/assets/axios.js"></script>
-
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script> -->
-        <script>
-            function formsub() {
-
-
-            let name = document.getElementById("name").value;
-            let phone = document.getElementById("phone").value;
-            let email= document.getElementById("email").value;
-            let password = document.getElementById("password").value;
-            let password2 = document.getElementById("password2").value;
-
-
-            axios.post('<%=domain%>/user/register',{
-                    'name':name, 'username':phone, 'password':password, 'email':email, 'password2':password2
-                }).then(
-                    (response) => {
-                        let reStatus = response.data;
-                        // console.log(reStatus);
-                            if (parseInt(reStatus.code) < 400) {
-                                swal({
-                                    title: reStatus.name,
-                                    text: reStatus.message,
-                                    type: 'success',
-                                    padding: '2em'
-                                });
-                                setTimeout(location.replace(`<%=domain%>/user/login`), 7000);
-                            } else if (parseInt(reStatus.code) >= 400) {
-                                swal({
-                                    title: reStatus.name,
-                                    text: reStatus.message,
-                                    type: 'question',
-                                    padding: '2em'
-                                })
-
-                            }
-                        // location.reload();
-                    },
-                    (error) => {
-                        swal({
-                                    title: error.name,
-                                    text: error.message,
-                                    type: 'question',
-                                    padding: '2em'
-                                })
-                        console.log(error);
-                    }
-                );
-    
-            }
-        </script>
-    
-            <!-- jquery -->
-            <script src="/user/assets/js/jquery.js"></script>
-            <!-- popper -->
-            <script src="/user/assets/js/popper.min.js"></script>
-            <!-- bootstrap -->
-            <script src="/user/assets/js/bootstrap.min.js"></script>
-            <!-- plugin js-->
-            <script src="/user/assets/js/plugin.js"></script>
-
-            <!-- MpusemoverParallax JS-->
-            <script src="/user/assets/js/TweenMax.js"></script>
-            <script src="/user/assets/js/mousemoveparallax.js"></script>
-            <!-- main -->
-            <script src="/user/assets/js/main.js"></script>
 </body>
-
 
 </html>

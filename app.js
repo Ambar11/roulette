@@ -4,6 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const mysqlConnection = require('./connection');
+const userController = require('./bin/controller/user');
+
 const CustomError = require('./bin/custom/error');
 const moment = require('moment-timezone');
 const middleware = require('./bin/middleware/auth');
@@ -54,14 +56,34 @@ const { checkAdmin } = require('./bin/middleware/auth');
 
 
 //******* USING THE IMPORTED ROUTES *******\\
-app.use('/user', userRoutes);
-app.use('/cashier', cashierRoutes);
+app.use('/user', (req, res, next) => { checkAdmin(req, res, next, ['user'], 'login') }, userRoutes);
+app.use('/cashier', (req, res, next) => { checkAdmin(req, res, next, ['cashier'], 'login') }, cashierRoutes);
 app.use('/admin', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, adminRoutes);
 
 
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/user/login');
+});
+app.post('/login', userController.login);
+app.get('/login', (req, res) => {
+    if (req.query.status) {
+        res.render('login', { status: req.query.status });
 
+    } else {
+        res.render('login', { status: 'empty' });
+
+    }
+});
+//some action to login user
+app.post('/register', userController.register);
+app.get('/register', (req, res) => {
+    res.render('register', { domain: process.env.DOMAIN });
+
+
+});
 app.use('/', (req, res) => {
-    res.render('playerHome');
+    res.render('landing');
 });
 
 

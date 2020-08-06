@@ -1,0 +1,264 @@
+:root {
+    --main-font-fam: url(assets/Gilroy-Black.ttf) format('truetype');
+  }
+
+  @font-face {
+    font-family: Gilroy;
+    src: url(assets/Gilroy-Black.ttf);
+  }
+  
+  *{
+    font-family: Gilroy !important;
+  }
+
+body {
+    font-family: var(--main-font-fam);
+    background: url(/assets/currency.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: snow; 
+  }
+
+  .layer {
+    position: fixed;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .admin-top{
+    text-align: center !important;
+    display: block;
+    margin-bottom: 3%;
+  }
+  
+  .admin-head{
+    text-align: center !important;
+    display: block;
+    font-size: x-large;
+    color: rgb(218,165,32);
+    margin: 1%;
+  }
+  
+
+  .table-cell{
+      margin-left: 70%;
+  }
+
+  button	{
+	border: 2px solid rgb(218,165,32);
+	background-color: transparent;
+	color: white;
+	border-radius: 12px;
+	padding-right: 20px;
+	padding-left: 20px;
+	padding-top: 5px;
+    padding-bottom: 5px;
+}
+input{
+    text-align: center;
+    border-radius: 12px;
+    border: 2px solid rgb(218,165,32);
+}
+form, form > *{
+    text-align: center;
+    margin-top: 2%;
+}
+td{
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+h3{
+    color: rgb(218,165,32);
+    border: 2px solid rgb(218,165,32);
+    border-radius: 12px;
+    margin: 3%;
+    padding: 25px;
+    text-align: center;
+    display: inline-block;
+}
+
+hr	{
+	width: 50%;
+	border-color: rgb(218,165,32)
+}
+
+.signout #logout{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 5%;
+}
+
+.panel {
+    display: block;
+    text-align: center;
+    margin: 3%;
+}
+
+.stopbets, .spin {
+    display: inline-block;
+    padding: 5%;
+    margin-top: 0.5%;
+    margin-bottom: 5%;
+    font-size: larger;
+}
+
+.stopbets button, .signout button{
+    font-size: larger;
+    background-color: rgba(255, 0, 0, 0.4);
+}
+
+.spin button {
+    font-size: larger;
+    background-color: rgba(0, 255, 0, 0.4);;
+}
+
+.spin input {
+    font-size: larger;
+
+}
+
+.parent-contain{
+  text-align: center;
+  margin: 2%;
+}
+
+.contain {
+    display: inline-block;
+    margin-bottom: 7%;
+    padding: 8%;
+    
+  }
+
+  .chevron {
+    display: block;
+    width: 28px;
+    height: 8px;
+    opacity: 0;
+    transform: scale3d(0.5, 0.5, 0.5);
+    animation: move 3s ease-out infinite;
+  }
+  
+  .chevron:first-child {
+    animation: move 3s ease-out 1s infinite;
+  }
+  
+  .chevron:nth-child(2) {
+    animation: move 3s ease-out 2s infinite;
+  }
+  
+  .chevron:before,
+  .chevron:after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    background: rgb(218,165,32);
+  }
+  
+  .chevron:before {
+    left: 0;
+    transform: skew(0deg, 30deg);
+  }
+  
+  .chevron:after {
+    right: 0;
+    width: 50%;
+    transform: skew(0deg, -30deg);
+  }
+  
+  @keyframes move {
+    25% {
+      opacity: 1;
+    }
+    33% {
+      opacity: 1;
+      transform: translateY(30px);
+    }
+    67% {
+      opacity: 0.7;
+      transform: translateY(45px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(60px) scale3d(0.5, 0.5, 0.5);
+    }
+  }
+  
+  
+td button{
+    border: none;
+    color: inherit;
+    text-decoration: none;
+    background: inherit;
+    
+}
+td button:hover{
+    cursor: pointer;
+}
+td a{
+    text-decoration: none;
+    color:inherit;
+}
+
+table {
+    border: solid white;
+    padding: 10px;
+}
+
+.user-details{
+  text-align: center;
+  margin: 2%;
+}
+
+.user-details > div{
+  display: block;
+  margin-bottom: 2%;
+  padding: 2%;
+}
+
+.user-details span{
+  text-align: justify;
+  display: inline-block;
+  font-size: larger;
+  margin-left: 2%; 
+}
+
+.user-details #title{
+  color: rgb(218,165,32);
+  text-align: left !important;
+}
+
+.cashier-details{
+  text-align: center;
+  margin: 2%;
+}
+
+/* .cashier-details #border {
+  
+  border: 2px solid rgb(218,165,32);
+  border-radius: 12px;
+  width: auto;
+} */
+
+.cashier-details span{
+  text-align: justify;
+  display: inline-block;
+  font-size: larger;
+  margin-left: 2%;
+}
+.cashier-details #title{
+  color: rgb(218,165,32);
+  text-align: left !important;
+}
+.cashier-details > div{
+  display: block;
+  margin-bottom: 1%;
+  padding: 2%;
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO</title>
+    <link rel="stylesheet" href="/user2/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+    <div class="layer">
+
+        <div class="menu">
+            <img onclick="openNavbar()" src="/user2/assets/menu.svg" alt="menu/logo" class='hamburger' id="hamburger">
+            <div class="credits">
+                <span class="amt"></span>
+                <img src="/user2/assets/money.svg" alt="credits">
+            </div>
+        </div>
+        <div id="navbar" class="overlay">
+            <a href="javascript:void(0);" onclick="closeNavbar()" class="close">&#9932;</a>
+            <div class="overlay-content">
+                <a onclick="closeNavbar()">HOME</a>
+                <!-- <a href="javascript:void(o);">ADD COINS</a> -->
+                <a href="/user/render/schedule">GAME TIMINGS</a>
+                <a href="/">MY HISTORY</a>
+                <a href="/">GAME HISTORY</a>
+                <a href="/logout" id="logout">
+                    <img src="/user2/assets/logout.svg">
+                </a>
+                <p></p>
+                <!-- beatutify this -->
+            </div>
+        </div>
+        <div class="main" id="main">
+            <div class="plate" id="plate">
+                <ul class="inner">
+                    <li class="number"><label><input type="radio" name="pit" value="22" /><span class="pit">9</span></label></li>
+                    <li class="number"><label><input type="radio" name="pit" value="18" /><span class="pit">8</span></label></li>
+                    <li class="number"><label><input type="radio" name="pit" value="29" /><span class="pit">7</span></label></li>
+                    <li class="number"><label><input type="radio" name="pit" value="7" /><span class="pit">6</span></label></li>
+                    <li class="number"><label><input type="radio" name="pit" value="28" /><span class="pit">5</span></label></li>
+                    <li class="number"><label><input type="radio" name="pit" value="12" /><span class="pit">4</span></label></li>
+                    <li class="number"><label><input type="radio" name="pit" value="35" /><span class="pit">3</span></label></li>
+                    <li class="number"><label><input type="radio" name="pit" value="3" /><span class="pit">2</span></label></li>
+                    <li class="number"><label><input type="radio" name="pit" value="26" /><span class="pit">1</span></label></li>
+                    <li class="number"><label><input type="radio" name="pit" value="0" /><span class="pit">0</span></label></li>
+                </ul>
+                <div class="data">
+                    <div class="data-inner">
+                        <div class="mask">
+                            <span>Place Your Bets</span>
+                        </div>
+                        <div class="result">
+                            <div class="result-number">00</div>
+                            <div class="result-color">red</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="previous-results">
+                <ol class="previous-list">
+                    <li class='visuallyhidden placeholder'>No results yet.</li>
+                </ol>
+            </div>
+        </div>
+        <br>
+        <form action="/game/place" method="POST">
+            <div class="form" id="Bet">
+                <div class="input-box">
+                    <input type="number" name="number" id="lucky-number" placeholder="Lucky Number?" min=1 max=100>
+                </div>
+                <input type="text" value="" style="display: none;" name="username">
+                <div class="input-box">
+                    <input type="number" name="amount" id="coins" placeholder="Enter coins">
+                    <br>
+                </div>
+
+                <button class="submit-button" type="submit">
+            <img class="confirm" src="/user2/assets/confirm.svg" alt="confirm">
+          </button>
+        </form>
+        <footer>
+            <h2>MY BETS:</h2>
+            <ul>
+                <li> Show last 3 bets here </li>
+            </ul>
+        </footer>
+        </div>
+
+
+    </div>
+    <script src="/user2/app.js"></script>
+</body>
+
+</html>
