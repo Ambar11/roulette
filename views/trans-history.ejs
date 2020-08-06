@@ -1,0 +1,86 @@
+<%- include("header1") %>
+    <header>
+        <img src="/user2/assets/history.svg" id="myhistory">
+    </header>
+
+    <br><br><br><br>
+    <div id="table">
+
+
+        <main class="table-grid">
+
+            <table class="rosyBrownTable" id="example" style="overflow: scroll;">
+
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Source</th>
+                        <th>Which</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>No.</th>
+                        <th>Source</th>
+                        <th>Which</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+
+                    </tr>
+                </tfoot>
+    </div>
+    <tbody>
+        <% let c = 1;
+            data.map((trans)=>{ %>
+
+            <tr style="background: transparent !important;">
+                <td>
+                    <%= c%>
+                </td>
+
+                <td id="source/">
+                    <%if (trans.source==='WINNER' || trans.source==='BETING') {
+    source = 'GAME';
+}else{
+    source = trans.source;
+
+}%>
+                        <%= source%>
+                </td>
+
+                <td id="">
+                    <%= trans.which%>
+                </td>
+
+                <td id="amount/">
+                    <%= trans.points%>
+
+                </td>
+
+                <td>
+                    <%= trans.date%>
+
+                </td>
+
+
+            </tr>
+            <% })%>
+
+    </tbody>
+    </table>
+    </main>
+    </div>
+    </div>
+
+    <script src="/app.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                "pagingType": "full_numbers"
+            });
+        });
+    </script>
+    <%- include("footer1") %>

@@ -4,6 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const mysqlConnection = require('./connection');
+const userController = require('./bin/controller/user');
+
 const CustomError = require('./bin/custom/error');
 const moment = require('moment-timezone');
 const middleware = require('./bin/middleware/auth');
@@ -12,19 +14,19 @@ const app = express();
 
 
 //******* MIDDLEWARES ********\\
-app.use(require('morgan')(function(tokens, req, res) {
-    let dates = moment.tz(Date.now(), "Asia/Kolkata").toString().split(' ');
-    return [
-        req.headers.ip || req.ip,
-        dates[2] + dates[1].toUpperCase() + dates[3].slice(-2),
-        dates[4],
-        tokens.method(req, res),
-        tokens.url(req, res),
-        tokens.status(req, res),
-        tokens.res(req, res, 'content-length'), '-',
-        tokens['response-time'](req, res), 'ms'
-    ].join(' ')
-}));
+// app.use(require('morgan')(function(tokens, req, res) {
+//     let dates = moment.tz(Date.now(), "Asia/Kolkata").toString().split(' ');
+//     return [
+//         req.headers.ip || req.ip,
+//         dates[2] + dates[1].toUpperCase() + dates[3].slice(-2),
+//         dates[4],
+//         tokens.method(req, res),
+//         tokens.url(req, res),
+//         tokens.status(req, res),
+//         tokens.res(req, res, 'content-length'), '-',
+//         tokens['response-time'](req, res), 'ms'
+//     ].join(' ')
+// }));
 app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
 app.use(require('body-parser').json());
@@ -54,14 +56,34 @@ const { checkAdmin } = require('./bin/middleware/auth');
 
 
 //******* USING THE IMPORTED ROUTES *******\\
-app.use('/user', userRoutes);
-app.use('/cashier', cashierRoutes);
+app.use('/user', (req, res, next) => { checkAdmin(req, res, next, ['user'], 'login') }, userRoutes);
+app.use('/cashier', (req, res, next) => { checkAdmin(req, res, next, ['cashier'], 'login') }, cashierRoutes);
 app.use('/admin', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, adminRoutes);
 
 
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/user/login');
+});
+app.post('/login', userController.login);
+app.get('/login', (req, res) => {
+    if (req.query.status) {
+        res.render('login', { status: req.query.status });
 
+    } else {
+        res.render('login', { status: 'empty' });
+
+    }
+});
+//some action to login user
+app.post('/register', userController.register);
+app.get('/register', (req, res) => {
+    res.render('register', { domain: process.env.DOMAIN });
+
+
+});
 app.use('/', (req, res) => {
-    res.render('playerHome');
+    res.render('login');
 });
 
 

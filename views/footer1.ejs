@@ -1,60 +1,207 @@
-<!-- Footer Area Start -->
-<footer class="footer" id="footer">
-
-
-    <div class="copy-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5">
-                    <div class="left-area">
-                        <p>Copyright © 2020.All Rights Reserved By <a href="#">BIGBASH</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <ul class="copright-area-links">
-                        <li>
-                            <a href="#">Terms Of Use</a>
-                        </li>
-                        <li>
-                            <a href="#">Privacy Policy</a>
-                        </li>
-                        <li>
-                            <a href="#">Gamble</a>
-                        </li>
-                        <li>
-                            <a href="#">Aware</a>
-                        </li>
-                        <li>
-                            <a href="#">Help Cente</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- Footer Area End -->
-
-
-
-
-<!-- jquery -->
-<script src="/user/assets/js/jquery.js"></script>
-<!-- popper -->
-<script src="/user/assets/js/popper.min.js"></script>
-<!-- bootstrap -->
-<script src="/user/assets/js/bootstrap.min.js"></script>
-<!-- plugin js-->
-<script src="/user/assets/js/plugin.js"></script>
-
-<!-- MpusemoverParallax JS-->
-<script src="/user/assets/js/TweenMax.js"></script>
-<script src="/user/assets/js/mousemoveparallax.js"></script>
-<!-- main -->
-<script src="/user/assets/js/main.js"></script>
 </body>
+<script>
+    var pusher = new Pusher('818e98432ee320f9ca00', {
+        cluster: 'ap2'
+    });
+
+    // retrieve the socket ID once we're connected
+    pusher.connection.bind('connected', function() {
+        // attach the socket ID to all outgoing Axios requests
+        axios.defaults.headers.common['X-Socket-Id'] = pusher.connection.socket_id;
+    });
+
+    // request permission to display notifications, if we don't alreay have it
+    Notification.requestPermission();
+    pusher.subscribe('notifications')
+        .bind('number_drawn', function(lucky) {
 
 
+            // get a random number between 0 and 36 and apply it to the nth-child selector
+            // var randomNumber = Math.floor(Math.random() * 9),
+            var randomNumber = Math.floor(lucky / 10),
+                randomNumber2 = Math.floor(lucky % 10),
+                color = null;
+            if (randomNumber == 10) {
+                randomNumber = 0;
+            }
+            $inner.attr('data-spinto', randomNumber).find('li:nth-child(' + randomNumber + ') input').prop('checked', 'checked');
+            // prevent repeated clicks on the spin button by hiding it
+            $(this).hide();
+            // disable the reset button until the ball has stopped spinning
+            $reset.addClass('disabled').prop('disabled', 'disabled').show();
+
+            color = null;
+            $inner.attr('data-spinto', randomNumber).find('li:nth-child(' + randomNumber + ') input').prop('checked', 'checked');
+            // prevent repeated clicks on the spin button by hiding it
+            $(this).hide();
+            // disable the reset button until the ball has stopped spinning
+            $reset.addClass('disabled').prop('disabled', 'disabled').show();
+
+            $('.placeholder').remove();
+
+
+            setTimeout(function() {
+                $mask.text('No More Bets');
+            }, timer / 2);
+
+            setTimeout(function() {
+                $mask.text(maskDefault);
+            }, timer + 500);
+
+
+
+            // remove the disabled attribute when the ball has stopped
+            setTimeout(function() {
+                $reset.removeClass('disabled').prop('disabled', '');
+
+                if ($.inArray(randomNumber, red) !== -1) {
+                    color = 'red'
+                } else {
+                    color = 'black'
+                }
+                if (randomNumber == 0) {
+                    color = 'green'
+                }
+
+                if ($.inArray(randomNumber2, red) !== -1) {
+                    color2 = 'red'
+                } else {
+                    color2 = 'black'
+                }
+                if (randomNumber == 0) {
+                    color2 = 'green'
+                }
+
+                $('#result1').text(randomNumber);
+                $('#result2').text(randomNumber2);
+
+                $('#result-color').text(color);
+                $('#result-color2').text(color2);
+
+                $('.result').css({
+                    'background-color': '' + color + ''
+                });
+                $data.addClass('reveal');
+                $inner.addClass('rest');
+
+                $('.result').css({
+                    'background-color': '' + color + ''
+                });
+                $('#result-2').css({
+                    'background-color': '' + color2 + ''
+                });
+                $data.addClass('reveal');
+                $inner.addClass('rest');
+
+                $('.previous-list').prepend($thisResult);
+
+
+            }, timer);
+
+            var notification = new Notification("The wheel is spinning....Check if you got lucky!");
+            toastr.success(notification.title);
+            document.getElementById("placeBet").disabled = false;
+        });
+
+    pusher.subscribe('notifications')
+        .bind('bets_stopped', function(arg) {
+            var notification = new Notification("Can not place bets on this game anymore");
+            toastr.success(notification.title);
+            console.log("jerere")
+            document.getElementById("placeBet").disabled = true;
+        });
+
+
+    // $(document).ready(function() {
+    //     $('#example').DataTable({
+    //         "pagingType": "full_numbers"
+    //     });
+    // });
+
+    var $inner = $('.inner'),
+        $spin = $('#spin'),
+        $reset = $('#reset'),
+        $data = $('.data'),
+        $mask = $('.mask'),
+        $place = $('#placebets'),
+        maskDefault = 'Place Your Bets',
+        timer = 5300;
+
+    var red = [1, 5, 7, 9, 3];
+
+    $reset.hide();
+
+    $mask.text(maskDefault);
+
+    $spin.on('click', function() {
+
+        //   heree
+
+    });
+
+    $place.on('click', function() {
+        // call backend place bets function usnig ajax?
+    });
+
+    $reset.on('click', function() {
+        // remove the spinto data attr so the ball 'resets'
+        $inner.attr('data-spinto', '').removeClass('rest');
+        $(this).hide();
+        $spin.show();
+        $data.removeClass('reveal');
+    });
+
+    // so you can swipe it too
+    var myElement = document.getElementById('plate');
+    var mc = new Hammer(myElement);
+    mc.on("swipe", function(ev) {
+        if (!$reset.hasClass('disabled')) {
+            if ($spin.is(':visible')) {
+                $spin.click();
+            } else {
+                $reset.click();
+            }
+        }
+    });
+</script>
+<script>
+    var x = window.matchMedia("(max-width: 750px)");
+    x.addListener(openNavbar);
+
+    function openNavbar() {
+        if (x.matches) {
+            document.getElementById('navbar').style.width = '60%';
+        } else {
+            document.getElementById('navbar').style.width = '25%';
+        }
+        document.getElementById('hamburger').style.display = 'none';
+        if (document.getElementsByClassName('main')[0]) {
+            document.getElementsByClassName('main')[0].style.marginTop = '55px';
+        }
+        if (document.getElementById('gametime')) {
+            document.getElementById('gametime').style.marginTop = '35px';
+        }
+        if (document.getElementById('table')) {
+            document.getElementById('table').style.marginTop = '35px';
+        }
+
+    }
+
+    function closeNavbar() {
+        document.querySelector("#navbar").style.width = "0";
+        document.getElementById("hamburger").style.display = 'flex';
+
+        if (document.getElementById('main')) {
+            document.getElementById('main').style.marginTop = 'auto';
+        }
+        if (document.getElementById('gametime')) {
+            document.getElementById('gametime').style.marginTop = 'auto';
+        }
+        if (document.getElementById('table')) {
+            document.getElementById('table').style.marginTop = 'auto';
+        }
+
+    }
+</script>
 
 </html>

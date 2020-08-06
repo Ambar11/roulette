@@ -1,0 +1,90 @@
+<%- include("header1") %>
+    <center>
+        <div class="" style="text-align: centre">
+            <div class="wheellayout">
+                <div class="cell">
+                    <div class="plate" id="plate">
+                        <ul class="inner">
+                            <li class="number"><label><input type="radio" name="pit" value="22" /><span class="pit">9</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="18" /><span class="pit">8</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="29" /><span class="pit">7</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="7" /><span class="pit">6</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="28" /><span class="pit">5</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="12" /><span class="pit">4</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="35" /><span class="pit">3</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="3" /><span class="pit">2</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="26" /><span class="pit">1</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="0" /><span class="pit" >0</span></label></li>
+                        </ul>
+                        <div class="data">
+                            <div class="data-inner">
+                                <div class="mask"></div>
+                                <div class="result">
+                                    <div id="result1" class="result-number">00</div>
+                                    <div id="result-color">red</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br>
+                <div class="cell">
+                    <div class="plate" id="plate2">
+                        <ul class="inner">
+                            <li class="number"><label><input type="radio" name="pit" value="22" /><span class="pit">9</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="18" /><span class="pit">8</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="29" /><span class="pit">7</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="7" /><span class="pit">6</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="28" /><span class="pit">5</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="12" /><span class="pit">4</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="35" /><span class="pit">3</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="3" /><span class="pit">2</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="26" /><span class="pit">1</span></label></li>
+                            <li class="number"><label><input type="radio" name="pit" value="0" /><span class="pit" >0</span></label></li>
+                        </ul>
+                        <div class="data">
+                            <div class="data-inner">
+                                <div class="mask"></div>
+                                <div id="result-2" class="result">
+                                    <div id="result2" class="result-number">00</div>
+                                    <div id="result-color2">red</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+
+    <script src="/wheel.js"></script>
+
+    <div>
+        <form method="POST" action="/game/place">
+            <div class="form" id="Bet">
+                <div class="input-box">
+                    <input type="number" name="number" id="lucky-number" placeholder="Lucky Number?" min=1 max=100 required>
+                </div>
+                <input type="text" value="" style="display: none;" name="username">
+                <div class="input-box">
+                    <input type="number" name="amount" id="coins" placeholder="Enter coins" required>
+                </div>
+                <div class="submit">
+                    <button type="submit" id="placeBet">Place Bet</button>
+                </div>
+
+        </form>
+        <div id="my-bets-title">
+            <div>
+                <h3>MY BETS</h3>
+            </div>
+        </div>
+        <div class="horizontal-scroll-wrapper  rectangles">
+
+            <div> <img id="coins-img" src=" /user2/assets/money.svg" alt="credits"> </div>
+        </div>
+        <div>
+        </div>
+
+        </div>
+        <%- include("footer1") %>

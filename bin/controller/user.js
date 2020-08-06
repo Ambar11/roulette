@@ -63,7 +63,7 @@ exports.beting = async(req, res) => {
 
         if (status.length == 0) throw erro = new Custom('!Opps No active game session', 'Theres is no active games check game timing', '401');
         if (status[0].status == 1) throw erro = new Custom('!Opps The game is paused', 'The game is paused and beting is disabled', '401');
-        
+
         let checkPoints = await functions.querySingle(`SELECT * FROM points  WHERE u_id = ${req.session.u_id}`);
         if (parseInt(checkPoints[0].points) < points) throw new Custom('Opps!! There is no enough Coins  contact cashier ', 'points is less contact cashier ', '402');
         // let checkBet = await functions.querySingle(`SELECT * FROM beting WHERE u_id = ${req.session.u_id} AND number =${number}`);
@@ -126,7 +126,7 @@ exports.login = async(req, res) => {
         console.log(req.session.role);
         if (req.session.role == 'admin') res.status(201).redirect('/admin/adminPanel');
         if (req.session.role == 'cashier') res.status(201).redirect('/cashier/cashierPanel');
-        if (req.session.role == 'user') res.status(201).redirect('/');
+        if (req.session.role == 'user') res.status(201).redirect('/user/play');
 
 
     } catch (error) {
@@ -147,8 +147,8 @@ exports.register = async(req, res, next) => {
             const { name, username, password, email, password2 } = req.body;
             if (!email || !name || !username || !password || password.length < 5) reject(new Custom('Opps password should have 5 characters ', ' Opps password should have 5 characters ', '401'));
             if (password != password2) reject(new Custom('The passord and retyped pssword does not match', 'The passord and retyped pssword does not match', '401'));
-            if (username.length < 10 ||  username.length > 10 ) reject(new Custom('Enter a valid Phone no ', 'enter your 10 digit phone number', '401'));
-           
+            if (username.length < 10 || username.length > 10) reject(new Custom('Enter a valid Phone no ', 'enter your 10 digit phone number', '401'));
+
             sql.query(`SELECT * FROM user WHERE username = ${req.body.username} OR email= '${req.body.email}'`, (err, results) => {
 
                 // console.log(err);
@@ -197,8 +197,8 @@ exports.register = async(req, res, next) => {
     }
 
     register(req, res, next).then(message => {
-        res.status(200).json({code:200,name:"registered successfully",message:"Go to the Login page"});
-            
+            res.status(200).json({ code: 200, name: "registered successfully", message: "Go to the Login page" });
+
         })
         .catch(error => {
             // console.log(error.name);

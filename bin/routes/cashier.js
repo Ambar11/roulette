@@ -5,12 +5,12 @@ const { checkAdmin } = require('../middleware/auth');
 const functions = require('../custom/function');
 
 //some action to login cashier
-router.get('/logout', (req, res, next) => { checkAdmin(req, res, next, ['cashier'], 'login') }, (req, res) => {
+router.get('/logout', (req, res) => {
     req.session.destroy();
     res.redirect('/user/login');
 })
-router.post('/cashierTransaction', (req, res, next) => { checkAdmin(req, res, next, ['cashier'], 'login') }, userController.makeTransaction);
-router.get('/getUsers', (req, res, next) => { checkAdmin(req, res, next, ['cashier'], 'login') }, async(req, res) => {
+router.post('/cashierTransaction', userController.makeTransaction);
+router.get('/getUsers', async(req, res) => {
     try {
         let getUsers = await functions.querySingle(`SELECT username FROM user WHERE status = 0 `);
         res.status(200).json({ users: getUsers });
@@ -19,8 +19,8 @@ router.get('/getUsers', (req, res, next) => { checkAdmin(req, res, next, ['cashi
 
     }
 });
-router.get('/cashierPanel', (req, res, next) => { checkAdmin(req, res, next, ['cashier'], 'login') }, (req, res) => {
-    res.render('cashierHome', { data: req ,domain:process.env.DOMAIN});
+router.get('/cashierPanel', (req, res) => {
+    res.render('cashierHome', { data: req, domain: process.env.DOMAIN });
 });
 
 module.exports = router;

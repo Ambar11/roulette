@@ -1,36 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="forntEnd-Developer" content="Mamunur Rashid">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIGBASH</title>
-    <!-- favicon -->
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <title>NGO</title>
 
-    <link rel="shortcut icon" href="/user/assets/images/favicon.html" type="image/x-icon">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="/user/assets/css/bootstrap.min.css">
-    <!-- Plugin css -->
-    <link rel="stylesheet" href="/user/assets/css/plugin.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!-- stylesheet -->
-    <link rel="stylesheet" href="/user/assets/css/style.css">
-    <!-- responsive -->
-    <link rel="stylesheet" href="/user/assets/css/responsive.css">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- toaster -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css" , media="all">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
 
+    <link rel="stylesheet" href="/user2/styles.css">
     <style>
-        .back {
-            background: url(/user/assets/images/play/playgame-bg.jpg);
-            background-size: cover;
-            background-position: center;
-            background-repeat: repeat;
-        }
         /* Chrome, Safari, Edge, Opera */
         
         input::-webkit-outer-spin-button,
@@ -46,83 +31,42 @@
     </style>
 </head>
 
-<body class="back">
+<body>
+
+    <!-- <script language="javascript">
+        toastr.warning("Invalid ");
+    </script> -->
 
 
+    <div class="layer">
 
-    <!-- login area start -->
-    <div class="modal fade login-modal show" id="login" tabindex="-1" role="dialog" aria-labelledby="login" style="display: block; padding-right: 2%;padding-left: 2%;" aria-modal="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="logo-area">
-                    </div>
-                    <div class="header-area">
-                        <p class="sub-title">Enter your details below.</p>
-                    </div>
-                    <div class="form-area">
-                        <form action="/user/login" method="POST">
-                            <div class="form-group">
-                                <label for="login-input-email">Phone No</label>
-                                <input name="username" type="number" class="input-field" id="login-input-email" placeholder="Enter your Phone no">
-                            </div>
-                            <div class="form-group">
-                                <label for="login-input-password">Password*</label>
-                                <input name="password" type="password" class="input-field" id="login-input-password" placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <div class="box">
-                                    <div class="left">
-                                        <input type="checkbox" class="check-box-field" id="input-save-password" checked="">
-                                        <label for="input-save-password">Remember Password</label>
-                                    </div>
-                                    <div class="right">
-                                        <a href="#">
-                                    Forgot Password?
-                                </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="mybtn1">Log In</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="form-footer">
-                        <p>Not a member?
-                            <a href="/user/register">Register<i class="fas fa-angle-double-right"></i></a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div class="menu">
+            <img src="/user2/assets/menu.svg" alt="menu/logo">
         </div>
-    </div>
-    <!-- login area end -->
-    <%if(status=='invalid'){%>
-        <script>
-            swal({
-                title: "    please enter valid phone no or password",
-                text: "",
-                icon: "warning",
-            });
-        </script>
-
-        <%}%>
-            <!-- jquery -->
-            <script src="/user/assets/js/jquery.js"></script>
-            <!-- popper -->
-            <script src="/user/assets/js/popper.min.js"></script>
-            <!-- bootstrap -->
-            <script src="/user/assets/js/bootstrap.min.js"></script>
-            <!-- plugin js-->
-            <script src="/user/assets/js/plugin.js"></script>
-
-            <!-- MpusemoverParallax JS-->
-            <script src="/user/assets/js/TweenMax.js"></script>
-            <script src="/user/assets/js/mousemoveparallax.js"></script>
-            <!-- main -->
-            <script src="/user/assets/js/main.js"></script>
+        <form action="/login" method="POST">
+            <div class="form">
+                <h1>Login</h1>
+                <div class="input-box">
+                    <input type="number" name="username" id="mobile" placeholder="Mobile Number" pattern="[0-9]{10}" required>
+                    <div class="input-box">
+                        <input type="password" name="password" id="password" placeholder="Password" required>
+                    </div>
+                    <button class="transparent-button" type="submit" style="outline: none !important; border: none; background: transparent;"> 
+            <img class="login" src="/user2/assets/login.svg" alt="login">
+          </button>
+                    <br>
+                    <a href="/user/forgot" style="color: #FFF;">Forgot Password?
+        </a>
+                    <br>
+                    <br>
+                    <span>
+          New Here?
+          <a href="/user/signup" style="color: #FFF;">Register
+          </a>
+        </span>
+                </div>
+        </form>
+        </div>
 </body>
-
 
 </html>

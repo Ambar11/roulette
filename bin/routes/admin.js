@@ -8,24 +8,24 @@ const functions = require('../custom/function');
 const helpers = require('../custom/helper');
 const { getTime } = require('../custom/helper');
 
-router.get('/logout', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, (req, res) => {
-    req.session.destroy();
-    res.redirect('/user/login');
-});
-router.get('/getGameStatus', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.getGameStatus);
+// router.get('/logout', (req, res) => {
+//     req.session.destroy();
+//     res.redirect('/user/login');
+// });
+router.get('/getGameStatus', userController.getGameStatus);
 
-router.get('/startGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.startGame);
-router.get('/pauseGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.pauseGame);
-router.get('/resumeGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.resumeGame);
-router.post('/endGame', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, userController.endGame);
+router.get('/startGame', userController.startGame);
+router.get('/pauseGame', userController.pauseGame);
+router.get('/resumeGame', userController.resumeGame);
+router.post('/endGame', userController.endGame);
 
-router.get('/adminPanel', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+router.get('/adminPanel', async(req, res) => {
 
     try {
         let checkGame = await functions.querySingle(`SELECT * FROM game  ORDER BY id DESC`);
         let status = checkGame[0].status;
         if (status == 2) {
-            res.render('admin', { status: status,domain:process.env.DOMAIN });
+            res.render('admin', { status: status, domain: process.env.DOMAIN });
 
         } else {
             let checkBets = await functions.querySingle(`SELECT game.id,game.date,game.status FROM  game  WHERE status = 0 OR status =1`);
@@ -66,7 +66,7 @@ router.get('/adminPanel', (req, res, next) => { checkAdmin(req, res, next, ['adm
             var dateObj = helpers.getTime(totalArray[0].date);
 
 
-            res.render('admin', { status: status, data: totalArray[0], Gdate: dateObj, numbers: structuredBets ,domain:process.env.DOMAIN});
+            res.render('admin', { status: status, data: totalArray[0], Gdate: dateObj, numbers: structuredBets, domain: process.env.DOMAIN });
 
         }
     } catch (error) {
@@ -78,7 +78,7 @@ router.get('/adminPanel', (req, res, next) => { checkAdmin(req, res, next, ['adm
     }
 
 });
-router.get('/gameDetails/:id', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+router.get('/gameDetails/:id', async(req, res) => {
 
     try {
 
@@ -146,7 +146,7 @@ router.get('/gameDetails/:id', (req, res, next) => { checkAdmin(req, res, next, 
 
 
 
-router.get('/userHistory', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+router.get('/userHistory', async(req, res) => {
 
 
 
@@ -182,7 +182,7 @@ router.get('/userHistory', (req, res, next) => { checkAdmin(req, res, next, ['ad
 
     // res.render('userHistory', { data: 'empty' });
 });
-router.get('/gameHistory', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+router.get('/gameHistory', async(req, res) => {
 
 
     try {
@@ -211,7 +211,7 @@ router.get('/gameHistory', (req, res, next) => { checkAdmin(req, res, next, ['ad
 
 
 });
-router.get('/usertransaction/:id', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+router.get('/usertransaction/:id', async(req, res) => {
     let userDetails = await functions.querySingle(`SELECT user.name,user.username,user.id,user.email,points.points FROM points INNER JOIN user ON user.id = points.u_id WHERE user.id=${req.params.id}`);
     if (!userDetails[0]) res.redirect('/admin/usertransactionHistory');
     let checkbets = await functions.querySingle(`SELECT * FROM transaction WHERE NOT type = 'BETING' AND NOT type='WINNER'  AND refrence=${req.params.id}`);
@@ -252,13 +252,13 @@ router.get('/usertransaction/:id', (req, res, next) => { checkAdmin(req, res, ne
 
     res.render('usertransaction', { data: newBets, data1: newWins, trans: newTrans, history: newB, user: userDetails[0] });
 });
-router.get('/usertransactionHistory', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+router.get('/usertransactionHistory', async(req, res) => {
 
     let userDetails = await functions.querySingle(`SELECT * FROM user`);
 
     res.render('usertransactionHistory', { data: userDetails });
 });
-router.get('/cashiertransaction/:id', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+router.get('/cashiertransaction/:id', async(req, res) => {
     let cashierDetails = await functions.querySingle(`SELECT * FROM cashier WHERE id=${req.params.id}`);
     if (!cashierDetails[0]) res.redirect('/admin/cashiertransactionHistory');
     let cashierTransaction = await functions.querySingle(`SELECT user.username,user.id,transaction.date,transaction.points,transaction.status FROM transaction INNER JOIN user ON user.id = transaction.refrence WHERE type="CASHIER" AND cashier_id=${req.params.id}`);
@@ -273,7 +273,7 @@ router.get('/cashiertransaction/:id', (req, res, next) => { checkAdmin(req, res,
     // console.log(cashier);
     res.render('cashiertransaction', { data: cashierDetails[0], data1: cashier });
 });
-router.get('/cashiertransactionHistory', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'login') }, async(req, res) => {
+router.get('/cashiertransactionHistory', async(req, res) => {
 
     let cashierDetails = await functions.querySingle(`SELECT * FROM cashier `);
 

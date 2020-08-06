@@ -1,238 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
-
-
+<html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="forntEnd-Developer" content="Mamunur Rashid">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIGBASH</title>
-    <!-- favicon -->
-    <link rel="shortcut icon" href="/user/assets/images/favicon.html" type="image/x-icon">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="/user/assets/css/bootstrap.min.css">
-    <!-- Plugin css -->
-    <link rel="stylesheet" href="/user/assets/css/plugin.css">
+    <title>Welcome to Anti Roulette</title>
 
-    <!-- stylesheet -->
-    <link rel="stylesheet" href="/user/assets/css/style.css">
-    <!-- responsive -->
-    <link rel="stylesheet" href="/user/assets/css/responsive.css">
+    <!-- jquery -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
+
+
+    <!-- toaster -->
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"> -->
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!--  -->
+
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="/user2/styles.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/user2/datatables.css">
+    <!-- Axios for AJAX requests -->
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+
+
+    <!-- local -->
+    <link rel="stylesheet" href="/user2/user.css">
+    <!-- wheel -->
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
-        table.dataTable tbody tr {
-            background-color: #101736 !important;
+        /* Chrome, Safari, Edge, Opera */
+        
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        /* Firefox */
+        
+        input[type=number] {
+            -moz-appearance: textfield;
         }
     </style>
 </head>
 
-<body class="index2">
-    <!-- preloader area start -->
-    <div class="preloader" id="preloader">
-        <div class="loader loader-1">
-            <div class="loader-outter"></div>
-            <div class="loader-inner"></div>
-        </div>
-    </div>
-    <!-- preloader area end -->
+<body>
+    <div class="layer">
 
-    <!-- Header Area Start  -->
-    <header class="header">
-        <!-- Top Header Area Start -->
-        <!-- <section class="top-header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="content">
-                            <div class="left-content">
-                                <ul class="left-list">
-                                    <li>
-                                        <p>
-                                            <i class="fas fa-headset"></i> Support
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <p>
-                                            <i class="fas fa-envelope"></i> info@BIGBASH.com
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <div class="language-selector">
-                                            <select name="language" class="language">
-												<option value="1">English</option>
-												<option value="2">France</option>
-												<option value="3">Japan</option>
-											</select>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="right-content">
+        <!-- <script language="javascript">
+            toastr.success("");
+        </script> -->
 
-                                <ul class="right-list">
-                                    <li>
-                                        <div class="cart-icon tm-dropdown">
-                                            <i class="fas fa-cart-arrow-down"></i>
-                                            <span class="cart-count">10</span>
-                                            <div class="tm-dropdown-menu">
-                                                <ul class="list">
-                                                    <li class="list-item">
-                                                        <div class="close">
-                                                            <i class="fas fa-times"></i>
-                                                        </div>
-                                                        <ul class="number-list">
-                                                            <li>24</li>
-                                                            <li>25</li>
-                                                            <li>26</li>
-                                                            <li>27</li>
-                                                            <li>28</li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="list-item">
-                                                        <div class="close">
-                                                            <i class="fas fa-times"></i>
-                                                        </div>
-                                                        <ul class="number-list">
-                                                            <li>24</li>
-                                                            <li>25</li>
-                                                            <li>26</li>
-                                                            <li>27</li>
-                                                            <li>28</li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="list-item">
-                                                        <div class="close">
-                                                            <i class="fas fa-times"></i>
-                                                        </div>
-                                                        <ul class="number-list">
-                                                            <li>24</li>
-                                                            <li>25</li>
-                                                            <li>26</li>
-                                                            <li>27</li>
-                                                            <li>28</li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="list-item">
-                                                        <div class="close">
-                                                            <i class="fas fa-times"></i>
-                                                        </div>
-                                                        <ul class="number-list">
-                                                            <li>24</li>
-                                                            <li>25</li>
-                                                            <li>26</li>
-                                                            <li>27</li>
-                                                            <li>28</li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                                <a href="cart.html" class="link-btn">Cart Page</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="notofication tm-dropdown">
-                                            <i class="fas fa-bell"></i>
-                                            <span class="count">11</span>
-                                            <div class="tm-dropdown-menu">
-                                                <ul class="list">
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="fas fa-bell"></i> Invest Exchange
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="fas fa-bell"></i> Invest Exchange
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="fas fa-bell"></i> Invest Exchange
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="fas fa-bell"></i> Invest Exchange
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="fas fa-bell"></i> Invest Exchange
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="sign-in" data-toggle="modal" data-target="#login">
-                                            <i class="fas fa-user"></i> Sign In
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> -->
-        <!-- Top Header Area End -->
-        <!--Main-Menu Area Start-->
-        <div class="mainmenu-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <nav class="navbar navbar-expand-lg navbar-light">
-                            <a class="navbar-brand" href="index-2.html">
-                                <img src="/user/assets/images/BIGBASH.png" alt="">
-                            </a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_menu" aria-controls="main_menu" aria-expanded="false" aria-label="Toggle navigation">
-								<span class="navbar-toggler-icon"></span>
-							</button>
-                            <div class="collapse navbar-collapse fixed-height" id="main_menu">
-                                <ul class="navbar-nav ml-auto">
 
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="play.html">Home
-												<div class="mr-hover-effect"></div></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/user/play">play
-												<div class="mr-hover-effect"></div></a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/user/gameTiming">Game Timings
-												<div class="mr-hover-effect"></div></a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											History
-											<div class="mr-hover-effect"></div>
-										</a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a class="dropdown-item" href="/user/myHistory"> <i class="fa fa-angle-double-right"></i>My History</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="/user/playergameHistory"> <i class="fa fa-angle-double-right"></i>Game History</a>
-                                            </li>
+        <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
 
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="contact.html">Request Coins
-													<div class="mr-hover-effect"></div></a>
-                                    </li>
-                                </ul>
-                                <a href="/user/logout" class="mybtn1"> Logout</a>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
+
+        <div class="menu">
+            <img onclick="openNavbar()" src=" /user2/assets/menu.svg" alt="menu/logo" class='hamburger' id="hamburger">
+
+            <div class="credits">
+
+                <span class="amt"></span>
+
+                <img id="coins-img" src=" /user2/assets/money.svg" alt="credits">
+
             </div>
         </div>
-        <!--Main-Menu Area Start-->
-    </header>
-    <!-- Header Area End  -->
+        <div id="navbar" class="overlay">
+            <a href="javascript:void(0);" onclick="closeNavbar()" class="close">&#9932;</a>
+            <div class="overlay-content">
+                <a href="/user/play">HOME</a>
+                <a href="/user/gameTiming">GAME TIMINGS</a>
+                <a href="/user/myHistory">MY HISTORY</a>
+                <a href="/user/playergameHistory">GAME HISTORY</a>
+                <a onclick="javascript:window.location.href = ''">REQUEST CASH</a>
+                <a onclick="closeNavbar()"></a>
+                <a href="/user/logout" id="logout">
+                    <img src=" /user2/assets/logout.svg">
+                </a>
+            </div>
+        </div>
