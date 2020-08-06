@@ -126,7 +126,7 @@ exports.login = async(req, res) => {
         console.log(req.session.role);
         if (req.session.role == 'admin') res.status(201).redirect('/admin/adminPanel');
         if (req.session.role == 'cashier') res.status(201).redirect('/cashier/cashierPanel');
-        if (req.session.role == 'user') res.status(201).redirect('/user/playerHome');
+        if (req.session.role == 'user') res.status(201).redirect('/user/play');
 
 
     } catch (error) {

@@ -1,15 +1,15 @@
 <%- include("header1") %>
+    <header>
+        <img src="/user2/assets/history.svg" id="myhistory">
+    </header>
 
+    <br><br><br><br>
     <div id="table">
-        <header>
-            <img src="/user2/assets/history.svg" id="myhistory">
-        </header>
 
-        <br><br><br><br>
 
         <main class="table-grid">
 
-            <table class="rosyBrownTable" id="example">
+            <table class="rosyBrownTable" id="example" style="overflow: scroll;">
 
                 <thead>
                     <tr>
@@ -18,7 +18,7 @@
                         <th>Which</th>
                         <th>Amount</th>
                         <th>Date</th>
-                        <th>Time</th>
+
                     </tr>
                 </thead>
                 <tfoot>
@@ -28,55 +28,47 @@
                         <th>Which</th>
                         <th>Amount</th>
                         <th>Date</th>
-                        <th>Time</th>
+
                     </tr>
                 </tfoot>
     </div>
     <tbody>
-        <tr style="background: transparent !important;">
-            <td>
-            </td>
+        <% let c = 1;
+            data.map((trans)=>{ %>
 
-            <td id="source/">
-            </td>
-            <script>
-                if () {
-                    source = "GAME";
-                } else {
-                    source = "CASHIER";
-                }
-                document.getElementById("source/").innerHTML = source;
-            </script>
+            <tr style="background: transparent !important;">
+                <td>
+                    <%= c%>
+                </td>
 
-            <td id="">
-            </td>
-            <script>
-                if () {
-                    source = "".slice(-6);
-                } else {
-                    source = "";
-                }
-                document.getElementById("").innerHTML = source;
-            </script>
+                <td id="source/">
+                    <%if (trans.source==='WINNER' || trans.source==='BETING') {
+    source = 'GAME';
+}else{
+    source = trans.source;
 
-            <td id="amount/">
-            </td>
-            <script>
-                if () {
-                    amount = "+ " + "";
-                } else {
-                    amount = "- " + "";
-                }
-                document.getElementById("").innerHTML = amount;
-            </script>
+}%>
+                        <%= source%>
+                </td>
 
-            <td>
-            </td>
+                <td id="">
+                    <%= trans.which%>
+                </td>
 
-            <td>
-            </td>
+                <td id="amount/">
+                    <%= trans.points%>
 
-        </tr>
+                </td>
+
+                <td>
+                    <%= trans.date%>
+
+                </td>
+
+
+            </tr>
+            <% })%>
+
     </tbody>
     </table>
     </main>
