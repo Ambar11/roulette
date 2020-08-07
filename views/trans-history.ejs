@@ -52,10 +52,16 @@
                 </td>
 
                 <td id="">
+                   
                     <%= trans.which%>
                 </td>
 
                 <td id="amount/">
+                    <% if (trans.status =='CREDITED') { %>
+                        +
+                   <% }else{ %>
+                    -
+                  <% } %>
                     <%= trans.points%>
 
                 </td>
@@ -67,7 +73,9 @@
 
 
             </tr>
-            <% })%>
+            <%
+        c++;
+        })%>
 
     </tbody>
     </table>
@@ -79,7 +87,8 @@
     <script>
         $(document).ready(function() {
             $('#example').DataTable({
-                "pagingType": "full_numbers"
+                "pagingType": "full_numbers",
+                "order": [[ 4, "asc" ]]
             });
         });
     </script>

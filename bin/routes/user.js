@@ -7,6 +7,8 @@ const helpers = require('../custom/helper');
 const { getTime } = require('../custom/helper');
 
 
+ 
+
 // router.get('/dashboard', (req, res) => {
 
 //     res.render('error');
@@ -27,10 +29,13 @@ router.post('/gameHistory', userController.gameHistory);
 router.post('/makeBet', userController.beting);
 
 
-router.get('/gameTiming', (req, res) => {
-    res.render('schedule', { data: 'empty' });
+router.get('/gameTiming', async(req, res) => {
+let userDetails =await userController.getUserdetails(req.session.u_id);  
+
+    res.render('schedule', {user: userDetails[0], data: 'empty' });
 });
 router.get('/myHistory', async(req, res) => {
+    let user = await userController.getUserdetails(req.session.u_id);  
 
     let userDetails = await functions.querySingle(`SELECT winner.game_id AS which,winner.u_id,winner.number,transaction.type AS source,transaction.date,transaction.points,transaction.status FROM winner INNER JOIN transaction ON transaction.refrence = winner.id WHERE transaction.type = 'WINNER' AND winner.u_id = ${req.session.u_id}`);
     let updatedUser = userDetails;
@@ -69,9 +74,10 @@ router.get('/myHistory', async(req, res) => {
     // console.log(userDetails1);
     // console.log(userDetails2);
 
-    res.render('trans-history', { data: userDetails.concat(userDetails1).concat(userDetails2) });
+    res.render('trans-history', { user: user[0],data: userDetails.concat(userDetails1).concat(userDetails2) });
 });
 router.get('/playergameHistory', async(req, res) => {
+    let user = await userController.getUserdetails(req.session.u_id);  
 
     let userDetails1 = await functions.querySingle(`SELECT game.date,beting.game_id,beting.u_id,SUM(beting.points) AS spent FROM beting INNER JOIN transaction ON transaction.refrence = beting.id INNER JOIN game ON game.id = beting.game_id WHERE  beting.u_id = ${req.session.u_id} GROUP BY beting.game_id`);
     let updatedUser1 = userDetails1;
@@ -90,13 +96,14 @@ router.get('/playergameHistory', async(req, res) => {
     });
         // console.log(updatedUser1);
 
-    res.render('prevgames', { data: updatedUser1 });
+    res.render('prevgames', { data: updatedUser1 ,user: user[0]});
 });
 
 router.get('/play', async(req, res) => {
     try {
-        let userDetails = await functions.querySingle(`SELECT user.id,user.username,user.name,user.email,user.status,points.points FROM user INNER JOIN points ON user.id = points.u_id WHERE user.id = ${req.session.u_id} `);
-
+        
+        let user = await userController.getUserdetails(req.session.u_id);  
+// console.log(user);
         let checkGame = await functions.querySingle(`SELECT * FROM game WHERE status = 0 OR status = 1  ORDER BY id DESC`);
         // console.log(checkGame.length);
 
@@ -115,13 +122,15 @@ router.get('/play', async(req, res) => {
 
             });
             // console.log(newBets);
-            res.render('user', { status: 0, data: newBets, user: userDetails[0], sum: SumBets, domain: process.env.DOMAIN });
+            // console.log(SumBets);
+
+            res.render('user', { status: 0, data: newBets, user: user[0], sum: SumBets, domain: process.env.DOMAIN });
 
 
         } else {
             // console.log(checkGame);
 
-            res.render('user', { status: 1, data: checkGame[0], user: userDetails[0], domain: process.env.DOMAIN });
+            res.render('user', { status: 1, data: checkGame[0], user: user[0], domain: process.env.DOMAIN });
 
         }
     } catch (error) {

@@ -63,7 +63,7 @@ app.use('/admin', (req, res, next) => { checkAdmin(req, res, next, ['admin'], 'l
 
 app.get('/logout', (req, res) => {
     req.session.destroy();
-    res.redirect('/user/login');
+    res.redirect('/login');
 });
 app.post('/login', userController.login);
 app.get('/login', (req, res) => {
@@ -83,7 +83,7 @@ app.get('/register', (req, res) => {
 
 });
 app.use('/', (req, res) => {
-    res.render('login');
+    res.render('login',{ status: 'empty' });
 });
 
 

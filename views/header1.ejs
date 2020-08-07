@@ -7,15 +7,14 @@
     <!-- jquery -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
-    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
 
     <!-- toaster -->
     <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
     <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css"> -->
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
     <!--  -->
 
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
@@ -33,7 +32,11 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <style>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js">
+    </script>
+   <style>
         /* Chrome, Safari, Edge, Opera */
         
         input::-webkit-outer-spin-button,
@@ -52,9 +55,7 @@
 <body>
     <div class="layer">
 
-        <!-- <script language="javascript">
-            toastr.success("");
-        </script> -->
+       
 
 
         <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
@@ -65,14 +66,16 @@
 
             <div class="credits">
 
-                <span class="amt"></span>
+                <span class="amt">
+                    <%=user.points%>
+                </span>
 
                 <img id="coins-img" src=" /user2/assets/money.svg" alt="credits">
 
             </div>
         </div>
         <div id="navbar" class="overlay">
-            <a href="javascript:void(0);" onclick="closeNavbar()" class="close">&#9932;</a>
+            <a href="javascript:void(0);" onclick="closeNavbar()" class="close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/></svg></a>
             <div class="overlay-content">
                 <a href="/user/play">HOME</a>
                 <a href="/user/gameTiming">GAME TIMINGS</a>
@@ -80,7 +83,7 @@
                 <a href="/user/playergameHistory">GAME HISTORY</a>
                 <a onclick="javascript:window.location.href = ''">REQUEST CASH</a>
                 <a onclick="closeNavbar()"></a>
-                <a href="/user/logout" id="logout">
+                <a href="/logout" id="logout">
                     <img src=" /user2/assets/logout.svg">
                 </a>
             </div>

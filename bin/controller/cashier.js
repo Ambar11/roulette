@@ -8,7 +8,7 @@ exports.makeTransaction = async(req, res) => {
     let query = '';
     try {
         if (!user_id || user_id.length < 10) throw new Custom('User is not selected', 'Please select user ', 417);
-        if (!amount) throw new Custom('User enter a valid amount', 'User enter a valid amount', 417);
+        if (!amount || amount <= 0) throw new Custom('User enter a valid amount', 'User enter a valid amount', 417);
 
         let userArray = await functions.querySingle(`SELECT * from user WHERE username = ${user_id}`);
         if (!userArray[0]) throw customError.userNotFound;

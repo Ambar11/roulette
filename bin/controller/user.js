@@ -5,7 +5,11 @@ const Custom = require('../custom/error');
 const functions = require('../custom/function');
 
 
-
+exports.getUserdetails = async(id)=>{
+    
+        return await functions.querySingle(`SELECT user.id,user.username,user.name,user.email,user.status,points.points FROM user INNER JOIN points ON user.id = points.u_id WHERE user.id = ${id} `);
+  
+}
 exports.gameHistory = async(req, res) => {
     try {
 
@@ -57,7 +61,7 @@ exports.beting = async(req, res) => {
     try {
 
         const { number, points } = req.body;
-        if (!number || !points || number > 100) throw customError.dataInvalid;
+        if (!number || !points || number > 100 || number <= 0) throw customError.dataInvalid;
         let status = await functions.querySingle(`SELECT * from game WHERE status = 0 OR status = 1`);
         if (points == 0) throw erro = new Custom('!Opps Please enter valid coins', 'enter valid coins ', '401');
 
@@ -123,7 +127,7 @@ exports.login = async(req, res) => {
         req.session.role = userArray[0].privilege;
         req.session.email = userArray[0].email;
         req.session.status = userArray[0].status;
-        console.log(req.session.role);
+        // console.log(req.session.role);
         if (req.session.role == 'admin') res.status(201).redirect('/admin/adminPanel');
         if (req.session.role == 'cashier') res.status(201).redirect('/cashier/cashierPanel');
         if (req.session.role == 'user') res.status(201).redirect('/user/play');
@@ -132,7 +136,7 @@ exports.login = async(req, res) => {
     } catch (error) {
         // console.log(error);
         // res.send(error);
-        res.status(error.code).redirect(`/user/login?status=invalid`);
+        res.status(error.code).redirect(`/login?status=invalid`);
     }
 }
 

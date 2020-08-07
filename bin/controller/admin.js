@@ -82,7 +82,7 @@ exports.endGame = async(req, res) => {
             let iWinner = await functions.querySingle(`INSERT INTO winner (game_id,u_id,number) VALUES (${checkGame[0].id},${users.u_id},${winner_number}) `);
             let trans = await functions.querySingle(`INSERT INTO transaction (refrence,type,points,status,date) VALUES (${iWinner.insertId},'WINNER',${users.points},'CREDITED',"${Date()}")`);
             let userP = await functions.querySingle(`SELECT * FROM points WHERE u_id = ${users.u_id}`);
-            let user = await functions.querySingle(`UPDATE points SET points = ${users.points +userP[0].points} WHERE u_id = ${users.u_id}`);
+            let user = await functions.querySingle(`UPDATE points SET points = ${users.points + userP[0].points} WHERE u_id = ${users.u_id}`);
             // console.log(userp);
             // console.log(trans);
 
