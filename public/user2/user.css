@@ -343,11 +343,11 @@ a, h3 {
 }
 
 .amt {
-    /* font-family:  'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
-    font-family: Gilroy;
-    font-size: 46px;
-    color: #FFBC58;
-  }
+	/* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+	font-family: Gilroy;
+	font-size: 28px;
+	color: #FFBC58;
+}
 
 .menu {
     margin: 15px 10px 0px 10px;

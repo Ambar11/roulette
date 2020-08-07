@@ -46,11 +46,10 @@ body {
 }
 
 .amt {
-    font-family: Gilroy !important;
-    font-size: 45px;
-    color: var(--main-font-color)
+	font-family: Gilroy !important;
+	font-size: 28px;
+	color: var(--main-font-color);
 }
-
 .login,
 .signup {
     padding: 10px;
