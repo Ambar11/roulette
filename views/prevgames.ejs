@@ -14,7 +14,7 @@
                     <tr>
                         <th>Game No</th>
                         <th>Date</th>
-                        <th>Time</th>
+                        <th>Slot</th>
                         <th>Amount Spent</th>
                         <th>Amount Earned</th>
                     </tr>
@@ -24,28 +24,37 @@
                     <tr>
                         <th>Game No</th>
                         <th>Date</th>
-                        <th>Time</th>
+                        <th>Slot</th>
                         <th>Amount Spent</th>
                         <th>Amount Earned</th>
                     </tr>
                 </tfoot>
                 <tbody>
+                    <%data.map((game)=>{ %>
+
                     <tr style="background: transparent !important;">
                         <td id="" style="background: transparent !important;">
+                            <%= game.game_id%>
                         </td>
-                        <script>
-                            var gameno = "Game" + "".slice(-6);
-                            document.getElementById("").innerHTML = gameno;
-                        </script>
+                      
                         <td>
-                        </td>
-                        <td>
+                            <%= game.date%>
+
                         </td>
                         <td>
+                        <%= game.slot%>
+
                         </td>
                         <td>
+                        <%= game.spent%>
+
+                        </td>
+                        <td>
+                        <%= game.earned%>
+
                         </td>
                     </tr>
+                    <% });%>
 
                 </tbody>
 

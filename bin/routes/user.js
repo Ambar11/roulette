@@ -73,13 +73,23 @@ router.get('/myHistory', async(req, res) => {
 });
 router.get('/playergameHistory', async(req, res) => {
 
-    let userDetails1 = await functions.querySingle(`SELECT game.date,beting.game_id,beting.u_id,beting.number FROM beting INNER JOIN transaction ON transaction.refrence = beting.id INNER JOIN game ON game.id = beting.game_id WHERE  beting.u_id = ${req.session.u_id} GROUP BY beting.number`);
+    let userDetails1 = await functions.querySingle(`SELECT game.date,beting.game_id,beting.u_id,SUM(beting.points) AS spent FROM beting INNER JOIN transaction ON transaction.refrence = beting.id INNER JOIN game ON game.id = beting.game_id WHERE  beting.u_id = ${req.session.u_id} GROUP BY beting.game_id`);
     let updatedUser1 = userDetails1;
+    let userDetails2 = await functions.querySingle(`SELECT winner.game_id,SUM(beting.points)*100 AS earned FROM winner INNER JOIN beting ON beting.u_id = winner.u_id WHERE winner.number = beting.number AND winner.u_id = ${req.session.u_id} GROUP BY winner.game_id`);
+    let updatedUser2 = userDetails2;
     userDetails1.map((user, j) => {
+        updatedUser1[j].earned = 0;
         updatedUser1[j].slot = helpers.getSlot(user.date);
+        updatedUser2.map((win,i)=>{
+            if (updatedUser1[j].game_id===updatedUser2[i].game_id) {
+                // console.log(updatedUser2[i].game_id);
+               return updatedUser1[j].earned = updatedUser2[i].earned;
+            }
+        });
         return updatedUser1[j].date = helpers.getTime(user.date);
-        // console.log(userBets[j]);
     });
+        // console.log(updatedUser1);
+
     res.render('prevgames', { data: updatedUser1 });
 });
 
