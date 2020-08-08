@@ -148,17 +148,17 @@ exports.register = async(req, res, next) => {
     function register(req, res, next) {
         return new Promise((resolve, reject) => {
 
-            const { name, username, password, email, password2 } = req.body;
-            if (!email || !name || !username || !password || password.length < 5) reject(new Custom('Opps password should have 5 characters ', ' Opps password should have 5 characters ', '401'));
-            if (password != password2) reject(new Custom('The passord and retyped pssword does not match', 'The passord and retyped pssword does not match', '401'));
+            const { name,username,email, password} = req.body;
+            if (!password || password.length < 5) reject(new Custom('Opps password should have 5 characters ', ' Opps password should have 5 characters ', '401'));
+            if ( !username||!name) reject(new Custom('The enter a name ', 'The passord and retyped pssword does not match', '401'));
             if (username.length < 10 || username.length > 10) reject(new Custom('Enter a valid Phone no ', 'enter your 10 digit phone number', '401'));
 
             sql.query(`SELECT * FROM user WHERE username = ${req.body.username} OR email= '${req.body.email}'`, (err, results) => {
 
                 // console.log(err);
-                console.log(results);
+                // console.log(results);
                 if (results[0]) {
-                    reject(new Custom('the Phone number or the email  is already exist', 'the Phone number or the email  is already exist', '401'));
+                    reject(new Custom('the Phone number is already exist', 'the Phone number is already exist', '401'));
                 } else {
                     bcrypt.genSalt(parseInt(process.env.SALT, 10), function(err, salt) {
                         bcrypt.hash(req.body.password, salt, function(err, hashedPassword) {
@@ -168,23 +168,25 @@ exports.register = async(req, res, next) => {
                                     hashedPassword,
                                     req.body.username,
                                     req.body.name,
-                                    req.body.email,
+                                  
 
                                 ]
                             ];
-                            sq = 'INSERT INTO user (password,username,name,email) VALUES ?';
+                            sq = 'INSERT INTO user (password,username,name) VALUES ?';
                             sql.query(sq, [data], async(err, rows, result) => {
                                 if (!err) {
                                     try {
                                         let sqlOut = await functions.querySingle(`INSERT INTO points (u_id,points) VALUES(${rows.insertId},0)`);
                                         resolve(sqlOut);
                                     } catch (error) {
+                                    // console.log(err);
                                         reject(error);
                                     }
 
 
 
                                 } else {
+                                    // console.log(err);
                                     reject(
                                         mess = new Custom('Database error', err.code, 401)
 
@@ -200,12 +202,15 @@ exports.register = async(req, res, next) => {
         });
     }
 
-    register(req, res, next).then(message => {
-            res.status(200).json({ code: 200, name: "registered successfully", message: "Go to the Login page" });
+    register(req, res, next).then((message) => {
+            // res.status(200).json({ code: 200, name: "registered successfully", message: "Go to the Login page" });
+            res.status(200).redirect(`/register?status=success`);
 
         })
-        .catch(error => {
-            // console.log(error.name);
-            res.status(200).json(error);
+        .catch((error) => {
+            // console.log(error);
+            // res.status(200).json(error);
+        res.status(error.code).redirect(`/register?status=invalid&message=${error.name}`);
+
         })
 }

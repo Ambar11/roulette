@@ -38,28 +38,26 @@
 
     <div class="layer">
 
-        <div class="menu">
-            <img src="/user2/assets/menu.svg" alt="menu/logo">
-        </div>
+      
         <form action="/login" method="POST">
             <div class="form">
                 <h1>Login</h1>
                 <div class="input-box">
                     <input type="number" name="username" id="mobile" placeholder="Mobile Number" pattern="[0-9]{10}" required>
-                    <div class="input-box">
+                    <div class="input-box" style="margin-top: 5%;">
                         <input type="password" name="password" id="password" placeholder="Password" required>
                     </div>
                     <button class="transparent-button" type="submit" style="outline: none !important; border: none; background: transparent;"> 
             <img class="login" src="/user2/assets/login.svg" alt="login">
           </button>
                     <br>
-                    <a href="/user/forgot" style="color: #FFF;">Forgot Password?
+                    <a href="/forgot" style="color: #FFF;">Forgot Password?
         </a>
                     <br>
                     <br>
                     <span>
           New Here?
-          <a href="/user/signup" style="color: #FFF;">Register
+          <a href="/register" style="color: #FFF;">Register
           </a>
         </span>
                 </div>

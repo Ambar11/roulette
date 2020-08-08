@@ -78,7 +78,13 @@ app.get('/login', (req, res) => {
 //some action to login user
 app.post('/register', userController.register);
 app.get('/register', (req, res) => {
-    res.render('register', { domain: process.env.DOMAIN });
+    if (req.query.status) {
+        res.render('register', { domain: process.env.DOMAIN ,status:req.query.status,message:req.query.message});
+        
+    }else{
+        res.render('register', { domain: process.env.DOMAIN ,status:'empty'});
+
+    }
 
 
 });

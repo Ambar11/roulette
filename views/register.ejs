@@ -5,22 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NGO</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link rel="stylesheet" href="/user2/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 
 <body>
     <div class="layer">
-
+        <%if(status=='invalid'){%>
+            <script language="javascript">
+                toastr.warning("<%=message%>");
+            </script>
+        <%}else if(status=='success'){%>
+        <script language="javascript">
+            toastr.warning("Registered successfully");
+        </script>
+        <%}%>
         <div class="menu">
-            <img src="/user2/assets/menu.svg" alt="menu/logo">
+            <!-- <img src="/user2/assets/menu.svg" alt="menu/logo"> -->
         </div>
         <form action="/register" method="POST">
             <div class="form">
                 <h1>Register</h1>
-                <!-- <div class="input-box">
+                <div class="input-box">
           <input placeholder="Name" type="text" name="name" id="name">
-        </div> -->
+        </div>
                 <div class="input-box">
                     <input placeholder="Mobile" type="text" name="username" id="mobile" pattern="[0-9]{10}" required>
                 </div>
@@ -35,7 +48,7 @@
                 <br>
                 <span>Already Registered?</span>
                 <br>
-                <a href="/user/login" style="color: #FFF;">Login
+                <a href="/login" style="color: #FFF;">Login
         </a>
             </div>
         </form>
