@@ -14,6 +14,9 @@
   scrollbar-width: none;  /* Firefox */
 }
 </style>
+<!-- <script>
+     toastr.warning("auwehh");
+</script> -->
     <center>
         <div class="" style="text-align: centre">
             <div class="wheellayout">
@@ -114,49 +117,35 @@
          <script>
             function bet() {
                 let checkError = [];
-                var number = document.getElementById("lucky-number").value
-                var points = document.getElementById("coins").value
-                if (!points || points < 0 || number <= 0 || number > 100) {
-                    let message = "please select bet number or please enter the coins";
-                    console.log(numbers.length);
-                    if (numbers.length === 0) {
-                        let message = "please select bet number";
-                    } else {
-                        let message = "please enter the coins";
-                    }
+                var number = parseInt(document.getElementById("lucky-number").value);
+                var points = parseInt(document.getElementById("coins").value);
+                if (!points||points <=0 || !number || number <= 0 || number > 100) {
+                   
+                    if (number <= 0 || number > 100) {
+                        let message = "please enter a valid bet number";
                     toastr.warning(message);
-                } else {
-                    
-                    
+                    } else {
+                        let message = "please enter the valid  coins";
+                    toastr.warning(message);
+                    }
+                } else {          
                         axios.post(`<%=domain%>/user/makeBet`, {
                             'points': points,
                             'number': number
                         }).then(
                             (response) => {
-                                // console.log(response.data.code);
-                                // console.log(response.data);
+                                console.log(response.data);
                                 let reStatus = response.data;
-                                // console.log(reStatus.code);
                                 if (parseInt(reStatus.code) < 400) {
-                                    // checkError.push(reStatus.code);
-                                } else if (parseInt(reStatus.code) >= 400) {
-                                    // console.log('error in request');
-                                    checkError.push(reStatus.name);
-                                    // console.log(checkError);
-                                }
-                                console.log(checkError.length);
-                                if (checkError.length === 0) {
+                    toastr.warning(reStatus.name);            
+                                } else if (parseInt(reStatus.code) >= 400) {                                   
+                    toastr.warning(reStatus.name);
+                                    checkError.push(reStatus.name);                                    
+                                }else if (parseInt(reStatus.affectedRows) === 1) {
                                     toastr.success("Bet placed successfully!");
-                                    
-                                    setTimeout(location.reload(), 5000)
-                                } else {
-                                    
-                    toastr.warning(checkError[0]);
-
+                                    setTimeout(function(){location.reload()}, 5000);                                    
                                 }
-                                // setTimeout(location.reload(), 4000);
-                                var result = response.data;
-                                // console.log(result);
+
                             },
                             (error) => {
                                 console.log(error);
@@ -164,7 +153,8 @@
                             }
                         );
                        
-                }
+                
+                    }
             }
         </script>
         <script src="/assets/axios.js"></script>

@@ -896,7 +896,23 @@ a, h3 {
     transform:rotate(-90deg) translateY(-80px);
     transform-origin:right top;
   }
-
+@media(max-width : 650px){
+    .horizontal-scroll-wrapper{
+        position: absolute;
+        display:block;
+        top : 100;
+        left : 0%;
+        width: 80px;
+        max-height: 280px;
+        margin-top: 2%;
+        background :transparent;
+        overflow-y:auto;
+        overflow-x:hidden;
+        transform:rotate(-90deg) translateY(-80px);
+        transform-origin:right top;
+      }
+    
+}
 /* only for mozilla
 @-moz-document url-prefix(){
     .horizontal-scroll-wrapper{
