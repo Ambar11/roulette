@@ -153,11 +153,12 @@ exports.register = async(req, res, next) => {
             if ( !username||!name) reject(new Custom('The enter a name ', 'The passord and retyped pssword does not match', '401'));
             if (username.length < 10 || username.length > 10) reject(new Custom('Enter a valid Phone no ', 'enter your 10 digit phone number', '401'));
 
-            sql.query(`SELECT * FROM user WHERE username = ${req.body.username} OR email= '${req.body.email}'`, (err, results) => {
-
+            sql.query(`SELECT * FROM user WHERE username = ${req.body.username} OR email= '${req.body.email}'`, async(err, results) => {
+                adminArray = await functions.querySingle(`SELECT * from admin WHERE username = '${req.body.username}'`);
+                cashArray = await functions.querySingle(`SELECT * from cashier WHERE username = '${req.body.username}'`);
                 // console.log(err);
                 // console.log(results);
-                if (results[0]) {
+                if (results[0] || adminArray[0] || cashArray[0]) {
                     reject(new Custom('the Phone number is already exist', 'the Phone number is already exist', '401'));
                 } else {
                     bcrypt.genSalt(parseInt(process.env.SALT, 10), function(err, salt) {
