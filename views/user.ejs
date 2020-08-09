@@ -1,10 +1,12 @@
 <%- include("header1") %>
 <style>
  .kp {
-    overflow-x: hidden;
+    overflow-x: scroll; /* Must be 'scroll' not 'auto' */
+    -webkit-overflow-scrolling: touch;
     }
     /* Hide scrollbar for Chrome, Safari and Opera */
 .kp::-webkit-scrollbar {
+
     display: none;
 }
 
@@ -21,55 +23,15 @@
         <div class="" style="text-align: centre">
             <div class="wheellayout">
                 <div class="cell">
-                    <div class="plate" id="plate">
-                        <ul class="inner">
-                            <li class="number"><label><input type="radio" name="pit" value="22" /><span class="pit">9</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="18" /><span class="pit">8</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="29" /><span class="pit">7</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="7" /><span class="pit">6</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="28" /><span class="pit">5</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="12" /><span class="pit">4</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="35" /><span class="pit">3</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="3" /><span class="pit">2</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="26" /><span class="pit">1</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="0" /><span class="pit" >0</span></label></li>
-                        </ul>
-                        <div class="data">
-                            <div class="data-inner">
-                                <div class="mask"></div>
-                                <div class="result">
-                                    <div id="result1" class="result-number">00</div>
-                                    <div id="result-color">red</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <img class="roul d1 rotate" src="/user2/img/3-min.png" alt="">
+
+                  
                 </div>
                 <br><br><br>
                 <div class="cell">
-                    <div class="plate" id="plate2">
-                        <ul class="inner">
-                            <li class="number"><label><input type="radio" name="pit" value="22" /><span class="pit">9</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="18" /><span class="pit">8</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="29" /><span class="pit">7</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="7" /><span class="pit">6</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="28" /><span class="pit">5</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="12" /><span class="pit">4</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="35" /><span class="pit">3</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="3" /><span class="pit">2</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="26" /><span class="pit">1</span></label></li>
-                            <li class="number"><label><input type="radio" name="pit" value="0" /><span class="pit" >0</span></label></li>
-                        </ul>
-                        <div class="data">
-                            <div class="data-inner">
-                                <div class="mask"></div>
-                                <div id="result-2" class="result">
-                                    <div id="result2" class="result-number">00</div>
-                                    <div id="result-color2">red</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <img class="roul d2 rotate" src="/user2/img/3-min.png" alt="">
+
+                
                 </div>
             </div>
         </div>
