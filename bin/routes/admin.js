@@ -70,7 +70,8 @@ router.get('/adminPanel', async(req, res) => {
 
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
+        res.render('admin', { status: 2, domain: process.env.DOMAIN });
         // return error;
 
         // res.json(error);

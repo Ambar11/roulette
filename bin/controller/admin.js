@@ -92,7 +92,7 @@ exports.endGame = async(req, res) => {
 
         res.json(checkGame[0]);
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         res.json(error);
     }
 
@@ -138,7 +138,7 @@ exports.currentGameDetails = async(req, res) => {
 
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return error;
 
         // res.json(error);
