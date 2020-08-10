@@ -177,6 +177,10 @@ exports.register = async(req, res, next) => {
                             sql.query(sq, [data], async(err, rows, result) => {
                                 if (!err) {
                                     try {
+                                        req.session.login = true;
+                                        req.session.username = req.body.username;
+                                        req.session.u_id = rows.insertId;
+                                        req.session.role = 'user';
                                         let sqlOut = await functions.querySingle(`INSERT INTO points (u_id,points) VALUES(${rows.insertId},0)`);
                                         resolve(sqlOut);
                                     } catch (error) {
@@ -205,7 +209,7 @@ exports.register = async(req, res, next) => {
 
     register(req, res, next).then((message) => {
             // res.status(200).json({ code: 200, name: "registered successfully", message: "Go to the Login page" });
-            res.status(200).redirect(`/register?status=success`);
+            res.status(200).redirect(`/user/play?status=success`);
 
         })
         .catch((error) => {

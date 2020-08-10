@@ -1,21 +1,5 @@
 <%- include("header1") %>
-<style>
- .kp {
-    overflow-x: scroll; /* Must be 'scroll' not 'auto' */
-    -webkit-overflow-scrolling: touch;
-    }
-    /* Hide scrollbar for Chrome, Safari and Opera */
-.kp::-webkit-scrollbar {
 
-    display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.kp {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-</style>
 <!-- <script>
      toastr.warning("auwehh");
 </script> -->
@@ -50,7 +34,7 @@
                     <input type="number" name="amount" id="coins" placeholder="Enter coins" required>
                 </div>
                 <div class="submit">
-                    <button onclick="bet()" type="submit" id="placeBet">Place Bet</button>
+                    <button onclick="bet()" class="bst"  type="submit" id="placeBet">Place Bet</button>
                 </div>
 
       
