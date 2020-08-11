@@ -23,7 +23,25 @@
 input {
     text-align: center;
 }
+.kp {
+    overflow-x: scroll; /* Must be 'scroll' not 'auto' */
+    -webkit-overflow-scrolling: touch;
+    }
+    /* Hide scrollbar for Chrome, Safari and Opera */
+.kp::-webkit-scrollbar {
 
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.kp {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.bst{
+    width: 10%;
+    background: sienna;
+}
 .elements {
     width: 100px;
     border-radius: 12px;
@@ -96,7 +114,7 @@ button {
   }
   
 .form .input-box input {
-    width: 100%;
+    width: 75%;
     padding: 10px 0;
     font-size: 16px;
     font-family: Gilroy;
@@ -130,6 +148,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 
 ::placeholder {
+    line-height: normal;
     color: #fff;
     font-size: large;
   }
@@ -437,6 +456,7 @@ a, h3 {
 }
 
 .cell {
+    text-align: center;
     display: table-cell;
 }
 
@@ -789,9 +809,43 @@ a, h3 {
         transform: rotateX(0deg);
     }
 }
-
-@media (max-width: 850px) {
+.roul{
+    /* touch-action: none; */
+    width: 55%;
+}
+.d1{
+    margin-left: 30%;
+}
+.d2{
+    margin-right: 55%;
+}
+.rotate {
+    animation: rotation 10s infinite linear;
+  }
+  @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+@media (max-width: 650px) {
+    .bst{
+        width: 40%;
+        background: sienna;
+    }
+    .d1{
+        margin-left: 0%;
+    }
+    .d2{
+        margin-right: 0%;
+    }
+.roul{
+    width: 90%;
+}
     .cell {
+        text-align: center;
         display: block;
     }
 }

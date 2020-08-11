@@ -153,11 +153,12 @@ exports.register = async(req, res, next) => {
             if ( !username||!name) reject(new Custom('The enter a name ', 'The passord and retyped pssword does not match', '401'));
             if (username.length < 10 || username.length > 10) reject(new Custom('Enter a valid Phone no ', 'enter your 10 digit phone number', '401'));
 
-            sql.query(`SELECT * FROM user WHERE username = ${req.body.username} OR email= '${req.body.email}'`, (err, results) => {
-
+            sql.query(`SELECT * FROM user WHERE username = ${req.body.username} OR email= '${req.body.email}'`, async(err, results) => {
+                adminArray = await functions.querySingle(`SELECT * from admin WHERE username = '${req.body.username}'`);
+                cashArray = await functions.querySingle(`SELECT * from cashier WHERE username = '${req.body.username}'`);
                 // console.log(err);
                 // console.log(results);
-                if (results[0]) {
+                if (results[0] || adminArray[0] || cashArray[0]) {
                     reject(new Custom('the Phone number is already exist', 'the Phone number is already exist', '401'));
                 } else {
                     bcrypt.genSalt(parseInt(process.env.SALT, 10), function(err, salt) {
@@ -176,6 +177,10 @@ exports.register = async(req, res, next) => {
                             sql.query(sq, [data], async(err, rows, result) => {
                                 if (!err) {
                                     try {
+                                        req.session.login = true;
+                                        req.session.username = req.body.username;
+                                        req.session.u_id = rows.insertId;
+                                        req.session.role = 'user';
                                         let sqlOut = await functions.querySingle(`INSERT INTO points (u_id,points) VALUES(${rows.insertId},0)`);
                                         resolve(sqlOut);
                                     } catch (error) {
@@ -204,7 +209,7 @@ exports.register = async(req, res, next) => {
 
     register(req, res, next).then((message) => {
             // res.status(200).json({ code: 200, name: "registered successfully", message: "Go to the Login page" });
-            res.status(200).redirect(`/register?status=success`);
+            res.status(200).redirect(`/user/play?status=success`);
 
         })
         .catch((error) => {
