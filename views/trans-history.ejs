@@ -58,12 +58,11 @@
 
                 <td id="amount/">
                     <% if (trans.status =='CREDITED') { %>
-                        +
+                        +<%= trans.points%>
                    <% }else{ %>
-                    -
+                    -<%= trans.points%>
                   <% } %>
-                    <%= trans.points%>
-
+                    
                 </td>
 
                 <td>

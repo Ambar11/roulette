@@ -791,6 +791,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 #table {
+    table-layout: auto;
+  /* width: 100%;   */
     margin: auto;
     width: 40%;
     padding: 20px;
@@ -804,6 +806,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 @media (max-width: 600px) {
     #table {
+        table-layout: auto;
+  /* width: 100%;   */
         overflow: scroll;
         margin: 0 !important;
         width: 100% !important;
@@ -824,7 +828,7 @@ input[type=number]::-webkit-outer-spin-button {
 #table td {
     margin: 0 auto;
     width: 60%;
-    padding: 20px;
+    padding: 15px;
     /* font-family: var(--main-font-fam); */
     font-family: Gilroy !important;
     font-style: normal;
