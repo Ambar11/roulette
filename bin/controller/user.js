@@ -61,7 +61,7 @@ exports.beting = async(req, res) => {
     try {
 
         const { number, points } = req.body;
-        if (!number || !points || number > 100 || number <= 0) throw new Custom('!Opps Please enter valid bet number', 'enter valid bet number ', '401');
+        if (!number || !points || number > 100 || number <= 0 || isNaN(number) || isNaN(points) ) throw new Custom('!Opps Please enter valid bet number', 'enter valid bet number ', '401');
         let status = await functions.querySingle(`SELECT * from game WHERE status = 0 OR status = 1`);
         if (points == 0) throw erro = new Custom('!Opps Please enter valid coins', 'enter valid coins ', '401');
 
