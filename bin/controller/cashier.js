@@ -1,6 +1,7 @@
 const customError = require('../custom/errors');
 const Custom = require('../custom/error');
 const functions = require('../custom/function');
+const functions2 = require('../custom/function2');
 
 
 exports.makeTransaction = async(req, res) => {
@@ -21,6 +22,7 @@ exports.makeTransaction = async(req, res) => {
             let totalPoints = parseInt(uPoints[0].points) + parseInt(amount);
             query = `UPDATE points SET points = ${totalPoints} WHERE id=${uPoints[0].id}`;
             await functions.querySingle(`INSERT INTO transaction (refrence,cashier_id,type,points,date,status) VALUES (${userArray[0].id},${req.session.u_id},'CASHIER',${parseInt(amount)},'${Date()}','CREDITED')`);
+            await functions2.querySingle(`INSERT INTO transaction (refrence,cashier_id,type,points,date,status) VALUES (${userArray[0].id},${req.session.u_id},'CASHIER',${parseInt(amount)},'${Date()}','CREDITED')`);
 
         } else if (req.query.status == 'debit') {
             if (parseInt(uPoints[0].points) == 0) throw new Custom('Opps!!', 'The user Points is Zero', '401');
@@ -29,6 +31,7 @@ exports.makeTransaction = async(req, res) => {
             let totalPoints = parseInt(uPoints[0].points) - parseInt(amount);
             query = `UPDATE points SET points = ${totalPoints} WHERE id=${uPoints[0].id}`;
             await functions.querySingle(`INSERT INTO transaction (refrence,cashier_id,type,points,status,date) VALUES (${userArray[0].id},${req.session.u_id},'CASHIER',${parseInt(amount)},'DEBITED','${Date()}')`);
+            await functions2.querySingle(`INSERT INTO transaction (refrence,cashier_id,type,points,status,date) VALUES (${userArray[0].id},${req.session.u_id},'CASHIER',${parseInt(amount)},'DEBITED','${Date()}')`);
 
         }
 

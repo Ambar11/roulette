@@ -3,6 +3,8 @@ const sql = require('../../connection');
 const customError = require('../custom/errors');
 const Custom = require('../custom/error');
 const functions = require('../custom/function');
+const functions2 = require('../custom/function2');
+
 
 
 exports.getUserdetails = async(id)=>{
@@ -78,6 +80,7 @@ exports.beting = async(req, res) => {
         // console.log(makeBet);
         let nowDate = Date();
         await functions.querySingle(`INSERT INTO transaction (refrence,type,points,status,date) VALUES (${makeBet.insertId},'BETING',${points},'DEBITED',"${nowDate}")`);
+        await functions2.querySingle(`INSERT INTO transaction (refrence,type,points,status,date) VALUES (${makeBet.insertId},'BETING',${points},'DEBITED',"${nowDate}")`);
 
         // } else {
 
